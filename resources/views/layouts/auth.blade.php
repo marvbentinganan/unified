@@ -29,6 +29,7 @@
 </head>
 
 <body>
+    @include('partials.main_navigation')
     <div class="ui centered middle aligned grid container" style="flex: 1; width: 100% !important; height: 100% !important; margin: 0 !important;">
         @yield('content')
     </div>

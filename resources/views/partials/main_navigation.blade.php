@@ -1,11 +1,11 @@
-<div class="ui mini blue inverted top fixed borderless menu">
+<div class="ui blue inverted top fixed borderless menu">
     {{--
     <div class="link item" onclick="showMenu()">
         <a><i class="large bars icon"></i></a>
     </div> --}}
-    <a href="{{ url('home') }}" class="header item">
+    <a href="{{ url('/') }}" class="header item">
         <img src="{{ asset('images/logo.png')}}" alt="" class="ui avatar image">
-        {{ config('app.name') }}
+          {{ config('app.name') }}
     </a>
 
     <div class="right menu">
@@ -24,6 +24,7 @@
             @csrf
         </form>
         @endauth @guest
-        <a href="" class="item">Login</a> @endguest
+        <a href="{{ url('login') }}" class="item">Login</a>
+        <a href="{{ url('register') }}" class="item">Register</a> @endguest
     </div>
 </div>
