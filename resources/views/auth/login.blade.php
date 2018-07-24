@@ -1,71 +1,70 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+@section('title') {{ config('app.name') }} | Sign In
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+<div class="six wide computer only six wide tablet only fourteen wide mobile only column">
+    <div class="ui center aligned segment">
+        <div class="image">
+            <img src="{{ asset('images/logo.png') }}" alt="">
+        </div>
+        <div class="ui huge blue header">{{ config('app.name') }}
+            <div class="ui sub header">Template</div>
+        </div>
+        <form action="{{ route('login') }}" method="POST" class="ui form">
+            {{ csrf_field() }}
+            <div class="field">
+                <label for="username">Username</label>
+                <div class="ui right icon input">
+                    <input type="text" id="username" name="username" placeholder="User ID" value="{{ old('username') }}" autofocus>
+                    <i class="ion-ios-contact icon"></i>
                 </div>
             </div>
-        </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <div class="ui right icon input">
+                    <input type="password" id="password" name="password" placeholder="Password">
+                    <i class="ion-locked icon"></i>
+                </div>
+            </div>
+            {{--
+            <div class="field">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">Keep Me Logged In</label>
+                </div>
+            </div> --}}
+            <div class="field">
+                <button type="submit" class="ui fluid primary submit icon button">
+					<i class="ion-ios-play icon"></i> Sign In
+				</button>
+            </div>
+            <div class="ui error message"></div>
+        </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $('.ui.form').form({
+		fields:{
+			username: {
+				identifier: 'username',
+				rules: [{
+					type : 'empty',
+					prompt : 'Please enter your ID Number'
+				}]
+			},
+			password: {
+				identifier: 'password',
+				rules: {[
+					type : 'empty',
+					prompt : 'Please enter your correct Password'
+				]}
+			}
+		}
+	});
+
+</script>
 @endsection
