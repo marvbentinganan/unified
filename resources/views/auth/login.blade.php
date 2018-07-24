@@ -13,7 +13,7 @@
             <div class="field">
                 <label for="username">Username</label>
                 <div class="ui right icon input">
-                    <input type="text" id="username" name="username" placeholder="User ID" value="{{ old('username') }}" autofocus>
+                    <input type="text" id="username" name="username" placeholder="Username" value="{{ old('username') }}" autofocus>
                     <i class="ion-ios-contact icon"></i>
                 </div>
             </div>
