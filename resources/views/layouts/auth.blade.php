@@ -14,7 +14,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/semantic-ui/semantic.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     <style>
         html,
         body {
@@ -34,9 +34,9 @@
         @yield('content')
     </div>
     <!-- Scripts -->
-    <script src="{{ asset('js/semantic.min.js') }}"></script>
+    <script src="{{ asset('js/semantic-ui/semantic.min.js') }}"></script>
     <footer>
-        @yield('scripts')
+        @stack('footer_scripts')
     </footer>
 </body>
 

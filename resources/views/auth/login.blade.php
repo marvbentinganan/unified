@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="six wide computer only six wide tablet only fourteen wide mobile only column">
-    <div class="ui center aligned segment">
-        <div class="ui huge blue header">{{ config('app.name') }}
+    <div class="ui segment">
+        <div class="ui huge centered blue header">{{ config('app.name') }}
             <div class="ui sub header">Login</div>
         </div>
         <form action="{{ route('login') }}" method="POST" class="ui form">
@@ -40,8 +40,7 @@
     </div>
 </div>
 @endsection
-
-@section('scripts')
+ @push('footer_scripts')
 <script>
     $('.ui.form').form({
 		fields:{
@@ -49,7 +48,7 @@
 				identifier: 'username',
 				rules: [{
 					type : 'empty',
-					prompt : 'Please enter your ID Number'
+					prompt : 'Please enter your Username'
 				}]
 			},
 			password: {
@@ -59,8 +58,11 @@
 					prompt : 'Please enter your correct Password'
 				]}
 			}
-		}
+        },
+        on: 'blur',
+        inline: true
 	});
 
 </script>
-@endsection
+
+@endpush
