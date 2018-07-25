@@ -42,7 +42,7 @@
             </div>
             <div class="field">
                 <div class="ui right icon input">
-                    <input type="password" id="confirm" name="confirm" placeholder="Confirm Password">
+                    <input type="password" id="password-confirm" name="password_confirmation" placeholder="Confirm Password">
                     <i class="ion-locked icon"></i>
                 </div>
             </div>
@@ -95,8 +95,8 @@
                     prompt : 'Please provide a password'
                 }]
             },
-            confirm: {
-                identifier: 'confirm',
+            password-confirm: {
+                identifier: 'password-confirm',
                 rules: [{
                     type : 'match[password]',
                     prompt : 'Passwords do not match'
@@ -108,6 +108,7 @@
     });
 
 </script>
+
 
 
 @endpush
