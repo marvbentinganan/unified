@@ -1,11 +1,11 @@
 @extends('layouts.auth')
-@section('title') {{ config('app.name') }} | Register
+@section('title') Register
 @endsection
 
 @section('content')
 <div class="six wide computer only six wide tablet only fourteen wide mobile only column">
-    <div class="ui center aligned segment">
-        <div class="ui huge blue header">{{ config('app.name') }}
+    <div class="ui segment">
+        <div class="ui centered huge blue header">{{ config('app.name') }}
             <div class="ui sub header">Register</div>
         </div>
         <form action="{{ route('register') }}" method="POST" class="ui form">
@@ -15,6 +15,9 @@
                     <input type="text" id="firstname" name="firstname" placeholder="Firstname" value="{{ old('firstname') }}" autofocus>
                     <i class="ion-ios-contact icon"></i>
                 </div>
+                @if($errors->has('firstname'))
+                    <span class="ui red label">{{ $errors->first('firstname') }}</span>
+                @endif
             </div>
             <div class="field">
                 <div class="ui right icon input">
@@ -108,6 +111,8 @@
     });
 
 </script>
+
+
 
 
 @endpush

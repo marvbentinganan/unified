@@ -1,4 +1,4 @@
-<div class="ui blue inverted top fixed borderless menu">
+<div class="ui mini blue inverted top fixed borderless menu">
     {{--
     <div class="link item" onclick="showMenu()">
         <a><i class="large bars icon"></i></a>

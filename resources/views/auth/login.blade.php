@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title') {{ config('app.name') }} | Sign In
+@section('title') Sign In
 @endsection
 
 @section('content')
@@ -53,10 +53,10 @@
 			},
 			password: {
 				identifier: 'password',
-				rules: {[
-					type : 'empty',
-					prompt : 'Please enter your correct Password'
-				]}
+				rules: [{
+                    type : 'empty',
+                    prompt : 'Please enter your correct Password'
+                }]
 			}
         },
         on: 'blur',
@@ -64,5 +64,8 @@
 	});
 
 </script>
+
+
+
 
 @endpush
