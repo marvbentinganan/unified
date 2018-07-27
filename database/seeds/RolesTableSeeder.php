@@ -46,5 +46,12 @@ class RolesTableSeeder extends Seeder
           'display_name' => 'Staff',
           'description' => 'Staff',
         ]);
+
+        $guest = Role::create([
+          'name' => 'guest',
+          'display_name' => 'Guest',
+          'description' => 'Guest',
+        ]);
+
     }
 }

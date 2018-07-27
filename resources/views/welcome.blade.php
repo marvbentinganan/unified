@@ -82,6 +82,12 @@
             <div class="title m-b-md">
                 {{ config('app.name') }}
             </div>
+            <div class="links">
+                <a href="#">Faculty Evaluation</a>
+                <a href="#">RCI WiFi</a>
+                <a href="#">DigiHub</a>
+                <a href="#">Events Attendance</a>
+            </div>
         </div>
     </div>
 </body>

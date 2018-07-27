@@ -25,9 +25,9 @@
 </head>
 
 <body>
-    <div id="app" style="padding-top: 50px;">
+    <div id="app" style="padding-top: 30px;">
     @include('partials.main_navigation')
-        <div class="ui stackable grid container">
+        <div class="ui stackable very padded grid">
             <div class="sixteen wide column">
                 @yield('content')
             </div>
