@@ -25,11 +25,14 @@
 </head>
 
 <body>
-    <div id="app" style="padding-top: 30px;">
+    @include('partials.sidebar')
     @include('partials.main_navigation')
-        <div class="ui stackable very padded grid">
-            <div class="sixteen wide column">
-                @yield('content')
+    <div class="dimmed pusher">
+        <div id="app" style="padding-top: 30px;">
+            <div class="ui stackable very padded grid">
+                <div class="sixteen wide column">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>
@@ -53,6 +56,10 @@
                 }
             })
         }
+        function showSidebar(){
+            $('.sidebar').sidebar('setting', 'transition', 'slide out').sidebar('toggle');
+        }
+
         $('.dropdown').dropdown();
     </script>
     @stack('footer_scripts')

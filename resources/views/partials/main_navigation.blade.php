@@ -1,13 +1,11 @@
-<div class="ui mini blue inverted top fixed borderless menu">
-    {{--
-    <div class="link item" onclick="showMenu()">
+<nav class="ui blue inverted top fixed borderless menu">
+    <div class="link item" onclick="showSidebar()">
         <a><i class="large bars icon"></i></a>
-    </div> --}}
+    </div>
     <a href="{{ url('/') }}" class="header item">
         <img src="{{ asset('images/logo.png')}}" alt="" class="ui avatar image">
-          {{ config('app.name') }}
+        {{ config('app.name') }}
     </a>
-
     <div class="right menu">
         @auth
         <div class="item">{{ now()->toFormattedDateString() }}</div>
@@ -27,4 +25,4 @@
         <a href="{{ url('login') }}" class="item">Login</a>
         <a href="{{ url('register') }}" class="item">Register</a> @endguest
     </div>
-</div>
+</nav>

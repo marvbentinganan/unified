@@ -1,5 +1,5 @@
-<div class="ui large vertical secondary pointing accordion menu">
-    <a class="item">
+<div class="ui large left blue inverted vertical accordion sidebar menu">
+    <a class="header item">
         Home
         <i class="home icon"></i>
     </a>
@@ -144,5 +144,7 @@
     $('.accordion').accordion();
 
 </script>
+
+
 
 @endpush
