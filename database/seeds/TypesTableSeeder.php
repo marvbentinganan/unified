@@ -84,9 +84,58 @@ class TypesTableSeeder extends Seeder
             'model' => "evaluation"
         ]);
 
+        $student->sets()->create([
+            'name' => "Student's Evaluation for Classroom Instructors"
+        ]);
+
+        $student->sets()->create([
+            'name' => "Student's Evaluation for Science Laboratory Instructors"
+        ]);
+
+        $student->sets()->create([
+            'name' => "Student's Evaluation for Physical Education Instructors"
+        ]);
+
+        $student->sets()->create([
+            'name' => "Student's Evaluation for Computer Instructors"
+        ]);
+
+        $student->sets()->create([
+            'name' => "Student's Evaluation for Skills Laboratory Instructors"
+        ]);
+
         $supervisory = Type::create([
             'name' => "Supervisory",
             'model' => "evaluation"
+        ]);
+
+        $supervisory->sets()->create([
+            'name' => "Supervisory Evaluation for Classroom Instructors"
+        ]);
+
+        $supervisory->sets()->create([
+            'name' => "Supervisory Evaluation for Science Laboratory Instructors"
+        ]);
+
+        $supervisory->sets()->create([
+            'name' => "Supervisory Evaluation for Physical Education Instructors"
+        ]);
+
+        $supervisory->sets()->create([
+            'name' => "Supervisory Evaluation for Computer Instructors"
+        ]);
+
+        $supervisory->sets()->create([
+            'name' => "Supervisory Evaluation for Skills Laboratory Instructors"
+        ]);
+
+        $revised = Type::create([
+            'name' => "Revised",
+            'model' => "evaluation"
+        ]);
+
+        $revised->sets()->create([
+            'name' => "Revised Evaluation for 2018"
         ]);
 
         $gen = Type::create([

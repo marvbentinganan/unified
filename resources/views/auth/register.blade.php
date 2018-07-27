@@ -8,7 +8,7 @@
         <div class="ui huge blue header">{{ config('app.name') }}
             <div class="ui sub header">Register</div>
         </div>
-        <form action="" method="POST" class="ui form">
+        <form action="{{ route('register') }}" method="POST" class="ui form">
             @csrf
             <div class="field">
                 <div class="ui right icon input">
@@ -95,7 +95,7 @@
                     prompt : 'Please provide a password'
                 }]
             },
-            password-confirm: {
+            password_confirmation: {
                 identifier: 'password-confirm',
                 rules: [{
                     type : 'match[password]',
@@ -108,7 +108,6 @@
     });
 
 </script>
-
 
 
 @endpush

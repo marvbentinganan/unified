@@ -18,3 +18,77 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('evaluation')->group(function () {
+        Route::get('index', 'EvaluationController@index')->name('evaluations');
+        Route::post('add', 'EvaluationController@store')->name('evaluation.add');
+        Route::get('list', 'EvaluationController@list')->name('evaluation.list');
+    });
+
+    // Unifi Routes
+    Route::prefix('unifi')->namespace('Unifi')->group(function () {
+        Route::get('login', 'UnifiController@show')->name('unifi.login');
+        Route::post('login', 'UnifiController@authenticate')->name('unifi.authenticate');
+    });
+
+    // User Routes
+    Route::prefix('users')->group(function () {
+        Route::view('index', 'users.index')->name('users');
+        Route::post('add', 'UserController@store')->name('user.add');
+        Route::get('get', 'UserController@get')->name('user.get');
+        Route::get('get/{user}', 'UserController@edit')->name('user.edit');
+        Route::patch('update/{user}', 'UserController@update')->name('user.update');
+        Route::delete('delete/{user}', 'UserController@delete')->name('user.delete');
+
+        // Roles Routes
+        Route::prefix('roles')->group(function () {
+            Route::get('add', 'RoleController@index')->name('roles');
+            Route::post('add', 'RoleController@store')->name('role.add');
+            Route::get('get', 'RoleController@get')->name('role.get');
+            Route::get('get/{role}', 'RoleController@edit')->name('role.edit');
+            Route::patch('update/{role}', 'RoleController@update')->name('role.update');
+            Route::delete('delete/{role}', 'RoleController@delete')->name('role.delete');
+        });
+
+        // Permission Routes
+        Route::prefix('permissions')->group(function () {
+            Route::get('add', 'PermissionController@index')->name('permissions');
+            Route::post('add', 'PermissionController@store')->name('permission.add');
+            Route::get('get', 'PermissionController@get')->name('permission.get');
+            Route::get('get/{permission}', 'PermissionController@edit')->name('permission.edit');
+            Route::patch('update/{permission}', 'PermissionController@update')->name('permission.update');
+            Route::delete('delete/{permission}', 'PermissionController@delete')->name('permission.delete');
+        });
+
+        // Student Routes
+        Route::prefix('students')->group(function () {
+            Route::get('add', 'StudentController@index')->name('students');
+            Route::post('add', 'StudentController@store')->name('student.add');
+            Route::get('get', 'StudentController@get')->name('student.get');
+            Route::get('get/{student}', 'StudentController@edit')->name('student.edit');
+            Route::patch('update/{faculty}', 'StudentController@update')->name('student.update');
+            Route::delete('delete/{student}', 'StudentController@delete')->name('student.delete');
+        });
+
+        // Faculty Routes
+        Route::prefix('faculties')->group(function () {
+            Route::get('add', 'FacultyController@index')->name('faculties');
+            Route::post('add', 'FacultyController@store')->name('faculty.add');
+            Route::get('get', 'FacultyController@get')->name('faculty.get');
+            Route::get('get/{faculty}', 'FacultyController@edit')->name('faculty.edit');
+            Route::patch('update/{faculty}', 'FacultyController@update')->name('faculty.update');
+            Route::delete('delete/{faculty}', 'FacultyController@delete')->name('faculty.delete');
+        });
+
+        // Staff Routes
+        Route::prefix('staff')->group(function () {
+            Route::get('add', 'StaffController@index')->name('staff');
+            Route::post('add', 'StaffController@store')->name('staff.add');
+            Route::get('get', 'StaffController@get')->name('staff.get');
+            Route::get('get/{staff}', 'StaffController@edit')->name('staff.edit');
+            Route::patch('update/{staff}', 'StaffController@update')->name('staff.update');
+            Route::delete('delete/{staff}', 'StaffController@delete')->name('staff.delete');
+        });
+    });
+});

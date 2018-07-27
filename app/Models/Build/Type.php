@@ -13,7 +13,13 @@ class Type extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function departments(){
+    public function departments()
+    {
         return $this->hasMany(Department::class);
+    }
+
+    public function sets()
+    {
+        return $this->hasMany('App\Models\Tbi\Set');
     }
 }

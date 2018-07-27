@@ -29,7 +29,18 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function access_logs(){
+    public function access_logs()
+    {
         return $this->hasMany(Unifi\AccessLog::class);
+    }
+
+    public function evaluations()
+    {
+        return $this->hasMany(Tbi\Evaluation::class);
+    }
+
+    public function preferences()
+    {
+        return $this->hasOne(Build\AccountSetting::class);
     }
 }
