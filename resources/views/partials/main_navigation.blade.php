@@ -1,7 +1,9 @@
 <nav class="ui blue inverted top fixed borderless menu">
+    @auth
     <div class="link item" onclick="showSidebar()">
         <a><i class="large bars icon"></i></a>
     </div>
+    @endauth
     <a href="{{ url('/') }}" class="header item">
         <img src="{{ asset('images/logo.png')}}" alt="" class="ui avatar image">
         {{ config('app.name') }}

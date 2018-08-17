@@ -91,4 +91,10 @@ Route::middleware('auth')->group(function () {
             Route::delete('delete/{staff}', 'StaffController@delete')->name('staff.delete');
         });
     });
+
+    // Digihub Routes
+    Route::prefix('digihub')->group(function(){
+        Route::view('index', 'digihub.index')->name('digihub');
+        Route::get('stations', 'DigihubController@stations')->name('digihub.stations');
+    });
 });

@@ -40,13 +40,13 @@ class CreateEvaluationsTable extends Migration
             $table->increments('id');
             $table->string('code')->unique();
             $table->unsignedInteger('set_id');
-            $table->unsignedInteger('faculty_id');
+            $table->unsignedInteger('employee_id');
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('semester_id');
             $table->unsignedInteger('school_year_id');
             $table->foreign('set_id')->references('id')->on('sets')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('faculty_id')->references('id')->on('faculties')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('semester_id')->references('id')->on('semesters')->onUpdate('cascade')->onDelete('cascade');
@@ -140,5 +140,7 @@ class CreateEvaluationsTable extends Migration
         Schema::dropIfExists('records');
         Schema::dropIfExists('evaluations');
         Schema::dropIfExists('sets');
+        Schema::dropIfExists('ratings');
+        Schema::dropIfExists('types');
     }
 }

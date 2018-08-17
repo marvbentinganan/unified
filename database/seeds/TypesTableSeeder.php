@@ -147,5 +147,15 @@ class TypesTableSeeder extends Seeder
             'name' => "Core",
             'model' => "subject"
         ]);
+
+        $staff = Type::create([
+            'name' => "Staff",
+            'model' => "employee"
+        ]);
+
+        $faculty = Type::create([
+            'name' => "Faculty",
+            'model' => "employee"
+        ]);
     }
 }

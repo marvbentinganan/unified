@@ -37,6 +37,7 @@ class CreateBuildFilesTables extends Migration
             $table->string('middlename')->nullable();
             $table->string('lastname');
             $table->string('id_number');
+            $table->string('barcode');
             $table->date('date_of_birth');
             $table->unsignedInteger('group_id');
             $table->foreign('group_id')->references('id')->on('groups')->onUpdate('cascade')->onDelete('cascade');
@@ -45,27 +46,23 @@ class CreateBuildFilesTables extends Migration
         });
 
         // Faculties
-        Schema::create('faculties', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
             $table->string('id_number');
-            $table->unsignedInteger('group_id');
-            $table->foreign('group_id')->references('id')->on('groups')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('barcode');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        // Staff
-        Schema::create('staffs', function (Blueprint $table) {
+        // Designation
+        Schema::create('designation', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('firstname');
-            $table->string('middlename')->nullable();
-            $table->string('lastname');
-            $table->string('id_number');
-            $table->timestamps();
+            $table->string('name');
             $table->softDeletes();
+            $table->timestamps();
         });
 
         // School Year
@@ -134,12 +131,12 @@ class CreateBuildFilesTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('department_faculty', function (Blueprint $table) {
+        Schema::create('department_employee', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('faculty_id');
+            $table->unsignedInteger('employee_id');
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('faculty_id')->references('id')->on('faculties')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -174,6 +171,5 @@ class CreateBuildFilesTables extends Migration
         Schema::dropIfExists('departments');
         Schema::dropIfExists('faculties');
         Schema::dropIfExists('groups');
-        Schema::dropIfExists('types');
     }
 }

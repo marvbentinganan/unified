@@ -9,7 +9,7 @@ class Evaluation extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['code', 'set_id', 'faculty_id', 'department_id', 'subject_id', 'semester_id', 'school_year_id'];
+    protected $fillable = ['code', 'set_id', 'employee_id', 'department_id', 'subject_id', 'semester_id', 'school_year_id'];
 
     protected $dates = ['deleted_at'];
 
@@ -20,7 +20,7 @@ class Evaluation extends Model
 
     public function faculty()
     {
-        return $this->belongsTo('App\Models\Faculty');
+        return $this->belongsTo('App\Models\Employee');
     }
 
     public function department()
