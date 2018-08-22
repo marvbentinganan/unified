@@ -5,15 +5,20 @@ namespace App\Models\Build;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Designation extends Model
+class Program extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'department_id'];
 
     protected $dates = ['deleted_at'];
 
-    public function employees()
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+    public function faculties()
     {
         return $this->belongsToMany('App\Models\Employee');
     }

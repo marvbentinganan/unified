@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Build;
+namespace App\Models\Tbi;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Department extends Model
+class SetType extends Model
 {
     use SoftDeletes;
 
@@ -13,13 +13,13 @@ class Department extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function programs()
+    public function sets()
     {
-        return $this->hasMany(Program::class);
+        return $this->hasMany(Set::class);
     }
 
-    public function students()
+    public function ratings()
     {
-        return $this->hasMany('App\Models\Student');
+        return $this->hasMany(Rating::class);
     }
 }

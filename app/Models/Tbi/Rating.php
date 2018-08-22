@@ -9,12 +9,12 @@ class Rating extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['description', 'value', 'order', 'type_id'];
+    protected $fillable = ['description', 'value', 'order', 'set_type_id'];
 
     protected $dates = ['deleted_at'];
 
     public function type()
     {
-        return $this->belongsTo('App\Models\Build\Type');
+        return $this->belongsTo(SetType::class);
     }
 }

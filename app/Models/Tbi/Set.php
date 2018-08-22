@@ -9,13 +9,13 @@ class Set extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'type_id'];
+    protected $fillable = ['name', 'set_type_id'];
 
     protected $dates = ['deleted_at'];
 
     public function type()
     {
-        return $this->belongsTo('App\Models\Build\Type');
+        return $this->belongsTo(SetType::class);
     }
 
     public function questions()

@@ -13,19 +13,40 @@ class CreateBuildFilesTables extends Migration
      */
     public function up()
     {
-        // Types
-        Schema::create('types', function (Blueprint $table) {
+        // Departments
+        Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('model');
             $table->softDeletes();
             $table->timestamps();
         });
 
-        // Groups
-        Schema::create('groups', function (Blueprint $table) {
+        // Programs
+        Schema::create('programs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->unsignedInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        // Subjects
+        Schema::create('subjects', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->integer('units')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('program_subject', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('subject_id');
+            $table->unsignedInteger('program_id');
+            $table->foreign('program_id')->references('id')->on('programs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -39,13 +60,13 @@ class CreateBuildFilesTables extends Migration
             $table->string('id_number');
             $table->string('barcode');
             $table->date('date_of_birth');
-            $table->unsignedInteger('group_id');
-            $table->foreign('group_id')->references('id')->on('groups')->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedInteger('department_id');
+            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        // Faculties
+        // Employees
         Schema::create('employees', function (Blueprint $table) {
             $table->increments('id');
             $table->string('firstname');
@@ -58,10 +79,30 @@ class CreateBuildFilesTables extends Migration
         });
 
         // Designation
-        Schema::create('designation', function (Blueprint $table) {
+        Schema::create('designations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->softDeletes();
+            $table->timestamps();
+        });
+
+        // Designation/Employee Pivot Table
+        Schema::create('designation_employee', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('designation_id');
+            $table->unsignedInteger('employee_id');
+            $table->foreign('designation_id')->references('id')->on('designations')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        // Employee/Program Pivot Table
+        Schema::create('employee_program', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('program_id');
+            $table->unsignedInteger('employee_id');
+            $table->foreign('program_id')->references('id')->on('programs')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -108,48 +149,6 @@ class CreateBuildFilesTables extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        // Departments
-        Schema::create('departments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->unsignedInteger('type_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('types')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
-        // Subjects
-        Schema::create('subjects', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code')->unique();
-            $table->string('name');
-            $table->integer('units')->nullable();
-            $table->unsignedInteger('type_id')->nullable();
-            $table->foreign('type_id')->references('id')->on('types')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
-        Schema::create('department_employee', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('employee_id');
-            $table->unsignedInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
-            $table->timestamps();
-        });
-
-        Schema::create('department_subject', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('subject_id');
-            $table->unsignedInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
-            $table->timestamps();
-        });
     }
 
     /**
@@ -159,17 +158,18 @@ class CreateBuildFilesTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('students');
-        Schema::dropIfExists('staffs');
         Schema::dropIfExists('settings');
         Schema::dropIfExists('account_settings');
         Schema::dropIfExists('school_years');
         Schema::dropIfExists('semesters');
-        Schema::dropIfExists('department_subject');
-        Schema::dropIfExists('department_faculty');
+        Schema::dropIfExists('program_subject');
+        Schema::dropIfExists('employee_program');
+        Schema::dropIfExists('designation_employee');
+        Schema::dropIfExists('employees');
+        Schema::dropIfExists('students');
+        Schema::dropIfExists('designations');
         Schema::dropIfExists('subjects');
+        Schema::dropIfExists('programs');
         Schema::dropIfExists('departments');
-        Schema::dropIfExists('faculties');
-        Schema::dropIfExists('groups');
     }
 }

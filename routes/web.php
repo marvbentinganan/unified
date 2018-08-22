@@ -71,24 +71,14 @@ Route::middleware('auth')->group(function () {
             Route::delete('delete/{student}', 'StudentController@delete')->name('student.delete');
         });
 
-        // Faculty Routes
-        Route::prefix('faculties')->group(function () {
-            Route::get('add', 'FacultyController@index')->name('faculties');
-            Route::post('add', 'FacultyController@store')->name('faculty.add');
-            Route::get('get', 'FacultyController@get')->name('faculty.get');
-            Route::get('get/{faculty}', 'FacultyController@edit')->name('faculty.edit');
-            Route::patch('update/{faculty}', 'FacultyController@update')->name('faculty.update');
-            Route::delete('delete/{faculty}', 'FacultyController@delete')->name('faculty.delete');
-        });
-
-        // Staff Routes
-        Route::prefix('staff')->group(function () {
-            Route::get('add', 'StaffController@index')->name('staff');
-            Route::post('add', 'StaffController@store')->name('staff.add');
-            Route::get('get', 'StaffController@get')->name('staff.get');
-            Route::get('get/{staff}', 'StaffController@edit')->name('staff.edit');
-            Route::patch('update/{staff}', 'StaffController@update')->name('staff.update');
-            Route::delete('delete/{staff}', 'StaffController@delete')->name('staff.delete');
+        // Employee Routes
+        Route::prefix('employees')->group(function () {
+            Route::get('add', 'EmployeeController@index')->name('employees');
+            Route::post('add', 'EmployeeController@store')->name('employee.add');
+            Route::get('get', 'EmployeeController@get')->name('employee.get');
+            Route::get('get/{employee}', 'EmployeeController@edit')->name('employee.edit');
+            Route::patch('update/{employee}', 'EmployeeController@update')->name('employee.update');
+            Route::delete('delete/{employee}', 'EmployeeController@delete')->name('employee.delete');
         });
     });
 

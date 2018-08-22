@@ -1,4 +1,4 @@
-<div class="ui large left blue inverted vertical accordion sidebar menu">
+<div class="ui left vertical accordion sidebar menu">
     <a class="header item">
         Home
         <i class="home icon"></i>
@@ -12,15 +12,31 @@
             <div class="menu">
                 <a href="" class="item">
                     <i class="ion-edit icon"></i>
+                    Categories
+                </a>
+                <a href="" class="item">
+                    <i class="ion-edit icon"></i>
+                    Criterias
+                </a>
+                <a href="" class="item">
+                    <i class="ion-edit icon"></i>
                     Departments
                 </a>
                 <a href="" class="item">
                     <i class="ion-edit icon"></i>
-                    Groups
+                    Designations
                 </a>
                 <a href="" class="item">
                     <i class="ion-edit icon"></i>
-                    Roles
+                    DigiHub
+                </a>
+                <a href="" class="item">
+                    <i class="ion-edit icon"></i>
+                    Programs
+                </a>
+                <a href="" class="item">
+                    <i class="ion-edit icon"></i>
+                    Questions
                 </a>
                 <a href="" class="item">
                     <i class="ion-edit icon"></i>
@@ -28,15 +44,15 @@
                 </a>
                 <a href="" class="item">
                     <i class="ion-edit icon"></i>
-                    Permisions
+                    Ratings
+                </a>
+                <a href="" class="item">
+                    <i class="ion-edit icon"></i>
+                    Sets
                 </a>
                 <a href="" class="item">
                     <i class="ion-edit icon"></i>
                     Subjects
-                </a>
-                <a href="" class="item">
-                    <i class="ion-edit icon"></i>
-                    Types
                 </a>
             </div>
         </div>
@@ -69,7 +85,7 @@
     </div>
     <div class="item">
         <div class="title">
-            UniFi Monitoring
+            Network Services
             <i class="dropdown icon"></i>
         </div>
         <div class="content">
@@ -97,12 +113,16 @@
         <div class="content">
             <div class="menu">
                 <a href="" class="item">
-                    <i class="ion-ios-person icon"></i>
-                    Staff
+                    <i class="ion-edit icon"></i>
+                    Roles
                 </a>
                 <a href="" class="item">
-                    <i class="ion-person icon"></i>
-                    Faculty
+                    <i class="ion-edit icon"></i>
+                    Permissions
+                </a>
+                <a href="" class="item">
+                    <i class="ion-ios-person icon"></i>
+                    Employees
                 </a>
                 <a href="" class="item">
                     <i class="ion-university icon"></i>
@@ -144,5 +164,24 @@
     $('.accordion').accordion();
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @endpush

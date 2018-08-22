@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Build\Type;
-use App\Models\Build\Group;
+use App\Models\Tbi\Category;
+use App\Models\Tbi\SetType;
+use App\Models\Tbi\Set;
+use App\Models\Build\Program;
+use App\Models\Build\Designation;
+use App\Models\Build\Department;
 
 class TypesTableSeeder extends Seeder
 {
@@ -13,75 +17,56 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        Group::create([
+        Department::create([
             'name' => "Senior High School"
         ]);
 
-        Group::create([
+        $college = Department::create([
             'name' => "College"
         ]);
 
-        $admin = Type::create([
-            'name' => "Administration",
-            'model' => "department"
-        ]);
-
-        $admin->departments()->create([
-            'name' => "Information Technology"
-        ]);
-
-        $admin->departments()->create([
-            'name' => "Human Resources"
-        ]);
-
-        $academic = Type::create([
-            'name' => "Academic",
-            'model' => "department"
-        ]);
-
-        $academic->departments()->create([
+        $college->programs()->create([
             'name' => 'Nursing'
         ]);
 
-        $academic->departments()->create([
+        $college->programs()->create([
             'name' => 'Physical Therapy'
         ]);
 
-        $academic->departments()->create([
+        $college->programs()->create([
             'name' => 'Medical Technology'
         ]);
 
-        $academic->departments()->create([
-            'name' => 'Pharmacy'
-        ]);
-
-        $academic->departments()->create([
+        $college->programs()->create([
             'name' => 'Radiologic Technology'
         ]);
 
-        $academic->departments()->create([
-            'name' => 'Arts and Sciences'
+        $college->programs()->create([
+            'name' => 'Pharmacy'
         ]);
 
-        $academic->departments()->create([
-            'name' => 'Entrepreneurship'
-        ]);
-
-        $academic->departments()->create([
-            'name' => 'Interdisciplinary Studies'
-        ]);
-
-        $academic->departments()->create([
+        $college->programs()->create([
             'name' => 'Psychology'
         ]);
 
-        $academic->departments()->create([
+        $college->programs()->create([
             'name' => 'Business Administration'
         ]);
 
-        $student = Type::create([
-            'name' => "Student",
-            'model' => "evaluation"
+        $college->programs()->create([
+            'name' => 'Entrepreneurship'
+        ]);
+
+        $college->programs()->create([
+            'name' => 'Interdisciplinary Studies'
+        ]);
+
+        $college->programs()->create([
+            'name' => 'Arts and Sciences'
+        ]);
+
+        $student = SetType::create([
+            'name' => "Student"
         ]);
 
         $student->sets()->create([
@@ -104,9 +89,8 @@ class TypesTableSeeder extends Seeder
             'name' => "Student's Evaluation for Skills Laboratory Instructors"
         ]);
 
-        $supervisory = Type::create([
-            'name' => "Supervisory",
-            'model' => "evaluation"
+        $supervisory = SetType::create([
+            'name' => "Supervisory"
         ]);
 
         $supervisory->sets()->create([
@@ -129,33 +113,194 @@ class TypesTableSeeder extends Seeder
             'name' => "Supervisory Evaluation for Skills Laboratory Instructors"
         ]);
 
-        $revised = Type::create([
-            'name' => "Revised",
-            'model' => "evaluation"
+        $revised = SetType::create([
+            'name' => "Revised"
         ]);
 
-        $revised->sets()->create([
+        // Ratings
+        $revised->ratings()->create([
+            'value' => 1,
+            'description' => 'Strongly Disagree'
+        ]);
+
+        $revised->ratings()->create([
+            'value' => 2,
+            'description' => 'Disagree'
+        ]);
+
+        $revised->ratings()->create([
+            'value' => 3,
+            'description' => 'Neutral'
+        ]);
+
+        $revised->ratings()->create([
+            'value' => 4,
+            'description' => 'Agree'
+        ]);
+
+        $revised->ratings()->create([
+            'value' => 5,
+            'description' => 'Strongly Agree'
+        ]);
+
+        $revised_set = $revised->sets()->create([
             'name' => "Revised Evaluation for 2018"
         ]);
 
-        $gen = Type::create([
-            'name' => "General Education",
-            'model' => "subject"
+        // Teaching Competence
+        $teaching = Category::create([
+            'name' => "Teaching Competence",
+            "order" => 1
         ]);
 
-        $core = Type::create([
-            'name' => "Core",
-            'model' => "subject"
+        $a = $teaching->criterias()->create([
+                'name' => "Knowledge of the Subject Matter",
+                "order" => 1
+            ]);
+
+        $a1 = $a->questions()->create([
+                    'ask' => "The instructor discusses the objectives, policies, guidelines, and lessons clearly."
+                ]);
+
+        $a2 = $a->questions()->create([
+                    'ask' => "The instructor is able to clarify areas of confusion."
+                ]);
+
+        $a3 = $a->questions()->create([
+                    'ask' => "The instructor relates the lessons within everyday life situations."
+                ]);
+
+        // $a->questions()->attach([$a1->id, $a2->id, $a3->id]);
+
+        $b = $teaching->criterias()->create([
+                'name' => "Class Management",
+                "order" => 2
+            ]);
+
+        $b1 = $b->questions()->create([
+                    'ask' => "The instructor begins and ends the class on time."
+                ]);
+
+        $b2 = $b->questions()->create([
+                    'ask' => "The instructor maintains discipline in the classroom and is consistent and reasonable in implementing policies and guidelines."
+                ]);
+
+        $b3 = $b->questions()->create([
+                    'ask' => "The instructor ensures that the learning environment is conducive."
+                ]);
+
+        // $b->questions()->attach([$b1->id, $b2->id, $b3->id]);
+
+        $c = $teaching->criterias()->create([
+                'name' => "Teaching Strategies",
+                "order" => 3
+            ]);
+
+        $c1 = $c->questions()->create([
+                    'ask' => "The instructors' teaching methods enhanced my learning."
+                ]);
+
+        $c2 = $c->questions()->create([
+                    'ask' => "The instructor encourages me to raise questions or make comments."
+                ]);
+
+        $c3 = $c->questions()->create([
+                    'ask' => "The instructor returns quizzes, test papers, and requirements promptly and gives immediate feedback."
+                ]);
+
+        $c4 = $c->questions()->create([
+                    'ask' => "The instructor is fair in giving grades and evaluationg student performance."
+                ]);
+
+        // $c->questions()->attach([$c1->id, $c2->id, $c3->id, $c4->id]);
+
+        $d = $teaching->criterias()->create([
+                'name' => "Communication Skills",
+                "order" => 4
+            ]);
+
+        $d1 = $d->questions()->create([
+                    'ask' => "The instructor communicates effectively and shows mastery of the language used as a medium of instruction."
+                ]);
+
+        $d2 = $d->questions()->create([
+                    'ask' => "The instructor has a clear and well-modulated voice."
+                ]);
+
+        $d3 = $d->questions()->create([
+                    'ask' => "The instructor uses words that are understandable."
+                ]);
+
+        // $d->questions()->attach([$d1->id, $d2->id, $d3->id]);
+
+        // $teaching->criterias()->attach([$a->id, $b->id, $c->id, $d->id]);
+
+        // Personal Qualities
+
+        $personal = Category::create([
+            'name' => "Personal Qualities",
+            "order" => 2
         ]);
 
-        $staff = Type::create([
-            'name' => "Staff",
-            'model' => "employee"
-        ]);
+        $e = $personal->criterias()->create([
+                'name' => "General Appearance",
+                "order" => 5
+            ]);
 
-        $faculty = Type::create([
-            'name' => "Faculty",
-            'model' => "employee"
-        ]);
+        $e1 = $e->questions()->create([
+                    'ask' => "The instructor is always well-groomed, neat and dressed properly."
+                ]);
+
+        $e2 = $e->questions()->create([
+                    'ask' => "The instructor appears confident, poised, and dignified."
+                ]);
+
+        $e3 = $e->questions()->create([
+                    'ask' => "The instructor has a happy disposition."
+                ]);
+
+        // $e->questions()->attach([$e1->id, $e2->id, $e3->id]);
+
+        $f = $personal->criterias()->create([
+                'name' => "Relationship",
+                "order" => 6
+            ]);
+
+        $f1 = $f->questions()->create([
+                    'ask' => "The instructor fosters an athmosphere of mutual respect and courtesy."
+                ]);
+
+        $f2 = $f->questions()->create([
+                    'ask' => "The instructor is approachable."
+                ]);
+
+        $f3 = $f->questions()->create([
+                    'ask' => "The instructor respects the opinions of the students."
+                ]);
+
+        // $f->questions()->attach([$f1->id, $f2->id, $f3->id]);
+
+        $g = $personal->criterias()->create([
+                'name' => "Attitude",
+                "order" => 7
+            ]);
+
+        $g1 = $g->questions()->create([
+                    'ask' => "The instructor is alert, energetic, and does not have unpleasant mannerisms."
+                ]);
+
+        $g2 = $g->questions()->create([
+                    'ask' => "The instructor is friendly, symphatetic, and helpful."
+                ]);
+
+        $g3 = $g->questions()->create([
+                    'ask' => "The instructor has a sense of humor."
+                ]);
+
+        // $g->questions()->attach([$g1->id, $g2->id, $g3->id]);
+
+        // $personal->criterias()->attach([$e->id, $f->id, $g->id]);
+
+        // $revised_set->categories()->attach([$teaching->id, $personal->id]);
     }
 }

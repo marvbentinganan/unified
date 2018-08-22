@@ -18,8 +18,12 @@ class Employee extends Model
         return $this->belongsToMany(Build/Designation::class);
     }
 
-    public function departments()
+    public function programs()
     {
         return $this->belongsToMany(Build/Department::class);
+    }
+
+    public function evaluations(){
+        return $this->hasMany(Tbi/Evaluation::class);
     }
 }

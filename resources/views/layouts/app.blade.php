@@ -22,13 +22,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/semantic-ui/semantic.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
 </head>
 
 <body>
     @include('partials.sidebar')
     @include('partials.main_navigation')
     <div class="dimmed pusher">
-        <div id="app" style="padding-top: 30px;">
+        <div id="app" style="padding-top: 50px;">
             <div class="ui stackable very padded grid">
                 <div class="sixteen wide column">
                     @yield('content')
