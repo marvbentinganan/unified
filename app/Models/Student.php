@@ -8,8 +8,20 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Student extends Model
 {
     use SoftDeletes;
-    
-    protected $fillable = ['firstname', 'middlename', 'lastname', 'id_number', 'date_of_birth'];
+
+    protected $fillable = ['firstname', 'middlename', 'lastname', 'id_number', 'suffix', 'barcode', 'date_of_birth', 'department_id'];
 
     protected $dates = ['deleted_at', 'date_of_birth'];
+
+    protected $appends = ['fullname'];
+
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Build\Department');
+    }
+
+    public function getFullnameAttribute()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
 }

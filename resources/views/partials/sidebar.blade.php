@@ -124,7 +124,7 @@
                     <i class="ion-ios-person icon"></i>
                     Employees
                 </a>
-                <a href="" class="item">
+                <a href="{{ route('students') }}" class="item">
                     <i class="ion-university icon"></i>
                     Students
                 </a>
@@ -164,6 +164,7 @@
     $('.accordion').accordion();
 
 </script>
+
 
 
 

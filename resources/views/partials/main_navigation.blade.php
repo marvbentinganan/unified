@@ -1,4 +1,4 @@
-<nav class="ui blue inverted top fixed borderless menu">
+<nav class="ui small blue inverted top fixed borderless menu">
     @auth
     <div class="link item" onclick="showSidebar()">
         <a><i class="large bars icon"></i></a>

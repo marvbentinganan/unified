@@ -8,8 +8,6 @@ class CreateBuildFilesTables extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -17,8 +15,8 @@ class CreateBuildFilesTables extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Programs
@@ -27,8 +25,8 @@ class CreateBuildFilesTables extends Migration
             $table->string('name');
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Subjects
@@ -37,8 +35,8 @@ class CreateBuildFilesTables extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->integer('units')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('program_subject', function (Blueprint $table) {
@@ -47,8 +45,8 @@ class CreateBuildFilesTables extends Migration
             $table->unsignedInteger('program_id');
             $table->foreign('program_id')->references('id')->on('programs')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Students
@@ -57,8 +55,9 @@ class CreateBuildFilesTables extends Migration
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
+            $table->string('suffix')->nullable();
             $table->string('id_number');
-            $table->string('barcode');
+            $table->string('barcode')->nullable();
             $table->date('date_of_birth');
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
@@ -72,8 +71,10 @@ class CreateBuildFilesTables extends Migration
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
+            $table->string('suffix')->nullable();
+            $table->string('title')->nullable();
             $table->string('id_number');
-            $table->string('barcode');
+            $table->string('barcode')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -82,8 +83,8 @@ class CreateBuildFilesTables extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Designation/Employee Pivot Table
@@ -110,16 +111,16 @@ class CreateBuildFilesTables extends Migration
         Schema::create('school_years', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Semesters Table
         Schema::create('semesters', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Global Settings
@@ -133,8 +134,8 @@ class CreateBuildFilesTables extends Migration
             $table->boolean('lock_evaluation')->default(false);
             $table->foreign('semester_id')->references('id')->on('semesters')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('school_year_id')->references('id')->on('school_years')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Account Settings
@@ -146,15 +147,13 @@ class CreateBuildFilesTables extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('semester_id')->references('id')->on('semesters')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('school_year_id')->references('id')->on('school_years')->onUpdate('cascade')->onDelete('cascade');
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

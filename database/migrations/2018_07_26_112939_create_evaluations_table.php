@@ -8,8 +8,6 @@ class CreateEvaluationsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -103,7 +101,7 @@ class CreateEvaluationsTable extends Migration
 
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->longtext('ask')->unique();
+            $table->longtext('ask');
             $table->unsignedInteger('criteria_id');
             $table->foreign('criteria_id')->references('id')->on('criterias')->onUpdate('cascade')->onDelete('cascade');
             $table->softDeletes();
@@ -135,8 +133,6 @@ class CreateEvaluationsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
@@ -150,6 +146,5 @@ class CreateEvaluationsTable extends Migration
         Schema::dropIfExists('ratings');
         Schema::dropIfExists('sets');
         Schema::dropIfExists('set_types');
-
     }
 }

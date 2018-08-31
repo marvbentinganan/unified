@@ -63,8 +63,9 @@ Route::middleware('auth')->group(function () {
 
         // Student Routes
         Route::prefix('students')->group(function () {
-            Route::get('add', 'StudentController@index')->name('students');
+            Route::get('index', 'StudentController@index')->name('students');
             Route::post('add', 'StudentController@store')->name('student.add');
+            Route::post('upload', 'StudentController@upload')->name('students.upload');
             Route::get('get', 'StudentController@get')->name('student.get');
             Route::get('get/{student}', 'StudentController@edit')->name('student.edit');
             Route::patch('update/{faculty}', 'StudentController@update')->name('student.update');
@@ -83,7 +84,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Digihub Routes
-    Route::prefix('digihub')->group(function(){
+    Route::prefix('digihub')->group(function () {
         Route::view('index', 'digihub.index')->name('digihub');
         Route::get('stations', 'DigihubController@stations')->name('digihub.stations');
     });
