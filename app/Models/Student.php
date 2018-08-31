@@ -22,6 +22,6 @@ class Student extends Model
 
     public function getFullnameAttribute()
     {
-        return $this->firstname.' '.$this->lastname;
+        return $this->firstname.' '.$this->lastname.' '.$this->suffix;
     }
 }

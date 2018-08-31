@@ -68,7 +68,6 @@ Route::middleware('auth')->group(function () {
             Route::post('upload', 'StudentController@upload')->name('students.upload');
             Route::get('get', 'StudentController@get')->name('student.get');
             Route::get('get/{student}', 'StudentController@edit')->name('student.edit');
-            Route::patch('update/{faculty}', 'StudentController@update')->name('student.update');
             Route::delete('delete/{student}', 'StudentController@delete')->name('student.delete');
         });
 

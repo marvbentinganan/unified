@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Carbon\Carbon;
+use Excel;
 
 class StudentController extends Controller
 {
@@ -25,18 +26,23 @@ class StudentController extends Controller
             $department = 2;
         }
 
-        $student = Student::updateOrCreate([
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename,
-            'lastname' => $request->lastname,
-            'suffix' => $request->suffix,
-            'date_of_birth' => $date_of_birth,
-            'id_number' => $request->id_number,
-            'barcode' => $barcode,
-            'department_id' => $department,
-        ]);
+        $student = Student::updateOrCreate(
+            [
+                'id_number' => $request->id_number,
+            ],
+            [
+                'firstname' => $request->firstname,
+                'middlename' => $request->middlename,
+                'lastname' => $request->lastname,
+                'suffix' => $request->suffix,
+                'date_of_birth' => $date_of_birth,
+                'id_number' => $request->id_number,
+                'barcode' => $barcode,
+                'department_id' => $department,
+            ]
+        );
 
-        return response()->json('Student Added', 200);
+        return response()->json('Success!', 200);
     }
 
     public function upload(Request $request)
@@ -48,30 +54,34 @@ class StudentController extends Controller
             })->get();
             if ($students->count() != 0) {
                 foreach ($students as $student) {
+                    $date_of_birth = Carbon::parse($student->date_of_birth)->toDateString();
                     if (starts_with($student->id_number, 'SHS') == true) {
-                        $id_now = substr_replace($student->id_number, '-', 7, 0);
-                        $group_id = 2;
+                        $barcode = substr_replace($student->id_number, '-', 7, 0);
+                        $department_id = 1;
                     } else {
-                        $id_now = $student->id_number;
-                        $group_id = 1;
+                        $barcode = $student->id_number;
+                        $department_id = 2;
                     }
+
                     $user = Student::updateOrCreate(
                         [
                             'id_number' => $student->id_number,
                         ],
                         [
                             'id_number' => $student->id_number,
-                            'id_now' => $id_now,
+                            'barcode' => $barcode,
                             'firstname' => ucwords($student->firstname),
                             'middlename' => ucwords($student->middlename),
                             'lastname' => ucwords($student->lastname),
-                            'group_id' => $group_id,
+                            'suffix' => $student->suffix,
+                            'date_of_birth' => $date_of_birth,
+                            'department_id' => $department_id,
                         ]
                     );
                 }
             }
 
-            return Redirect::back()->with(['success_message' => 'Faculty Uploaded Successfully']);
+            return redirect()->back()->with(['success_message' => 'Students Uploaded Successfully']);
         }
 
         return response()->json('Failed to Upload');
@@ -79,8 +89,23 @@ class StudentController extends Controller
 
     public function get()
     {
-        $students = Student::with(['department'])->latest()->get();
+        $students = Student::with(['department'])
+        ->orderBy('department_id')
+        ->orderby('lastname')
+        ->get();
 
         return response()->json($students);
+    }
+
+    public function edit(Student $student)
+    {
+        return response()->json($student);
+    }
+
+    public function destroy(Student $student)
+    {
+        $student->delete();
+
+        return response()->json('Student Deleted', 200);
     }
 }

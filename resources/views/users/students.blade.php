@@ -31,12 +31,17 @@
                             <th class="center aligned">ID Number</th>
                             <th class="center aligned">Name</th>
                             <th class="center aligned">Department</th>
+                            <th class="center aligned">Actions</th>
                         </thead>
                         <tbody>
                             <tr v-for="student in filteredStudents">
-                                <td>@{{ student.id_number }}</td>
+                                <th class="center aligned">@{{ student.id_number }}</th>
                                 <td>@{{ student.fullname }}</td>
                                 <td>@{{ student.department.name }}</td>
+                                <td class="center aligned">
+                                    <button class="ui mini teal icon button" @click="edit(student.id)"><i class="ion-edit icon"></i></button>
+                                    <button class="ui mini red icon button" @click="destroy(student.id)"><i class="ion-trash-b icon"></i></button>
+                                </td>
                             </tr>
                         </tbody>
                     </table> 
@@ -46,7 +51,7 @@
         <div class="six wide column">
             <div class="row">
                 <div class="ui top attached header">
-                    <i class="ion-ios-personadd icon"></i>Add Student
+                    <i class="ion-ios-personadd icon"></i>@{{ label }} Student
                 </div>
                 <div class="ui attached segment">
                     <form action="" class="ui form" id="student-form" @submit.prevent="addStudent()">
@@ -95,7 +100,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <button type="submit" class="ui primary submit icon button"><i class="ion-plus icon"></i> Add</button>
+                            <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> @{{ label }}</button>
                         </div>
                     </form>
                 </div>
@@ -141,6 +146,7 @@
                 id_number : '',
                 date_of_birth : '',
             },
+            label : "Add",
         },
         components: { vuejsDatepicker },
         computed : {
@@ -148,7 +154,7 @@
                 let students = this.students
                 if (this.keyword && this.keyword != null) {
                     students = students.filter((student) => {
-                        return student.id_number.indexOf(this.keyword) !== -1
+                        return student.fullname.indexOf(this.keyword) !== -1
                     })
                 }
                 return students
@@ -171,10 +177,10 @@
             },
             
             addStudent(){
-                console.log(this.$data.student);
                 axios.post('{{ route('student.add') }}', this.$data.student)
                 .then(response => {
-                    $('#student-form')[0].reset('form'),
+                    $('form').form('clear'),
+                    this.student = null,
                     this.getStudents(),
                     toastr.success(response.data);
                 })
@@ -182,6 +188,18 @@
                     console.log(error.response.data);
                 });
             },
+            
+            edit(id){
+                var route = "get/" + id;
+            	axios.get(route)
+            	.then((response) => {
+            		this.student = response.data,
+                    this.label = "Update";
+            	})
+            	.catch(error => {
+            		console.log(error.response.data)
+            	});
+            }
         },
         mounted() {
             this.init();
