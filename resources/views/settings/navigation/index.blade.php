@@ -64,8 +64,10 @@
                         </div>
                     </td>
                     <td class="two wide center aligned">
+                        @permission(['update-navigation|delete-navigation'])
                         <button class="ui mini teal icon button"><i class="ion-edit icon"></i></button>
                         <button class="ui mini red icon button"><i class="ion-trash-a icon"></i></button>
+                        @endpermission
                     </td>
                 </tr>
                 @endforeach @endif
@@ -128,7 +130,11 @@
                     </div>
                 </div>
                 <div class="field">
+                    @permission(['add-navigation'])
                     <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> Add</button>
+                    @else
+                    <button class="ui disabled primary submit icon button"><i class="save icon"></i> Add</button>
+                    @endpermission
                 </div>
             </form>
         </div>
