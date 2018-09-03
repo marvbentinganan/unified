@@ -52,7 +52,6 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-
     // User Routes
     Route::prefix('users')->group(function () {
         Route::view('index', 'users.index')->name('users');
@@ -69,7 +68,7 @@ Route::middleware('auth')->group(function () {
             Route::get('get', 'RoleController@get')->name('role.get');
             Route::get('get/{role}', 'RoleController@edit')->name('role.edit');
             Route::patch('update/{role}', 'RoleController@update')->name('role.update');
-            Route::delete('delete/{role}', 'RoleController@delete')->name('role.delete');
+            Route::get('delete/{role}', 'RoleController@destroy')->name('role.delete');
         });
 
         // Permission Routes
@@ -79,7 +78,7 @@ Route::middleware('auth')->group(function () {
             Route::get('get', 'PermissionController@get')->name('permission.get');
             Route::get('get/{permission}', 'PermissionController@edit')->name('permission.edit');
             Route::patch('update/{permission}', 'PermissionController@update')->name('permission.update');
-            Route::delete('delete/{permission}', 'PermissionController@delete')->name('permission.delete');
+            Route::delete('delete/{permission}', 'PermissionController@destroy')->name('permission.delete');
         });
 
         // Student Routes

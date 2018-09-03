@@ -59,9 +59,10 @@
                         <td>@{{ role.name }}</td>
                         <td>@{{ role.display_name }}</td>
                         <td>@{{ role.description }}</td>
-                        <td class="two wide center aligned">
-                            <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i></button>
-                            <button class="ui mini red icon button"><i class="ion-trash-a icon"></i></button>
+                        <td class="four wide center aligned">
+                            <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i> Edit</button>
+                            <button class="ui mini red icon button" @click="deleteRole(role.id)"><i class="ion-trash-a icon"></i> Delete</button>
+                            <button class="ui mini purple icon button"><i class="ion-key"></i> Permissions</button>
                         </td>
                     </tr>
                 </tbody>
@@ -123,7 +124,31 @@
             	.catch(error => {
             		console.log(error.response.data)
             	});
-            }
+            },
+
+            deleteRole(id){
+            	swal({
+            		title: 'Are you sure?',
+            		text: "This Role will be Deleted",
+            		type: 'question',
+            		showCancelButton: true,
+            		confirmButtonColor: '#3085d6',
+            		cancelButtonColor: '#d33',
+            		confirmButtonText: 'Yes'
+            	}).then((result) => {
+            		if (result.value) {
+            			var route = 'delete/' + id;
+            			axios.get(route)
+            			.then(response => {
+            				this.getRoles(),
+            				toastr.info(response.data);
+            			})
+            			.catch(response => {
+            				toastr.error("Unable to Delete Role");
+            			});
+            		}
+            	})
+            },
         },
         mounted() {
             this.init();
