@@ -8,8 +8,6 @@ class CreateMenusTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -36,12 +34,9 @@ class CreateMenusTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('menu_role');
         Schema::dropIfExists('menus');
     }
 }
