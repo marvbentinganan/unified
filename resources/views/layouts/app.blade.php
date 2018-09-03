@@ -58,7 +58,7 @@
             })
         }
         function showSidebar(){
-            $('.sidebar').sidebar('setting', 'transition', 'slide out').sidebar('toggle');
+            $('.sidebar').sidebar('setting', 'transition', 'overlay').sidebar('toggle');
         }
 
         $('.dropdown').dropdown();

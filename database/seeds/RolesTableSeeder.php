@@ -8,8 +8,6 @@ class RolesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -52,6 +50,5 @@ class RolesTableSeeder extends Seeder
           'display_name' => 'Guest',
           'description' => 'Guest',
         ]);
-
     }
 }

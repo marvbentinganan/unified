@@ -1,7 +1,6 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 <script src="{{ asset('plugins/vuejs/vuejs-datepicker.min.js') }}"></script>
-
 @endpush
 @section('content')
 <div class="sixteen wide column">
@@ -132,7 +131,6 @@
 @endsection
  @push('footer_scripts')
 <script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
-<script src="{{ asset('js/semantic-ui/calendar.min.js') }}"></script>
 <script>
     new Vue({
 		el: '#app',

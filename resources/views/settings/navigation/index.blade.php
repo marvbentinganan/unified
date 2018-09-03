@@ -11,10 +11,70 @@
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
     </div>
 </div>
-<div class="ui two column padded grid">
-    <div class="six wide column">
-        <div class="ui top attached header">Add New Navigation</div>
-        <div class="ui attached stacked segment">
+<div class="ui section divider"></div>
+<div class="row">
+    <div class="ui top attached icon menu">
+        <a class="item" onclick="addMenu()">
+            <i class="large ion-plus-circled icon"></i>
+        </a>
+        <div class="header item">
+            Navigation Menus
+        </div>
+    </div>
+    <div class="ui attached segment">
+        <table class="ui unstackable compact celled striped small table">
+            <thead>
+                <th class="center aligned">Name</th>
+                <th class="center aligned">Route</th>
+                <th class="center aligned">Icon</th>
+                <th class="center aligned">Order</th>
+                <th class="center aligned">Has Children</th>
+                <th class="center aligned">Parent</th>
+                <th class="center aligned">Roles</th>
+                <th class="center aligned">Actions</th>
+            </thead>
+            <tbody>
+                @if($menus != null) @foreach($menus as $menu)
+                <tr>
+                    <td>
+                        {{ $menu->name }}
+                    </td>
+                    <td>
+                        {{ $menu->link }}
+                    </td>
+                    <td class="center aligned">
+                        <i class="large {{ $menu->icon }} icon"></i>
+                    </td>
+                    <td class="center aligned">
+                        {{ $menu->order }}
+                    </td>
+                    <td class="center aligned">
+                        @if($menu->has_children == true)
+                        <i class="green check icon"></i> @else
+                        <i class="red remove icon"></i> @endif
+                    </td>
+                    <td>
+                        {{ $menu->parent['name'] }}
+                    </td>
+                    <td>
+                        <div class="ui list">
+                            @foreach($menu->roles as $role)
+                            <div class="item">{{ $role->display_name }}</div>
+                            @endforeach
+                        </div>
+                    </td>
+                    <td class="two wide center aligned">
+                        <button class="ui mini teal icon button"><i class="ion-edit icon"></i></button>
+                        <button class="ui mini red icon button"><i class="ion-trash-a icon"></i></button>
+                    </td>
+                </tr>
+                @endforeach @endif
+            </tbody>
+        </table>
+    </div>
+    <div class="ui modal">
+        <div class="header">Add New Menu</div>
+        <div class="content">
             <form action="{{ route('navigation.add') }}" method="POST" class="ui form">
                 @csrf
                 <div class="two fields">
@@ -29,7 +89,7 @@
                         <label for="">Route</label>
                         <div class="ui left icon input">
                             <input type="text" name="link" placeholder="Link...">
-                            <i class="ion-ios-pricetag icon"></i>
+                            <i class="ion-link icon"></i>
                         </div>
                     </div>
                 </div>
@@ -38,21 +98,21 @@
                         <label for="">Order</label>
                         <div class="ui left icon input">
                             <input type="number" name="order" placeholder="Order...">
-                            <i class="ion-ios-pricetag icon"></i>
+                            <i class="ion-shuffle icon"></i>
                         </div>
                     </div>
                     <div class="field">
                         <label for="">Icon</label>
                         <div class="ui left icon input">
                             <input type="text" name="icon" placeholder="Icon...">
-                            <i class="ion-ios-pricetag icon"></i>
+                            <i class="ion-ionic icon"></i>
                         </div>
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label for="">Parent Menu</label> {!! SemanticForm::select('menu_id', $parents)->placeholder('Parent
-                        Menu') !!}
+                        Menu')->attribute('v-model', "menu_id") !!}
                     </div>
                     <div class="field">
                         <label for="">Roles</label> {!! SemanticForm::selectMultiple('roles[]', $roles)->placeholder('Roles')
@@ -73,90 +133,15 @@
             </form>
         </div>
     </div>
-    <div class="ten wide column">
-        <div class="ui top attached header">Navigation Menus</div>
-        <div class="ui attached segment">
-            <table class="ui unstackable compact celled striped small table">
-                <thead>
-                    <th class="center aligned">Name</th>
-                    <th class="center aligned">Route</th>
-                    <th class="center aligned">Icon</th>
-                    <th class="center aligned">Order</th>
-                    <th class="center aligned">Has Children</th>
-                    <th class="center aligned">Parent</th>
-                    <th class="center aligned">Roles</th>
-                    <th class="center aligned">Actions</th>
-                </thead>
-                <tbody>
-                    @if($menus != null) @foreach($menus as $menu)
-                    <tr>
-                        <td>
-                            {{ $menu->name }}
-                        </td>
-                        <td>
-                            {{ $menu->link }}
-                        </td>
-                        <td>
-                            <i class="large {{ $menu->icon }} icon"></i>
-                        </td>
-                        <td class="center aligned">
-                            {{ $menu->order }}
-                        </td>
-                        <td class="center aligned">
-                            @if($menu->has_children == true)
-                            <i class="green check icon"></i> @else
-                            <i class="red remove icon"></i> @endif
-                        </td>
-                        <td>
-                            {{ $menu->parent['name'] }}
-                        </td>
-                        <td>
-                            <div class="ui list">
-                                @foreach($menu->roles as $role)
-                                <div class="item">{{ $role->display_name }}</div>
-                                @endforeach
-                            </div>
-                        </td>
-                        <td class="two wide center aligned">
-                            <button class="ui mini teal icon button"><i class="ion-edit icon"></i></button>
-                            <button class="ui mini red icon button"><i class="ion-trash-a icon"></i></button>
-                        </td>
-                    </tr>
-                    @endforeach @endif
-                </tbody>
-            </table>
-            <div class="ui large left vertical accordion secondary menu">
-                @php $role = auth()->user()->roles()->first();
-@endphp @foreach($role->menus->where('is_primary', true)->sortBy('order')
-                as $menu) @if($menu->has_children == true)
-                <div class="item">
-                    <div class="title">
-                        {{ $menu->name }}
-                        <i class="{{ $menu->icon }} icon"></i>
-                    </div>
-                    <div class="content">
-                        <div class="menu">
-                            @foreach($menu->children as $child)
-                            <a href="{{ route($child->link) }}" class="item">
-                                {{ $child->name }}
-                                <i class="{{ $child->icon }} icon"></i>
-                            </a> @endforeach
-                        </div>
-                    </div>
-                </div>
-                @else
-                <a href="{{ route($menu->link) }}" class="item">
-                        {{ $menu->name }}
-                        <i class="{{ $menu->icon }} icon"></i>
-                    </a> @endif @endforeach
-                <a class="item" onclick="confirm()">
-                    Sign Out
-                    <i class="ion-log-out icon"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+</div>    
 @endsection
- @push('footer_scripts')
+@push('footer_scripts')
+<script>
+    function addMenu(){
+        $('.ui.modal')
+        .modal({centered:true})
+        .modal('setting', 'transition', 'fade up')
+        .modal('show');
+    }
+</script>
 @endpush
