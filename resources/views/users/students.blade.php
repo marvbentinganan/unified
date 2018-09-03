@@ -1,7 +1,8 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 <script src="{{ asset('plugins/vuejs/vuejs-datepicker.min.js') }}"></script>
-@endpush 
+
+@endpush
 @section('content')
 <div class="sixteen wide column">
     {{-- Breadcrumb --}}
@@ -44,7 +45,7 @@
                                 </td>
                             </tr>
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
             </div>
         </div>
@@ -129,7 +130,7 @@
     </div>
 </div>
 @endsection
-@push('footer_scripts')
+ @push('footer_scripts')
 <script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script src="{{ asset('js/semantic-ui/calendar.min.js') }}"></script>
 <script>
@@ -165,7 +166,7 @@
                 this.getStudents(),
                 $('.dropdown').dropdown();
             },
-            
+
             getStudents(){
                 axios.get('{{ route('student.get') }}')
                 .then(response => {
@@ -175,7 +176,7 @@
                     console.log(error.response.data);
                 })
             },
-            
+
             addStudent(){
                 axios.post('{{ route('student.add') }}', this.$data.student)
                 .then(response => {
@@ -188,7 +189,7 @@
                     console.log(error.response.data);
                 });
             },
-            
+
             edit(id){
                 var route = "get/" + id;
             	axios.get(route)
@@ -205,5 +206,7 @@
             this.init();
         }
     });
+
 </script>
+
 @endpush

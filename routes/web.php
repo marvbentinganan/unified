@@ -20,10 +20,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::prefix('navigation')->group(function () {
+        Route::get('index', 'NavigationController@index')->name('navigation');
+        Route::post('add', 'NavigationController@store')->name('navigation.add');
+    });
+
     Route::prefix('evaluation')->group(function () {
         Route::get('index', 'EvaluationController@index')->name('evaluations');
         Route::post('add', 'EvaluationController@store')->name('evaluation.add');
         Route::get('list', 'EvaluationController@list')->name('evaluation.list');
+
+        Route::get('dashboard', 'EvaluationController@dashboard')->name('evaluation.dashboard');
     });
 
     // Unifi Routes
@@ -31,6 +38,20 @@ Route::middleware('auth')->group(function () {
         Route::get('login', 'UnifiController@show')->name('unifi.login');
         Route::post('login', 'UnifiController@authenticate')->name('unifi.authenticate');
     });
+
+    //Build Files
+    Route::prefix('build')->group(function () {
+        Route::namespace('Evaluation')->group(function () {
+            Route::prefix('categories')->group(function () {
+                Route::get('index', 'CategoryController@index')->name('categories');
+            });
+
+            Route::prefix('criterias')->group(function () {
+                Route::get('index', 'CriteriaController@index')->name('criterias');
+            });
+        });
+    });
+
 
     // User Routes
     Route::prefix('users')->group(function () {

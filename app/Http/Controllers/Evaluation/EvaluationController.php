@@ -7,5 +7,7 @@ use App\Http\Controllers\Controller;
 
 class EvaluationController extends Controller
 {
-    //
+    public function index(){
+
+    }
 }

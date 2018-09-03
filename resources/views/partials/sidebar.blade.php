@@ -142,6 +142,11 @@
         </div>
         <div class="content">
             <div class="menu">
+                @if(auth()->user()->hasRole('administrator'))
+                <a href="{{ route('navigation') }}" class="item">
+                    <i class="ion-gear-b icon"></i>
+                    Navigation
+                </a> @endif
                 <a href="" class="item">
                     <i class="ion-gear-a icon"></i>
                     Account Settings
@@ -164,6 +169,10 @@
     $('.accordion').accordion();
 
 </script>
+
+
+
+
 
 
 
