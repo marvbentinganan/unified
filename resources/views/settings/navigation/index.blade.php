@@ -28,6 +28,7 @@
                 <th class="center aligned">Route</th>
                 <th class="center aligned">Icon</th>
                 <th class="center aligned">Order</th>
+                <th class="center aligned">Primary</th>
                 <th class="center aligned">Has Children</th>
                 <th class="center aligned">Parent</th>
                 <th class="center aligned">Roles</th>
@@ -47,6 +48,11 @@
                     </td>
                     <td class="center aligned">
                         {{ $menu->order }}
+                    </td>
+                    <td class="center aligned">
+                        @if($menu->is_primary == true)
+                        <i class="green check icon"></i> @else
+                        <i class="red remove icon"></i> @endif
                     </td>
                     <td class="center aligned">
                         @if($menu->has_children == true)

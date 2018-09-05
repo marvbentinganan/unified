@@ -11,7 +11,7 @@ class StudentController extends Controller
 {
     public function index()
     {
-        return view('users.students');
+        return view('users.students.index');
     }
 
     public function store(Request $request)

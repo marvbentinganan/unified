@@ -93,7 +93,7 @@ Route::middleware('auth')->group(function () {
 
         // Employee Routes
         Route::prefix('employees')->group(function () {
-            Route::get('add', 'EmployeeController@index')->name('employees');
+            Route::get('index', 'EmployeeController@index')->name('employees');
             Route::post('add', 'EmployeeController@store')->name('employee.add');
             Route::get('get', 'EmployeeController@get')->name('employee.get');
             Route::get('get/{employee}', 'EmployeeController@edit')->name('employee.edit');
