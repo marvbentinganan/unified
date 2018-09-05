@@ -92,7 +92,7 @@
     <div class="twelve wide column">
         <div class="ui top attached header"><i class="blue ion-edit icon"></i>Update Menu Item</div>
         <div class="ui attached segment">
-            <form action="{{ route('navigation.add') }}" method="POST" class="ui form">
+            <form action="{{ route('navigation.update', $menu->id) }}" method="POST" class="ui form">
                 @csrf
                 <div class="two fields">
                     <div class="field">

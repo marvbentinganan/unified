@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
         Route::get('index', 'NavigationController@index')->name('navigation');
         Route::post('add', 'NavigationController@store')->name('navigation.add');
         Route::get('edit/{menu}', 'NavigationController@edit')->name('navigation.edit');
+        Route::post('update/{menu}', 'NavigationController@update')->name('navigation.update');
     });
 
     Route::prefix('evaluation')->group(function () {
