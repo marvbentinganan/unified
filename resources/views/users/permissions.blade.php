@@ -59,7 +59,7 @@
                         <td>@{{ permission.name }}</td>
                         <td>@{{ permission.display_name }}</td>
                         <td>@{{ permission.description }}</td>
-                        <td class="four wide center aligned">
+                        <td class="center aligned">
                             <button class="ui mini teal icon button" @click="edit(permission.id)"><i class="ion-edit icon"></i> Edit</button>
                             <button class="ui mini red icon button" @click="deletePermission(permission.id)"><i class="ion-trash-a icon"></i> Delete</button>
                         </td>

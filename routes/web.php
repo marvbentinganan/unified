@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('navigation')->group(function () {
         Route::get('index', 'NavigationController@index')->name('navigation');
         Route::post('add', 'NavigationController@store')->name('navigation.add');
+        Route::get('edit/{menu}', 'NavigationController@edit')->name('navigation.edit');
     });
 
     Route::prefix('evaluation')->group(function () {

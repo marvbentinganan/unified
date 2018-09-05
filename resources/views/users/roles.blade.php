@@ -59,7 +59,7 @@
                         <td>@{{ role.name }}</td>
                         <td>@{{ role.display_name }}</td>
                         <td>@{{ role.description }}</td>
-                        <td class="four wide center aligned">
+                        <td class="center aligned">
                             <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i> Edit</button>
                             <button class="ui mini red icon button" @click="deleteRole(role.id)"><i class="ion-trash-a icon"></i> Delete</button>
                             <button class="ui mini purple icon button"><i class="ion-key"></i> Permissions</button>

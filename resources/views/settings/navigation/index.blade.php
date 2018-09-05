@@ -15,7 +15,7 @@
 <div class="row">
     <div class="ui top attached icon menu">
         <a class="item" onclick="addMenu()">
-            <i class="large ion-plus-circled icon"></i>
+            <i class="blue large ion-plus-circled icon"></i>
         </a>
         <div class="header item">
             Navigation Menus
@@ -28,7 +28,7 @@
                 <th class="center aligned">Route</th>
                 <th class="center aligned">Icon</th>
                 <th class="center aligned">Order</th>
-                <th class="center aligned">Primary</th>
+                <th class="center aligned">Is Primary</th>
                 <th class="center aligned">Has Children</th>
                 <th class="center aligned">Parent</th>
                 <th class="center aligned">Roles</th>
@@ -71,7 +71,7 @@
                     </td>
                     <td class="two wide center aligned">
                         @permission(['update-navigation|delete-navigation'])
-                        <button class="ui mini teal icon button"><i class="ion-edit icon"></i></button>
+                        <a href="{{ route('navigation.edit', $menu->id) }}" class="ui mini teal icon button"><i class="ion-edit icon"></i></a>
                         <button class="ui mini red icon button"><i class="ion-trash-a icon"></i></button>
                         @endpermission
                     </td>
