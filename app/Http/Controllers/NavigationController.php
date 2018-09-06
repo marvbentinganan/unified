@@ -64,7 +64,7 @@ class NavigationController extends Controller
 
         $menu->roles()->attach($request->roles);
 
-        return redirect()->back();
+        return response()->json('Menu Added', 200);
     }
 
     /**
@@ -137,7 +137,29 @@ class NavigationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
+        if ($menu->has('children')) {
+            foreach ($menu->children as $child) {
+                $child->delete();
+            }
+        }
+        $menu->delete();
+
+        return response()->json('Menu Deleted', 200);
+    }
+
+    public function restore($menu)
+    {
+        $item = Menu::withTrashed()->where('id', $menu)->first();
+        $item->restore();
+
+        if ($item->has('dead_children')) {
+            foreach ($item->dead_children as $dead) {
+                $dead->restore();
+            }
+        }
+
+        return response()->json('Menu Restored', 200);
     }
 }

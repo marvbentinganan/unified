@@ -14,7 +14,7 @@
 <div class="ui section divider"></div>
 <div class="row">
     <div class="ui top attached icon menu">
-        <a class="item" onclick="addMenu()">
+        <a class="item" onclick="showModal()">
             <i class="blue large ion-plus-circled icon"></i>
         </a>
         <div class="header item">
@@ -71,8 +71,12 @@
                     </td>
                     <td class="two wide center aligned">
                         @permission(['update-navigation|delete-navigation'])
+                        @if($menu->deleted_at != null)
+                        <button class="ui mini yellow icon button" onclick="restoreMenu({{ $menu->id }})"><i class="ion-loop icon"></i></button>
+                        @else
                         <a href="{{ route('navigation.edit', $menu->id) }}" class="ui mini teal icon button"><i class="ion-edit icon"></i></a>
-                        <button class="ui mini red icon button"><i class="ion-trash-a icon"></i></button>
+                        <button class="ui mini red icon button" onclick="deleteMenu({{ $menu->id }})"><i class="ion-trash-a icon"></i></button>
+                        @endif
                         @endpermission
                     </td>
                 </tr>
@@ -80,10 +84,10 @@
             </tbody>
         </table>
     </div>
-    <div class="ui modal">
+    <div class="ui modal" id="add-modal">
         <div class="header">Add New Menu</div>
         <div class="content">
-            <form action="{{ route('navigation.add') }}" method="POST" class="ui form">
+            <form action="" id="add-form" method="POST" class="ui form">
                 @csrf
                 <div class="two fields">
                     <div class="field">
@@ -148,12 +152,103 @@
 </div>    
 @endsection
 @push('footer_scripts')
+<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script>
-    function addMenu(){
-        $('.ui.modal')
+    function showModal(){
+        $('#add-modal')
         .modal({centered:true})
         .modal('setting', 'transition', 'fade up')
         .modal('show');
-    }
+    };
+
+    $('#add-form').submit(function(event){
+        event.preventDefault();
+        data = $('#add-form').serialize();
+        axios.post('{{ route('navigation.add') }}', data)
+        .then(response => {
+            $('#add-modal').modal('toggle'),
+            swal({
+                type: 'success',
+                title: response.data,
+                showConfirmButton: false,
+                timer: 1500
+            }),
+            setTimeout(function(){
+                location.reload();
+            }, 1500);
+        })
+        .catch(error => {
+            swal({
+                type: 'error',
+                title: 'Unable to Add Menu',
+                showConfirmButton: false,
+                timer: 1500
+            }),
+            setTimeout(function(){
+                location.reload();
+            }, 1500);
+        });
+    });
+    
+    function deleteMenu(id){
+        swal({
+            title: 'Are you sure?',
+            text: "This Menu Item will be Deleted",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                var route = '{{ url('navigation/delete') }}' + '/' +id;
+                axios.get(route)
+                .then(response => {
+                    swal({
+                        type: 'success',
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }),
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                })
+                .catch(response => {
+                    toastr.error("Unable to Delete Menu");
+                });
+            }
+        })
+    };
+    function restoreMenu(id){
+        swal({
+            title: 'Are you sure?',
+            text: "This Menu Item will be Restored",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.value) {
+                var route = '{{ url('navigation/restore') }}' + '/' +id;
+                axios.get(route)
+                .then(response => {
+                    swal({
+                        type: 'success',
+                        title: response.data,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }),
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1500);
+                })
+                .catch(response => {
+                    toastr.error("Unable to Restore Menu");
+                });
+            }
+        })
+    };
 </script>
 @endpush

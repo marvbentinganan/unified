@@ -25,13 +25,14 @@ Route::middleware('auth')->group(function () {
         Route::post('add', 'NavigationController@store')->name('navigation.add');
         Route::get('edit/{menu}', 'NavigationController@edit')->name('navigation.edit');
         Route::post('update/{menu}', 'NavigationController@update')->name('navigation.update');
+        Route::get('delete/{menu}', 'NavigationController@destroy')->name('navigation.delete');
+        Route::get('restore/{menu}', 'NavigationController@restore')->name('navigation.restore');
     });
 
     Route::prefix('evaluation')->group(function () {
         Route::get('index', 'EvaluationController@index')->name('evaluations');
         Route::post('add', 'EvaluationController@store')->name('evaluation.add');
         Route::get('list', 'EvaluationController@list')->name('evaluation.list');
-
         Route::get('dashboard', 'EvaluationController@dashboard')->name('evaluation.dashboard');
     });
 
@@ -46,6 +47,11 @@ Route::middleware('auth')->group(function () {
         Route::namespace('Evaluation')->group(function () {
             Route::prefix('categories')->group(function () {
                 Route::get('index', 'CategoryController@index')->name('categories');
+                Route::get('get', 'CategoryController@get')->name('category.get');
+                Route::get('get/{category}', 'CategoryController@edit')->name('category.edit');
+                Route::post('update/{category}', 'CategoryController@update')->name('category.update');
+                Route::get('delete/{category}', 'CategoryController@delete')->name('category.delete');
+                Route::get('restore/{category}', 'CategoryController@restore')->name('category.restore');
             });
 
             Route::prefix('criterias')->group(function () {

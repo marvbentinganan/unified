@@ -23,6 +23,11 @@ class Menu extends Model
         return $this->hasMany(Menu::class)->where('menu_id', $this->id)->orderBy('order');
     }
 
+    public function dead_children()
+    {
+        return $this->hasMany(Menu::class)->where('menu_id', $this->id)->withTrashed();
+    }
+
     public function parent()
     {
         return $this->belongsTo(Menu::class, 'menu_id', 'id');
