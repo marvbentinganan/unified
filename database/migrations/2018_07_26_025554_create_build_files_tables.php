@@ -56,7 +56,7 @@ class CreateBuildFilesTables extends Migration
             $table->string('middlename')->nullable();
             $table->string('lastname');
             $table->string('suffix')->nullable();
-            $table->string('id_number');
+            $table->string('id_number')->unique();
             $table->string('barcode')->nullable();
             $table->date('date_of_birth');
             $table->unsignedInteger('department_id');

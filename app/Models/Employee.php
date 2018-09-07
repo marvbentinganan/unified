@@ -34,4 +34,23 @@ class Employee extends Model
     {
         return $this->firstname.' '.$this->lastname.' '.$this->suffix;
     }
+
+    public function generateUsername()
+    {
+        $first = substr($this->firstname, 0, 1);
+        $last = str_replace(' ', '', $this->lastname);
+        $username = strtolower($first.$last);
+
+        return $username;
+    }
+
+    public function generatePassword()
+    {
+        $first = substr($this->firstname, 0, 1);
+        $last = substr($this->lastname, 0, 1);
+        $temp = strtolower($first.$last.'@'.$this->id_number);
+        $password = bcrypt($temp);
+
+        return $password;
+    }
 }

@@ -10,11 +10,13 @@ class Student extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['firstname', 'middlename', 'lastname', 'id_number', 'suffix', 'barcode', 'date_of_birth', 'department_id'];
+    protected $fillable = ['firstname', 'middlename', 'lastname', 'id_number', 'suffix', 'barcode', 'date_of_birth', 'department_id', 'default_password'];
 
     protected $dates = ['deleted_at', 'date_of_birth'];
 
     protected $appends = ['fullname'];
+
+    protected $hidden = ['default_password'];
 
     public function department()
     {
@@ -26,7 +28,16 @@ class Student extends Model
         return $this->firstname.' '.$this->lastname.' '.$this->suffix;
     }
 
-    public function getDateOfBirthAttribute($value){
+    public function getDateOfBirthAttribute($value)
+    {
         return Carbon::parse($value)->toDateString();
+    }
+
+    public function generatePassword()
+    {
+        $data = str_replace('-', '', $this->date_of_birth);
+        $password = bcrypt($data);
+
+        return $password;
     }
 }

@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\User;
+use App\Models\Role;
 use Carbon\Carbon;
 use Excel;
 
 class StudentController extends Controller
 {
+    protected $role;
+
+    public function __construct()
+    {
+        $this->role = Role::find(3);
+    }
+
     public function index()
     {
         return view('users.students.index');
@@ -42,6 +51,8 @@ class StudentController extends Controller
             ]
         );
 
+        $this->createUser($student);
+
         return response()->json('Success!', 200);
     }
 
@@ -63,7 +74,7 @@ class StudentController extends Controller
                         $department_id = 2;
                     }
 
-                    $user = Student::updateOrCreate(
+                    $student = Student::updateOrCreate(
                         [
                             'id_number' => $student->id_number,
                         ],
@@ -78,6 +89,8 @@ class StudentController extends Controller
                             'department_id' => $department_id,
                         ]
                     );
+
+                    $this->createUser($student);
                 }
             }
 
@@ -107,5 +120,22 @@ class StudentController extends Controller
         $student->delete();
 
         return response()->json('Student Deleted', 200);
+    }
+
+    private function createUser($student)
+    {
+        $user = User::updateOrCreate(
+            [
+                'username' => $student->id_number,
+            ],
+            [
+                'username' => $student->id_number,
+                'firstname' => $student->firstname,
+                'lastname' => $student->lastname,
+                'password' => $student->generatePassword(),
+            ]
+        );
+
+        $user->attachRole($this->role);
     }
 }

@@ -68,12 +68,19 @@
                                 <i class="ion-pricetag icon"></i>
                             </div>
                         </div>
+                        <div class="field">
+                            <label for="">Middlename</label>
+                            <div class="ui left icon input">
+                                <input type="text" name="middlename" v-model="employee.middlename" placeholder="Middlename...">
+                                <i class="ion-pricetag icon"></i>
+                            </div>
+                        </div>
                         <div class="two fields">
                             <div class="field">
-                                <label for="">Middlename</label>
+                                <label for="">ID Number</label>
                                 <div class="ui left icon input">
-                                    <input type="text" name="middlename" v-model="employee.middlename" placeholder="Middlename...">
-                                    <i class="ion-pricetag icon"></i>
+                                    <input type="text" name="middlename" v-model="employee.id_number" placeholder="ID Number...">
+                                    <i class="ion-ios-barcode icon"></i>
                                 </div>
                             </div>
                             <div class="field">
@@ -93,11 +100,24 @@
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="">ID Number</label>
-                                <div class="ui left icon input">
-                                    <input type="text" name="middlename" v-model="employee.id_number" placeholder="ID Number...">
-                                    <i class="ion-ios-barcode icon"></i>
-                                </div>
+                                <label for="">Roles</label>
+                                <select name="roles[]" class="ui fluid search dropdown" v-model="employee.roles" multiple>
+                                    <option v-for="role in options.roles" v-bind:value="role.id" v-text="role.display_name"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="">Designations</label>
+                                <select name="designations[]" class="ui fluid search dropdown" v-model="employee.designations" multiple>
+                                    <option v-for="designation in options.designations" v-bind:value="designation.id" v-text="designation.name"></option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="">Programs</label>
+                                <select name="programs[]" class="ui fluid search dropdown" v-model="employee.programs" multiple>
+                                    <option v-for="program in options.programs" v-bind:value="program.id" v-text="program.name"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="field">
@@ -125,8 +145,16 @@
                 suffix : '',
                 id_number : '',
                 title : '',
+                roles : [],
+                designations : [],
+                programs : [],
             },
             label : "Add",
+            options : {
+                roles : [],
+                designations : [],
+                programs : [],
+            },
         },
         computed : {
             filteredEmployees(){
@@ -142,6 +170,7 @@
         methods: {
             init() {
                 this.getEmployees(),
+                this.getOptions(),
                 $('.dropdown').dropdown();
             },
 
@@ -151,6 +180,16 @@
                     this.employees = response.data;
                 })
                 .catch(error => {
+                    console.log(error.response.data);
+                })
+            },
+
+            getOptions(){
+                axios.get('{{ route('employee.options') }}') 
+                .then(response => { 
+                    this.options = response.data; 
+                }) 
+                .catch(error => { 
                     console.log(error.response.data);
                 })
             },

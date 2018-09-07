@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Role;
+use App\Models\Build\Designation;
+use App\Models\Build\Program;
 
 class EmployeeController extends Controller
 {
@@ -88,5 +91,38 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
+    }
+
+    // API endpoint for Dropdown Options
+    public function options()
+    {
+        $roles = Role::whereNotIn('id', [3, 6])->select('display_name', 'id')->get();
+        $designations = Designation::select('name', 'id')->get();
+        $programs = Program::select('name', 'id')->get();
+
+        $options = [
+            'roles' => $roles,
+            'designations' => $designations,
+            'programs' => $programs,
+        ];
+
+        return response()->json($options);
+    }
+
+    private function createUser($employee)
+    {
+        $user = User::updateOrCreate(
+            [
+                'username' => $employee->generateUsername(),
+            ],
+            [
+                'username' => $employee->generateUsername(),
+                'firstname' => $employee->firstname,
+                'lastname' => $employee->lastname,
+                'password' => $employee->generatePassword(),
+            ]
+        );
+
+        $user->attachRole([3]);
     }
 }

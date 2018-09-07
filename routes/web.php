@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
 
     // User Routes
     Route::prefix('users')->group(function () {
+        Route::get('dashboard', 'UserController@dashboard')->name('user.dashboard');
+        // Active Directory
         Route::view('index', 'users.index')->name('users');
         Route::post('add', 'UserController@store')->name('user.add');
         Route::get('get', 'UserController@get')->name('user.get');
