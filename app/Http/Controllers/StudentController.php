@@ -74,6 +74,10 @@ class StudentController extends Controller
                         $department_id = 2;
                     }
 
+                    $firstname = $this->sanitizeFirstname($request->firstname);
+
+                    $suffix = $this->getSuffix($request->suffix);
+
                     $student = Student::updateOrCreate(
                         [
                             'id_number' => $student->id_number,
@@ -81,10 +85,10 @@ class StudentController extends Controller
                         [
                             'id_number' => $student->id_number,
                             'barcode' => $barcode,
-                            'firstname' => ucwords($student->firstname),
+                            'firstname' => ucwords($firstname),
                             'middlename' => ucwords($student->middlename),
                             'lastname' => ucwords($student->lastname),
-                            'suffix' => $student->suffix,
+                            'suffix' => $suffix,
                             'date_of_birth' => $date_of_birth,
                             'department_id' => $department_id,
                         ]
@@ -137,5 +141,27 @@ class StudentController extends Controller
         );
 
         $user->attachRole($this->role);
+    }
+
+    private function getSuffix($value)
+    {
+        if (ends_with($value, 'Jr.')):
+            return ', Jr.'; elseif (ends_with($value, ' Iii')):
+            return ', III'; elseif (ends_with($value, ' Ii')):
+            return ', II'; elseif (ends_with($value, ' Iv')):
+            return ', IV'; else:
+            return null;
+        endif;
+    }
+
+    private function sanitizeFirstname($value)
+    {
+        if (ends_with($value, ' Jr.')):
+            return ucwords(rtrim($value, 'Jr.')); elseif (ends_with($value, ' Iii')):
+            return ucwords(rtrim($value, 'Iii')); elseif (ends_with($value, ' Ii')):
+            return ucwords(rtrim($value, 'Ii')); elseif (ends_with($value, ' Iv')):
+            return ucwords(rtrim($value, 'Iv')); else:
+            return ucwords($value);
+        endif;
     }
 }

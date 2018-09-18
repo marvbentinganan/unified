@@ -35,6 +35,7 @@ class Employee extends Model
         return $this->firstname.' '.$this->lastname.' '.$this->suffix;
     }
 
+    //Helper Functions
     public function generateUsername()
     {
         $first = substr($this->firstname, 0, 1);
@@ -52,5 +53,27 @@ class Employee extends Model
         $password = bcrypt($temp);
 
         return $password;
+    }
+
+    public function getSuffix($value)
+    {
+        if (ends_with($value, 'Jr.')):
+            return ', Jr.'; elseif (ends_with($value, ' Iii')):
+            return ', III'; elseif (ends_with($value, ' Ii')):
+            return ', II'; elseif (ends_with($value, ' Iv')):
+            return ', IV'; else:
+            return null;
+        endif;
+    }
+
+    public function sanitizeFirstname($value)
+    {
+        if (ends_with($value, ' Jr.')):
+            return ucwords(rtrim($value, 'Jr.')); elseif (ends_with($value, ' Iii')):
+            return ucwords(rtrim($value, 'Iii')); elseif (ends_with($value, ' Ii')):
+            return ucwords(rtrim($value, 'Ii')); elseif (ends_with($value, ' Iv')):
+            return ucwords(rtrim($value, 'Iv')); else:
+            return ucwords($value);
+        endif;
     }
 }

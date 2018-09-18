@@ -13,6 +13,10 @@ class Digihub extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $casts = [
+        'ip' => 'ipAddress',
+    ];
+
     public function usages()
     {
         return $this->hasMany(Usage::class);

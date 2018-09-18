@@ -21,4 +21,8 @@ Route::middleware('api')->group(function () {
     Route::prefix('options')->group(function () {
         Route::get('employees', 'EmployeeController@options')->name('employee.options');
     });
+
+    Route::prefix('digihub')->group(function () {
+        Route::get('guidelines', 'DigihubController@guidelines')->name('digihub.guidelines');
+    });
 });

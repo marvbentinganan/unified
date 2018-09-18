@@ -33,6 +33,7 @@ class Student extends Model
         return Carbon::parse($value)->toDateString();
     }
 
+    //Helper Functions
     public function generatePassword()
     {
         $data = str_replace('-', '', $this->date_of_birth);
