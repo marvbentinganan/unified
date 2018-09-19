@@ -33,7 +33,7 @@ class CreateDigihubsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usage');
+        Schema::dropIfExists('usages');
         Schema::dropIfExists('digihubs');
     }
 }

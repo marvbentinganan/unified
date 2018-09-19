@@ -74,9 +74,9 @@ class StudentController extends Controller
                         $department_id = 2;
                     }
 
-                    $firstname = $this->sanitizeFirstname($request->firstname);
+                    $firstname = $this->sanitizeFirstname($student->firstname);
 
-                    $suffix = $this->getSuffix($request->suffix);
+                    $suffix = $this->getSuffix($student->firstname);
 
                     $student = Student::updateOrCreate(
                         [

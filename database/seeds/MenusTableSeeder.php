@@ -111,5 +111,38 @@ class MenusTableSeeder extends Seeder
         ]);
 
         $navigation->roles()->attach($admin->id);
+
+        $network = Menu::create([
+            'name' => 'Network Services',
+            'link' => null,
+            'icon' => 'dropdown',
+            'order' => 4,
+            'is_primary' => true,
+            'has_children' => true,
+        ]);
+
+        $network->roles()->attach($admin->id);
+
+        $digihub = $network->children()->create([
+            'name' => 'Digihub',
+            'link' => 'digihub',
+            'icon' => 'ion-monitor',
+            'order' => 2,
+            'is_primary' => false,
+            'has_children' => false,
+        ]);
+
+        $digihub->roles()->attach($admin->id);
+
+        $build = Menu::create([
+            'name' => 'Build Files',
+            'link' => null,
+            'icon' => 'dropdown',
+            'order' => 2,
+            'is_primary' => true,
+            'has_children' => true,
+        ]);
+
+        $build->roles()->attach($admin->id);
     }
 }
