@@ -63,6 +63,7 @@ class StudentController extends Controller
             $path = $file->getRealPath();
             $students = Excel::load($path, function ($reader) {
             })->get();
+
             if ($students->count() != 0) {
                 foreach ($students as $student) {
                     $date_of_birth = Carbon::parse($student->date_of_birth)->toDateString();
@@ -140,16 +141,16 @@ class StudentController extends Controller
             ]
         );
 
-        $user->attachRole($this->role);
+        $user->syncRoles([$this->role]);
     }
 
     private function getSuffix($value)
     {
         if (ends_with($value, 'Jr.')):
-            return ', Jr.'; elseif (ends_with($value, ' Iii')):
-            return ', III'; elseif (ends_with($value, ' Ii')):
-            return ', II'; elseif (ends_with($value, ' Iv')):
-            return ', IV'; else:
+            return 'Jr.'; elseif (ends_with($value, ' Iii')):
+            return 'III'; elseif (ends_with($value, ' Ii')):
+            return 'II'; elseif (ends_with($value, ' Iv')):
+            return 'IV'; else:
             return null;
         endif;
     }
