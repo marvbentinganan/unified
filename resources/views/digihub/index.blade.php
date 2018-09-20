@@ -71,9 +71,9 @@
                             <td class="center aligned">@{{ station.ip }}</td>
                             <td>@{{ station.location }}</td>
                             <td class="center aligned">
-                                <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
-                                <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
-                                <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
+                                <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i> Update</button>
+                                <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i> Delete</button>
+                                <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i> View Logs</a>
                             </td>
                         </tr>
                     </tbody>
