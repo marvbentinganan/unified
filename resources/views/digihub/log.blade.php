@@ -65,7 +65,7 @@
                             <td class="center aligned">{{ ++$key }}</td>
                             <td class="center aligned">{{ $digihub->name }}</td>
                             <td class="center aligned">{{ $digihub->ip }}</td>
-                            <td class="three wide right aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
+                            <td class="right aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
                         </tr>
                         @endforeach
                     </tbody>
