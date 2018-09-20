@@ -63,7 +63,7 @@
                         @foreach($logs as $key => $log)
                         <tr>
                             <td class="center aligned">{{ ++$key }}</td>
-                            <td>{{ $digihub->name }}</td>
+                            <td class="center aligned">{{ $digihub->name }}</td>
                             <td class="center aligned">{{ $digihub->ip }}</td>
                             <td class="right aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
                         </tr>
