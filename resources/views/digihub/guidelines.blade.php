@@ -38,7 +38,7 @@
                                 <i class="large ion-information-circled icon"></i>
                                 <div class="content">
                                     <div class="header">Time Limit</div>
-                                    <div class="description">The use of this machine is limited to forty-five (45) minutes only per user. After the alloted time, the computer
+                                    <div class="description">The use of this machine is limited to fourty-five (45) minutes only per user. After the alloted time, the computer
                                         will automatically restart so please save your work.</div>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                 <i class="large ion-information-circled icon"></i>
                                 <div class="content">
                                     <div class="header">Downloads</div>
-                                    <div class="description">Downloading of movies, music, and other pirated/unlicensed materials is discouraged.</div>
+                                    <div class="description">Downloading of movies, music, and other pirated or unlicensed materials is discouraged.</div>
                                 </div>
                             </div>
                             <div class="item">
