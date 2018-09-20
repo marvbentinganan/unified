@@ -87,8 +87,10 @@
                                 </div>
                                 @endif
                             </th>
+                        </tr>
+                        <tr>
                             <th class="right aligned" colspan="4">
-                                {{ $logs->total() }}
+                                Total Records: {{ $logs->total() }}
                             </th>
                         </tr>
                     </tfoot>
