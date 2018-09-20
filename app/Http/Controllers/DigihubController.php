@@ -15,10 +15,10 @@ class DigihubController extends Controller
         $digihub = Digihub::where('ip', 'like', $ip)->first();
 
         if ($digihub != null) {
-            // $recent = $digihub->usages()->latest()->first();
-            // if ($recent->created_at->diffInRealMinutes(now()) >= 2700) {
-            $usage = $digihub->usages()->create();
-            // }
+            $recent = $digihub->usages()->latest()->first();
+            if ($recent->created_at->diffInRealMinutes(now()) >= 2700 or $recent == null) {
+                $usage = $digihub->usages()->create();
+            }
         }
 
         return view('digihub.guidelines');
