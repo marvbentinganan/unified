@@ -13,9 +13,8 @@ class DigihubController extends Controller
         $ip = $_SERVER['REMOTE_ADDR'];
 
         $digihub = Digihub::where('ip', $ip)->first();
-        if ($digihub != null) {
-            $usage = $digihub->usages()->create();
-        }
+
+        $usage = $digihub->usages()->create();
 
         return view('digihub.guidelines');
     }
