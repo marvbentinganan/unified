@@ -63,7 +63,7 @@
                         <th class="center aligned">Name</th>
                         <th class="center aligned">IP Address</th>
                         <th class="center aligned">Location</th>
-                        <th class="four wide center aligned">Actions</th>
+                        <th class="five wide center aligned">Actions</th>
                     </thead>
                     <tbody>
                         <tr v-for="station in digihubs">
