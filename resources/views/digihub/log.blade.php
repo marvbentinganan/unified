@@ -90,7 +90,7 @@
                         </tr>
                         <tr>
                             <th class="right aligned" colspan="4">
-                                Total Records: {{ $logs->total() }}
+                                <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
                             </th>
                         </tr>
                     </tfoot>
