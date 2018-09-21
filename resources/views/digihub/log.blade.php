@@ -2,8 +2,6 @@
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 <script src="{{ asset('plugins/vuejs/vuejs-datepicker.min.js') }}"></script>
 
-
-
 @endpush 
 @section('content')
 <div class="sixteen wide column">
@@ -24,7 +22,7 @@
     </div>
     <div class="ui section divider"></div>
     <div class="ui stackable two column grid">
-        <div class="twelve wide column">
+        <div class="ten wide column">
             <div class="ui top attached segment">
                 <form action="{{ route('digihub.log', $digihub->id) }}" method="POST" class="ui form">
                     @csrf
@@ -97,11 +95,17 @@
                 </table>
             </div>
         </div>
-        <div class="four wide column"></div>
+        <div class="six wide column">
+            <div class="ui segment">
+                {!! $chart->container() !!}
+            </div>
+        </div>
     </div>
 </div>
+
 @endsection
 @push('footer_scripts')
+<script src="{{ asset('plugins/chartjs/Chart.min.js') }}""></script>
 <script src="{{ asset('js/semantic-ui/calendar.min.js') }}"></script>
 <script>
     $('#from').calendar({ 
@@ -114,4 +118,5 @@
         startCalendar: $('#from') 
     });
 </script>
+{!! $chart->script() !!}
 @endpush

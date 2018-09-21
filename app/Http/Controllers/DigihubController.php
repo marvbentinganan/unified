@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Digihub\Digihub;
 use Carbon\Carbon;
+// Charts
+use App\Charts\DigihubWeeklyUsage;
 
 class DigihubController extends Controller
 {
@@ -69,7 +71,6 @@ class DigihubController extends Controller
     public function log(Request $request, Digihub $digihub)
     {
         if ($request->has('from')) {
-            //dd($request);
             $from = Carbon::parse($request->from);
             $to = Carbon::parse($request->to);
 
@@ -78,10 +79,26 @@ class DigihubController extends Controller
             ->latest()
             ->paginate(10);
         } else {
-            $logs = $digihub->usages()->latest()->paginate(10);
+            $logs = $digihub->usages()->distinct()->latest()->paginate(10);
         }
 
-        //return response()->json($digihub);
-        return view('digihub.log', compact('digihub', 'logs'));
+        $data = collect([]); // Could also be an array
+        $labels = collect([]);
+
+        for ($days_backwards = 6; $days_backwards >= 0; --$days_backwards) {
+            // Could also be an array_push if using an array rather than a collection.
+            $data->push($digihub->usages()->distinct()->whereDate('created_at', today()->subDays($days_backwards))->count());
+            $labels->push(today()->subDays($days_backwards)->toFormattedDateString());
+        }
+
+        $chart = new DigihubWeeklyUsage();
+        $chart->labels($labels);
+        $chart->dataset('Last 7 Days', 'bar', $data)->options([
+            'color' => '#f6bb42',
+            'backgroundColor' => '#4a89dc',
+            'lineTension' => 0.5,
+        ]);
+
+        return view('digihub.log', compact('digihub', 'logs', 'chart'));
     }
 }
