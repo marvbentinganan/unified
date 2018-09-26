@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 @endpush
@@ -7,7 +7,7 @@
     <div class="ui breadcrumb">
         <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-        <a href="" class="section">Users</a>
+        <a href="{{ route('users') }}" class="section">Users</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         <a href="{{ route('roles') }}" class="section">Roles</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>

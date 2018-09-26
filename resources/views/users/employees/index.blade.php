@@ -9,7 +9,7 @@
         <div class="ui breadcrumb">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Users</a>
+            <a href="{{ route('users') }}" class="section">Users</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('employees') }}" class="section">Employees</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
@@ -185,11 +185,11 @@
             },
 
             getOptions(){
-                axios.get('{{ route('employee.options') }}') 
-                .then(response => { 
-                    this.options = response.data; 
-                }) 
-                .catch(error => { 
+                axios.get('{{ route('employee.options') }}')
+                .then(response => {
+                    this.options = response.data;
+                })
+                .catch(error => {
                     console.log(error.response.data);
                 })
             },

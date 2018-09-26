@@ -62,14 +62,13 @@ Route::middleware('auth')->group(function () {
 
     // User Routes
     Route::prefix('users')->group(function () {
-        Route::get('dashboard', 'UserController@dashboard')->name('user.dashboard');
+        Route::get('dashboard', 'UserController@index')->name('users');
+
         // Active Directory
-        Route::view('index', 'users.index')->name('users');
-        Route::post('add', 'UserController@store')->name('user.add');
-        Route::get('get', 'UserController@get')->name('user.get');
-        Route::get('get/{user}', 'UserController@edit')->name('user.edit');
-        Route::patch('update/{user}', 'UserController@update')->name('user.update');
-        Route::delete('delete/{user}', 'UserController@delete')->name('user.delete');
+        Route::prefix('active-directory')->group(function(){
+            Route::get('index', 'UserController@index')->name('active.directory');
+            Route::post('add', 'UserController@store')->name('active.directory.add');
+        });
 
         // Roles Routes
         Route::prefix('roles')->group(function () {

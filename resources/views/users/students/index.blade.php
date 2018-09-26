@@ -9,45 +9,14 @@
         <div class="ui breadcrumb">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Users</a>
+            <a href="{{ route('users') }}" class="section">Users</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('students') }}" class="section">Students</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui stackable two column padded grid">
-        <div class="ten wide column">
-            {{-- Students table --}}
-            <div class="row">
-                <div class="ui top attached segment">
-                    <div class="ui fluid icon input">
-                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Student...">
-                        <i class="inverted circular search icon"></i>
-                    </div>
-                </div>
-                <div class="ui attached segment">
-                    <table class="ui compact celled table">
-                        <thead>
-                            <th class="center aligned">ID Number</th>
-                            <th class="center aligned">Name</th>
-                            <th class="center aligned">Department</th>
-                            <th class="center aligned">Actions</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="student in filteredStudents">
-                                <th class="center aligned">@{{ student.id_number }}</th>
-                                <td>@{{ student.fullname }}</td>
-                                <td>@{{ student.department.name }}</td>
-                                <td class="center aligned">
-                                    <button class="ui mini teal icon button" @click="edit(student.id)"><i class="ion-edit icon"></i></button>
-                                    <button class="ui mini red icon button" @click="destroy(student.id)"><i class="ion-trash-b icon"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        {{--  Add Student Form  --}}
         <div class="six wide column">
             <div class="row">
                 <div class="ui top attached header">
@@ -123,6 +92,38 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        {{-- Students table --}}
+        <div class="ten wide column">
+            <div class="row">
+                <div class="ui top attached segment">
+                    <div class="ui fluid icon input">
+                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Student...">
+                        <i class="inverted circular search icon"></i>
+                    </div>
+                </div>
+                <div class="ui attached segment">
+                    <table class="ui compact celled table">
+                        <thead>
+                            <th class="center aligned">ID Number</th>
+                            <th class="center aligned">Name</th>
+                            <th class="center aligned">Department</th>
+                            <th class="center aligned">Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="student in filteredStudents">
+                                <th class="center aligned">@{{ student.id_number }}</th>
+                                <td>@{{ student.fullname }}</td>
+                                <td>@{{ student.department.name }}</td>
+                                <td class="center aligned">
+                                    <button class="ui mini teal icon button" @click="edit(student.id)"><i class="ion-edit icon"></i></button>
+                                    <button class="ui mini red icon button" @click="destroy(student.id)"><i class="ion-trash-b icon"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

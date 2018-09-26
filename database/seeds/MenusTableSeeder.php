@@ -81,7 +81,7 @@ class MenusTableSeeder extends Seeder
 
         $users = $user->children()->create([
             'name' => 'Active Directory',
-            'link' => 'users',
+            'link' => 'active.directory',
             'icon' => 'ion-ios-people-outline',
             'order' => 5,
             'is_primary' => false,
