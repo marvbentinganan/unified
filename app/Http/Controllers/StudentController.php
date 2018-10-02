@@ -58,6 +58,8 @@ class StudentController extends Controller
 
     public function upload(Request $request)
     {
+        ini_set('max_execution_time', 900);
+
         if ($request->hasFile('doc')) {
             $file = $request->file('doc');
             $path = $file->getRealPath();

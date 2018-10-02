@@ -66,7 +66,7 @@ Route::middleware('auth')->group(function () {
 
         // Active Directory
         Route::prefix('active-directory')->group(function () {
-            Route::get('index', 'UserController@index')->name('active.directory');
+            Route::get('index', 'UserController@active')->name('active.directory');
             Route::post('add', 'UserController@store')->name('active.directory.add');
         });
 

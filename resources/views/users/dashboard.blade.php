@@ -16,7 +16,7 @@
     </div>
     <div class="ui padded grid">
         <div class="sixteen wide column">
-            <div class="ui four doubling cards">
+            <div class="ui four doubling raised cards">
                 <a href="{{ route('employees') }}" class="card">
                     <div class="content">
                         <div class="header">Employees</div>

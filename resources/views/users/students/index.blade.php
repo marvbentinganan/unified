@@ -154,7 +154,8 @@
                 let students = this.students
                 if (this.keyword && this.keyword != null) {
                     students = students.filter((student) => {
-                        return student.fullname.indexOf(this.keyword) !== -1
+                        let data = student.id_number.indexOf(this.keyword) !== -1 || student.firstname.indexOf(this.keyword) !== -1 || student.lastname.indexOf(this.keyword) !== -1
+                        return data
                     })
                 }
                 return students

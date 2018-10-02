@@ -50,6 +50,8 @@ class EmployeeController extends Controller
                 'lastname' => ucwords($request->lastname),
                 'suffix' => $request->suffix,
                 'title' => $request->title,
+                'is_faculty' => $request->is_faculty,
+                'is_manager' => $request->is_manager,
             ]
         );
 
@@ -112,6 +114,8 @@ class EmployeeController extends Controller
                 'lastname' => $request->lastname,
                 'suffix' => $request->suffix,
                 'title' => $request->title,
+                'is_faculty' => $request->is_faculty,
+                'is_manager' => $request->is_manager,
             ]);
 
             if ($request->has('programs')) {
@@ -141,6 +145,8 @@ class EmployeeController extends Controller
 
     public function upload(Request $request)
     {
+        ini_set('max_execution_time', 900);
+
         if ($request->hasFile('doc')) {
             $file = $request->file('doc');
             $path = $file->getRealPath();

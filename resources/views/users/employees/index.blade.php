@@ -137,12 +137,18 @@
                         <thead>
                             <th class="center aligned">ID Number</th>
                             <th class="center aligned">Name</th>
+                            <th class="center aligned">Designation</th>
                             <th class="center aligned">Actions</th>
                         </thead>
                         <tbody>
                             <tr v-for="employee in filteredEmployees">
                                 <th class="center aligned">@{{ employee.id_number }}</th>
                                 <td>@{{ employee.fullname }}</td>
+                                <td class="center aligned">
+                                    <span class="ui teal label">Regular Employee</span>
+                                    <span class="ui green label" v-if="employee.is_faculty == true">Faculty</span>
+                                    <span class="ui purple label" v-if="employee.is_manager == true">Supervisor</span>
+                                </td>
                                 <td class="center aligned">
                                     <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
                                     <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
@@ -188,7 +194,8 @@
                 let employees = this.employees
                 if (this.keyword && this.keyword != null) {
                     employees = employees.filter((employee) => {
-                        return employee.id_number.indexOf(this.keyword) !== -1
+                        let data = employee.id_number.indexOf(this.keyword) !== -1 || employee.firstname.indexOf(this.keyword) !== -1 || employee.lastname.indexOf(this.keyword) !== -1
+                        return data
                     })
                 }
                 return employees
