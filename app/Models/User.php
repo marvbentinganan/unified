@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname', 'lastname', 'username', 'email', 'password',
+        'firstname', 'lastname', 'username', 'id_number', 'email', 'password',
     ];
 
     /**
@@ -42,5 +42,15 @@ class User extends Authenticatable
     public function preferences()
     {
         return $this->hasOne(Build\AccountSetting::class);
+    }
+
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'id_number', 'id_number');
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'id_number', 'id_number');
     }
 }

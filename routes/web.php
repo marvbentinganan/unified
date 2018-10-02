@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', 'UserController@index')->name('users');
 
         // Active Directory
-        Route::prefix('active-directory')->group(function(){
+        Route::prefix('active-directory')->group(function () {
             Route::get('index', 'UserController@index')->name('active.directory');
             Route::post('add', 'UserController@store')->name('active.directory.add');
         });
@@ -97,17 +97,18 @@ Route::middleware('auth')->group(function () {
             Route::post('upload', 'StudentController@upload')->name('students.upload');
             Route::get('get', 'StudentController@get')->name('student.get');
             Route::get('get/{student}', 'StudentController@edit')->name('student.edit');
-            Route::delete('delete/{student}', 'StudentController@delete')->name('student.delete');
+            Route::get('delete/{student}', 'StudentController@delete')->name('student.delete');
         });
 
         // Employee Routes
         Route::prefix('employees')->group(function () {
             Route::get('index', 'EmployeeController@index')->name('employees');
             Route::post('add', 'EmployeeController@store')->name('employee.add');
+            Route::post('upload', 'EmployeeController@upload')->name('employees.upload');
             Route::get('get', 'EmployeeController@get')->name('employee.get');
             Route::get('get/{employee}', 'EmployeeController@edit')->name('employee.edit');
-            Route::patch('update/{employee}', 'EmployeeController@update')->name('employee.update');
-            Route::delete('delete/{employee}', 'EmployeeController@delete')->name('employee.delete');
+            Route::post('update/{employee}', 'EmployeeController@update')->name('employee.update');
+            Route::get('delete/{employee}', 'EmployeeController@delete')->name('employee.delete');
         });
     });
 

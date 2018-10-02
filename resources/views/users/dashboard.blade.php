@@ -17,7 +17,7 @@
     <div class="ui padded grid">
         <div class="sixteen wide column">
             <div class="ui four doubling cards">
-                <a href="" class="card">
+                <a href="{{ route('employees') }}" class="card">
                     <div class="content">
                         <div class="header">Employees</div>
                         <div class="description">
@@ -25,7 +25,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="" class="card">
+                <a href="{{ route('students') }}" class="card">
                     <div class="content">
                         <div class="header">Students</div>
                         <div class="description">
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="" class="card">
+                <a href="{{ route('active.directory') }}" class="card">
                     <div class="content">
                         <div class="header">Active Directory</div>
                         <div class="description">

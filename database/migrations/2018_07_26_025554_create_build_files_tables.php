@@ -75,27 +75,29 @@ class CreateBuildFilesTables extends Migration
             $table->string('title')->nullable();
             $table->string('id_number');
             $table->string('barcode')->nullable();
+            $table->boolean('is_faculty')->default(false);
+            $table->boolean('is_manager')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
 
         // Designation
-        Schema::create('designations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('designations', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
 
         // Designation/Employee Pivot Table
-        Schema::create('designation_employee', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('designation_id');
-            $table->unsignedInteger('employee_id');
-            $table->foreign('designation_id')->references('id')->on('designations')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('designation_employee', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->unsignedInteger('designation_id');
+        //     $table->unsignedInteger('employee_id');
+        //     $table->foreign('designation_id')->references('id')->on('designations')->onUpdate('cascade')->onDelete('cascade');
+        //     $table->foreign('employee_id')->references('id')->on('employees')->onUpdate('cascade')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
 
         // Employee/Program Pivot Table
         Schema::create('employee_program', function (Blueprint $table) {
@@ -163,10 +165,10 @@ class CreateBuildFilesTables extends Migration
         Schema::dropIfExists('semesters');
         Schema::dropIfExists('program_subject');
         Schema::dropIfExists('employee_program');
-        Schema::dropIfExists('designation_employee');
+        //Schema::dropIfExists('designation_employee');
         Schema::dropIfExists('employees');
         Schema::dropIfExists('students');
-        Schema::dropIfExists('designations');
+        //Schema::dropIfExists('designations');
         Schema::dropIfExists('subjects');
         Schema::dropIfExists('programs');
         Schema::dropIfExists('departments');

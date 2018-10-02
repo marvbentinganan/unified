@@ -23,6 +23,11 @@ class Student extends Model
         return $this->belongsTo('App\Models\Build\Department');
     }
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_number', 'id_number');
+    }
+
     public function getFullnameAttribute()
     {
         return $this->firstname.' '.$this->lastname.' '.$this->suffix;

@@ -137,6 +137,7 @@ class StudentController extends Controller
                 'username' => $student->id_number,
                 'firstname' => $student->firstname,
                 'lastname' => $student->lastname,
+                'id_number' => $student->id_number,
                 'password' => $student->generatePassword(),
             ]
         );

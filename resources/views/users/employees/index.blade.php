@@ -16,36 +16,6 @@
         </div>
     </div>
     <div class="ui stackable two column padded grid">
-        <div class="ten wide column">
-            {{-- Employees table --}}
-            <div class="row">
-                <div class="ui top attached segment">
-                    <div class="ui fluid icon input">
-                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Employee...">
-                        <i class="inverted circular search icon"></i>
-                    </div>
-                </div>
-                <div class="ui attached segment">
-                    <table class="ui compact celled table">
-                        <thead>
-                            <th class="center aligned">ID Number</th>
-                            <th class="center aligned">Name</th>
-                            <th class="center aligned">Actions</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="employee in filteredEmployees">
-                                <th class="center aligned">@{{ employee.id_number }}</th>
-                                <td>@{{ employee.fullname }}</td>
-                                <td class="center aligned">
-                                    <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
-                                    <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
         <div class="six wide column">
             <div class="row">
                 <div class="ui top attached header">
@@ -93,7 +63,7 @@
                         </div>
                         <div class="two fields">
                             <div class="field">
-                                 <label for="">Title</label>
+                                <label for="">Title</label>
                                 <div class="ui left icon input">
                                     <input type="text" name="middlename" v-model="employee.title" placeholder="Title...">
                                     <i class="ion-ios-barcode icon"></i>
@@ -108,22 +78,78 @@
                         </div>
                         <div class="two fields">
                             <div class="field">
-                                <label for="">Designations</label>
-                                <select name="designations[]" class="ui fluid search dropdown" v-model="employee.designations" multiple>
-                                    <option v-for="designation in options.designations" v-bind:value="designation.id" v-text="designation.name"></option>
-                                </select>
+                                <div class="ui checkbox">
+                                    <input name="is_faculty" type="checkbox" v-model="employee.is_faculty">
+                                    <label>Faculty</label>
+                                </div>
                             </div>
                             <div class="field">
-                                <label for="">Programs</label>
-                                <select name="programs[]" class="ui fluid search dropdown" v-model="employee.programs" multiple>
-                                    <option v-for="program in options.programs" v-bind:value="program.id" v-text="program.name"></option>
-                                </select>
+                                <div class="ui checkbox">
+                                    <input name="is_manager" type="checkbox" v-model="employee.is_manager">
+                                    <label>Manager</label>
+                                </div>
                             </div>
+                        </div>
+                        <div class="field" v-show="employee.is_faculty == true">
+                            <label for="">Programs</label>
+                            <select name="programs[]" class="ui fluid search dropdown" v-model="employee.programs" multiple>
+                                <option v-for="program in options.programs" v-bind:value="program.id" v-text="program.name"></option>
+                            </select>
                         </div>
                         <div class="field">
                             <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> @{{ label }}</button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="ui section divider"></div>
+            <div class="row">
+                <div class="ui top attached header"><i class="ion-upload icon"></i> Upload Employees</div>
+                <div class="ui attached segment">
+                    <form action="{{ route('employees.upload') }}" method="POST" class="ui form" id="uploadForm" enctype="multipart/form-data">
+                        @csrf
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="file" name="doc" id="file" placeholder="Select File...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button type="submit" class="ui animated fade fluid primary icon button">
+                                <div class="visible content">Upload</div>
+                                <div class="hidden content"><i class="ion-upload icon"></i></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="ten wide column">
+            {{-- Employees table --}}
+            <div class="row">
+                <div class="ui top attached segment">
+                    <div class="ui fluid icon input">
+                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Employee...">
+                        <i class="inverted circular search icon"></i>
+                    </div>
+                </div>
+                <div class="ui attached segment">
+                    <table class="ui compact celled table">
+                        <thead>
+                            <th class="center aligned">ID Number</th>
+                            <th class="center aligned">Name</th>
+                            <th class="center aligned">Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="employee in filteredEmployees">
+                                <th class="center aligned">@{{ employee.id_number }}</th>
+                                <td>@{{ employee.fullname }}</td>
+                                <td class="center aligned">
+                                    <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
+                                    <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -145,16 +171,17 @@
                 suffix : '',
                 id_number : '',
                 title : '',
+                is_faculty : false,
+                is_manager : false,
                 roles : [],
-                designations : [],
                 programs : [],
             },
             label : "Add",
             options : {
                 roles : [],
-                designations : [],
                 programs : [],
             },
+            route : '{{ route('employee.add') }}',
         },
         computed : {
             filteredEmployees(){
@@ -195,12 +222,13 @@
             },
 
             addEmployee(){
-                axios.post('{{ route('employee.add') }}', this.$data.employee)
+                axios.post(this.route, this.$data.employee)
                 .then(response => {
                     $('form').form('clear'),
-                    this.employee = null,
                     this.getEmployees(),
-                    toastr.success(response.data);
+                    this.route = '{{ route('employee.add') }}',
+                    toastr.success(response.data),
+                    this.employee = null;
                 })
                 .catch(error => {
                     console.log(error.response.data);
@@ -212,7 +240,8 @@
             	axios.get(route)
             	.then((response) => {
             		this.employee = response.data,
-                    this.label = "Update";
+                    this.label = "Update",
+                    this.route = '{{ url('users/employees/update') }}' + '/' + id;
             	})
             	.catch(error => {
             		console.log(error.response.data)
