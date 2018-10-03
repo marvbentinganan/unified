@@ -6,15 +6,16 @@
 <div class="sixteen wide column">
     {{-- Breadcrumb --}}
     <div class="row">
-        <div class="ui breadcrumb">
+        <div class="ui breadcrumb segment">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('users') }}" class="section">Users</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('students') }}" class="section">Students</a>
+            <a href="{{ route('students') }}" class="active section">Students</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
+    <div class="ui section divider"></div>
     <div class="ui stackable two column padded grid">
         {{--  Add Student Form  --}}
         <div class="six wide column">

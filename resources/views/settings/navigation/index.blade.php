@@ -2,12 +2,12 @@
 @endpush
 @section('content') {{-- Breadcrumb --}}
 <div class="row">
-    <div class="ui breadcrumb">
+    <div class="ui breadcrumb segment">
         <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         <a href="" class="section">Settings</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-        <a href="{{ route('navigation') }}" class="section">Navigation</a>
+        <a href="{{ route('navigation') }}" class="active section">Navigation</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
     </div>
 </div>

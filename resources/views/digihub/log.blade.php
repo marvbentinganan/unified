@@ -7,7 +7,7 @@
 <div class="sixteen wide column">
     {{-- Breadcrumb --}}
     <div class="row">
-        <div class="ui breadcrumb">
+        <div class="ui breadcrumb segment">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="" class="section">Network Services</a>
@@ -16,7 +16,7 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('digihub.log', $digihub->id) }}" class="section">{{ $digihub->name }}</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="#" class="section">Logs</a>
+            <a href="#" class="active section">Logs</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
