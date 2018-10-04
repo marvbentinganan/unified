@@ -19,6 +19,9 @@
         <div class="sixteen wide column">
             <div class="ui four doubling raised cards">
                 <a href="{{ route('employees') }}" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/teachers.jpg') }}" alt="">
+                    </div>
                     <div class="content">
                         <div class="header">Employees</div>
                         <div class="description">
@@ -27,6 +30,9 @@
                     </div>
                 </a>
                 <a href="{{ route('students') }}" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/students.jpg') }}" alt="">
+                    </div>
                     <div class="content">
                         <div class="header">Students</div>
                         <div class="description">
@@ -35,6 +41,9 @@
                     </div>
                 </a>
                 <a href="{{ route('active.directory') }}" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/active.jpg') }}" alt="">
+                    </div>
                     <div class="content">
                         <div class="header">Active Directory</div>
                         <div class="description">
@@ -43,6 +52,9 @@
                     </div>
                 </a>
                 <a href="" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/admin.jpg') }}" alt="">
+                    </div>
                     <div class="content">
                         <div class="header">Administrators</div>
                         <div class="description">

@@ -27,7 +27,7 @@ class DigihubController extends Controller
             }
         }
 
-        return view('digihub.guidelines');
+        return view('network.digihub.guidelines');
     }
 
     public function add(Request $request)
@@ -102,7 +102,6 @@ class DigihubController extends Controller
         ]);
 
         // Get Monthly Data
-        $months = collect([]);
         $month_labels = collect([]);
         $monthly_usage = collect([]);
 
@@ -122,11 +121,31 @@ class DigihubController extends Controller
 
         //dd($monthly_usage);
 
-        return view('digihub.log', compact('digihub', 'logs', 'chart', 'monthly'));
+        return view('network.digihub.log', compact('digihub', 'logs', 'chart', 'monthly'));
     }
 
     public function logs(Request $request)
     {
-        return view('digihub.logs');
+        $stations = Digihub::with(['usages'])
+        ->orderBy('name')
+        ->get();
+
+        $labels = collect([]);
+        $data = collect([]);
+        foreach ($stations as $station) {
+            $data->push($station->usages->count());
+            $labels->push($station->name);
+        }
+
+        // Total Usages per Station
+        $chart = new DigihubWeeklyUsage();
+        $chart->labels($labels);
+        $chart->dataset('All-time Usage', 'bar', $data)->options([
+            'color' => '#00e676',
+            'backgroundColor' => '#00e676',
+            'lineTension' => 0.5,
+        ])->backgroundColor(['#00e676', '#ff9100', '#40c4ff', '#d4e157', '#e53935', '#90caf9', '#1de9b6', '#c6ff00', '#ff6d00', '#01579b', '#6d4c41', '#ffff00', '#004d40', '#ce93d8', '#4caf50']);
+
+        return view('network.digihub.logs', compact('chart', 'stations'));
     }
 }

@@ -113,17 +113,20 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    // Digihub Routes
-    Route::prefix('digihub')->group(function () {
-        Route::view('index', 'digihub.index')->name('digihub');
-        route::post('add', 'DigihubController@add')->name('digihub.add');
-        Route::get('list', 'DigihubController@list')->name('digihub.list');
-        Route::get('get/{digihub}', 'DigihubController@get')->name('digihub.get');
-        Route::post('update/{digihub}', 'DigihubController@update')->name('digihub.update');
-        Route::get('delete/{digihub}', 'DigihubController@destroy')->name('digihub.destroy');
-        Route::prefix('logs')->group(function () {
-            Route::any('{digihub}/single', 'DigihubController@log')->name('digihub.log');
-            Route::get('all', 'DigihubController@logs')->name('digihub.logs');
+    // Network Routes
+    Route::prefix('network')->group(function () {
+        // Digihub Routes
+        Route::prefix('digihub')->group(function () {
+            Route::view('index', 'network.digihub.index')->name('digihub');
+            route::post('add', 'DigihubController@add')->name('digihub.add');
+            Route::get('list', 'DigihubController@list')->name('digihub.list');
+            Route::get('get/{digihub}', 'DigihubController@get')->name('digihub.get');
+            Route::post('update/{digihub}', 'DigihubController@update')->name('digihub.update');
+            Route::get('delete/{digihub}', 'DigihubController@destroy')->name('digihub.destroy');
+            Route::prefix('logs')->group(function () {
+                Route::any('{digihub}/single', 'DigihubController@log')->name('digihub.log');
+                Route::get('all', 'DigihubController@logs')->name('digihub.logs');
+            });
         });
     });
 });
