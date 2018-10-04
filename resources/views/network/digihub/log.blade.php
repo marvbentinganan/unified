@@ -96,11 +96,13 @@
             </div>
         </div>
         <div class="six wide column">
-            <div class="ui segment">
+            <div class="ui top attached header">{{ $digihub->name }}</div>
+            <div class="ui attached segment">
                 {!! $monthly->container() !!}
             </div>
             <div class="ui section divider"></div>
-            <div class="ui segment">
+            <div class="ui top attached header">{{ $digihub->name }}</div>
+            <div class="ui attached segment">
                 {!! $chart->container() !!}
             </div>
         </div>
