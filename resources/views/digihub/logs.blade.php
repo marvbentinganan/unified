@@ -13,107 +13,116 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="" class="section">Network Services</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('digihub') }}" class="active section">Digihub</a>
+            <a href="{{ route('digihub') }}" class="section">Digihub</a>
+            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+            <a href="{{ route('digihub.log', $digihub->id) }}" class="section">{{ $digihub->name }}</a>
+            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+            <a href="#" class="active section">Logs</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
-    <div class="ui stackable two column padded grid">
-        <div class="four wide column">
-            <div class="ui top attached header">Add Digihub Station</div>
-            <div class="ui attached segment">
-                <form action="" class="ui form" @submit.prevent="add()">
+    <div class="ui section divider"></div>
+    <div class="ui stackable two column grid">
+        <div class="ten wide column">
+            <div class="ui top attached segment">
+                <form action="{{ route('digihub.log', $digihub->id) }}" method="POST" class="ui form">
                     @csrf
-                    <div class="field">
-                        <div class="ui labeled input">
-                            <div class="ui blue label">
-                                <i class="ion-pricetag icon"></i>
+                    <div class="ui three fields">
+                        <div class="seven wide field">
+                            <div class="ui calendar" id="from">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" name="from" placeholder="Start Date">
+                                </div>
                             </div>
-                            <input type="text" name="name" v-model="digihub.name" placeholder="Name of e-Kiosk Station">
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui labeled input">
-                            <div class="ui blue label">
-                                <i class="ion-ios-world icon"></i>
+                        <div class="seven wide field">
+                            <div class="ui calendar" id="to">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" name="to" placeholder="End Date">
+                                </div>
                             </div>
-                            <input type="text" name="ip" v-model="digihub.ip" placeholder="Static IP Address">
                         </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui labeled input">
-                            <div class="ui blue label">
-                                <i class="ion-ios-location icon"></i>
-                            </div>
-                            <input type="text" name="location" v-model="digihub.location" placeholder="Location">
+                        <div class="two wide field">
+                            <button type="submit" class="ui primary fluid icon button"><i class="ion-funnel icon"></i> Filter</button>
                         </div>
-                    </div>
-                    <div class="field">
-                        <button type="submit" class="ui animated fade fluid primary submit icon button">
-                            <div class="visible content"><i class="ion-ios-plus icon"></i>Add</div>
-                            <div class="hidden content">Add Digihub Station</div>
-                        </button>
                     </div>
                 </form>
             </div>
-        </div>
-        <div class="twelve wide column">
-            <div class="ui top attached header">List of Digihub Stations</div>
             <div class="ui attached segment">
                 <table class="ui unstackable celled table">
                     <thead>
+                        <th class="center aligned">#</th>
                         <th class="center aligned">Name</th>
                         <th class="center aligned">IP Address</th>
-                        <th class="center aligned">Location</th>
-                        <th class="center aligned">Actions</th>
+                        <th class="center aligned">Date</th>
                     </thead>
                     <tbody>
-                        <tr v-for="station in digihubs">
-                            <td>@{{ station.name }}</td>
-                            <td class="center aligned">@{{ station.ip }}</td>
-                            <td>@{{ station.location }}</td>
-                            <td class="center aligned">
-                                <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
-                                <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
-                                <a :href="station.id + '/logs'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
-                            </td>
+                        @foreach($logs as $key => $log)
+                        <tr>
+                            <td class="center aligned">{{ ++$key }}</td>
+                            <td class="center aligned">{{ $digihub->name }}</td>
+                            <td class="center aligned">{{ $digihub->ip }}</td>
+                            <td class="right aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="center alinged" colspan="4">
+                                @if ($logs->lastPage() > 1)
+                                <div class="ui pagination menu">
+                                    <a href="{{ $logs->previousPageUrl() }}" class="{{ ($logs->currentPage() == 1) ? ' disabled' : '' }} item">
+                                                Previous
+                                            </a> @for ($i = 1; $i
+                                    <=$logs->lastPage(); $i++)
+                                        <a href="{{ $logs->url($i) }}" class="{{ ($logs->currentPage() == $i) ? ' active' : '' }} item">
+                                                    {{ $i }}
+                                                </a> @endfor
+                                        <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
+                                                Next
+                                            </a>
+                                </div>
+                                @endif
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="right aligned" colspan="4">
+                                <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
+                            </th>
+                        </tr>
+                    </tfoot>
                 </table>
+            </div>
+        </div>
+        <div class="six wide column">
+            <div class="ui segment">
+                {!! $monthly->container() !!}
+            </div>
+            <div class="ui section divider"></div>
+            <div class="ui segment">
+                {!! $chart->container() !!}
             </div>
         </div>
     </div>
 </div>
 @endsection
  @push('footer_scripts')
-<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
+<script src="{{ asset('plugins/chartjs/Chart.min.js') }}" "></script>
+<script src="{{ asset( 'js/semantic-ui/calendar.min.js') }} "></script>
 <script>
-    new Vue({
-		el: '#app',
-		data: {
-            
-        },
-        
-        methods: {
-            init() {
-                
-                $('.dropdown').dropdown();
-            },
-
-            list(){
-                axios.get('{{ route('digihub.list') }}') 
-                .then(response => { 
-                    this.digihubs = response.data; 
-                }) 
-                .catch(error => { 
-                    console.log(error.response.data);
-                })
-            },
-        },
-        mounted() {
-            this.init();
-        }
+    $('#from').calendar({ 
+        type: 'date', 
+        endCalendar: $('#to'), 
+    }); 
+    
+    $('#to').calendar({ 
+        type: 'date', 
+        startCalendar: $('#from') 
     });
-
 </script>
+{!! $chart->script() !!}
+{!! $monthly->script() !!}
 
 @endpush

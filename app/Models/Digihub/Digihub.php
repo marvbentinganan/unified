@@ -19,6 +19,6 @@ class Digihub extends Model
 
     public function usages()
     {
-        return $this->hasMany(Usage::class);
+        return $this->hasMany(Usage::class)->distinct('created_at');
     }
 }

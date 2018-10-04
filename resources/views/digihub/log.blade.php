@@ -97,6 +97,10 @@
         </div>
         <div class="six wide column">
             <div class="ui segment">
+                {!! $monthly->container() !!}
+            </div>
+            <div class="ui section divider"></div>
+            <div class="ui segment">
                 {!! $chart->container() !!}
             </div>
         </div>
@@ -119,4 +123,5 @@
     });
 </script>
 {!! $chart->script() !!}
+{!! $monthly->script() !!}
 @endpush

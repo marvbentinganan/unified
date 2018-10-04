@@ -11,21 +11,21 @@ class CreateDigihubsTable extends Migration
      */
     public function up()
     {
-        Schema::create('digihubs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->string('ip')->nullable();
-            $table->string('location')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        // Schema::create('digihubs', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name');
+        //     $table->string('ip')->nullable();
+        //     $table->string('location')->nullable();
+        //     $table->timestamps();
+        //     $table->softDeletes();
+        // });
 
-        Schema::create('usages', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('digihub_id');
-            $table->foreign('digihub_id')->references('id')->on('digihubs')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
-        });
+        // Schema::create('usages', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->unsignedInteger('digihub_id');
+        //     $table->foreign('digihub_id')->references('id')->on('digihubs')->onUpdate('cascade')->onDelete('cascade');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -33,7 +33,7 @@ class CreateDigihubsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usages');
-        Schema::dropIfExists('digihubs');
+        // Schema::dropIfExists('usages');
+        // Schema::dropIfExists('digihubs');
     }
 }

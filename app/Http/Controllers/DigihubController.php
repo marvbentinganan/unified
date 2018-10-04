@@ -44,7 +44,9 @@ class DigihubController extends Controller
 
     public function list()
     {
-        $digihubs = Digihub::latest()->get();
+        $digihubs = Digihub::with(['usages'])
+        ->orderBy('name')
+        ->get();
 
         return response()->json($digihubs);
     }
@@ -99,6 +101,32 @@ class DigihubController extends Controller
             'lineTension' => 0.5,
         ]);
 
-        return view('digihub.log', compact('digihub', 'logs', 'chart'));
+        // Get Monthly Data
+        $months = collect([]);
+        $month_labels = collect([]);
+        $monthly_usage = collect([]);
+
+        for ($m = 1; $m <= 12; ++$m) {
+            $month = date('m', mktime(0, 0, 0, $m, 1));
+            $monthly_usage->push($digihub->usages()->whereRaw('extract(month from created_at) = ?', $month)->whereRaw('extract(year from created_at) = ?', Carbon::now()->year)->count());
+            $month_labels->push(date('F', mktime(0, 0, 0, $m, 1)));
+        }
+
+        $monthly = new DigihubWeeklyUsage();
+        $monthly->labels($month_labels);
+        $monthly->dataset('Monthly Usage', 'line', $monthly_usage)->options([
+            'color' => '#00e676',
+            'backgroundColor' => '#00e676',
+            'lineTension' => 0.5,
+        ]);
+
+        //dd($monthly_usage);
+
+        return view('digihub.log', compact('digihub', 'logs', 'chart', 'monthly'));
+    }
+
+    public function logs(Request $request)
+    {
+        return view('digihub.logs');
     }
 }

@@ -16,6 +16,7 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
+    <div class="ui section divider"></div>
     <div class="ui stackable two column padded grid">
         <div class="four wide column">
             <div class="ui top attached header">Add Digihub Station</div>
@@ -54,30 +55,48 @@
                     </div>
                 </form>
             </div>
+            <div class="ui section divider"></div>
+            <div class="ui top attached segment">
+                <a href="{{ route('digihub.logs') }}" class="ui primary fluid icon button"><i class="ion-stats-bars icon"></i> View Statistics</a>
+            </div> 
+            <table class="ui attached padded compact celled striped table">
+                <thead>
+                    <th class="center aligned">Name</th>
+                    <th class="center aligned">Location</th>
+                    <th class="center aligned">Total Usage</th> 
+                </thead>
+                <tbody>
+                    <tr v-for="stat in digihubs">
+                        <th>@{{ stat.name }}</th>
+                        <td>@{{ stat.location }}</td>
+                        <td class="two wide right aligned">@{{ stat.usages.length }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div class="twelve wide column">
-            <div class="ui top attached header">List of Digihub Stations</div>
-            <div class="ui attached segment">
-                <table class="ui unstackable celled table">
-                    <thead>
-                        <th class="center aligned">Name</th>
-                        <th class="center aligned">IP Address</th>
-                        <th class="center aligned">Location</th>
-                        <th class="five wide center aligned">Actions</th>
-                    </thead>
-                    <tbody>
-                        <tr v-for="station in digihubs">
-                            <td>@{{ station.name }}</td>
-                            <td class="center aligned">@{{ station.ip }}</td>
-                            <td>@{{ station.location }}</td>
-                            <td class="center aligned">
-                                <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i> Update</button>
-                                <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i> Delete</button>
-                                <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i> View Logs</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="ui four doubling raised cards">
+                <div class="card" v-for="station in digihubs">
+                    <div class="image">
+                        <img src="{{ asset('images/desktop.jpg') }}" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="header">@{{ station.name }}</div>
+                        <div class="meta">
+                            <span class="date"><i class="ion-ios-world icon"></i> @{{ station.ip }}</span>
+                        </div>
+                        <div class="description">
+                            @{{ station.location }}
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <div class="ui three mini buttons">
+                            <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
+                            <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
+                            <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
