@@ -128,5 +128,9 @@ Route::middleware('auth')->group(function () {
                 Route::get('all', 'DigihubController@logs')->name('digihub.logs');
             });
         });
+
+        Route::prefix('wifi')->group(function () {
+            Route::view('index', 'network.wifi.index')->name('wifi');
+        });
     });
 });
