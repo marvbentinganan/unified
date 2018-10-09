@@ -15,6 +15,8 @@ class Employee extends Model
 
     protected $appends = ['fullname'];
 
+    protected $with = ['user'];
+
     public function designations()
     {
         return $this->belongsToMany(Build\Designation::class);
@@ -80,5 +82,23 @@ class Employee extends Model
             return ucwords(rtrim($value, 'Iv')); else:
             return ucwords($value);
         endif;
+    }
+
+    public function isFacultyCheck()
+    {
+        if ($this->is_faculty == true) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isManagerCheck()
+    {
+        if ($this->is_manager == true) {
+            return true;
+        }
+
+        return false;
     }
 }

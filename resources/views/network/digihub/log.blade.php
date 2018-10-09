@@ -67,32 +67,24 @@
                         </tr>
                         @endforeach
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <th class="center alinged" colspan="4">
-                                @if ($logs->lastPage() > 1)
-                                <div class="ui pagination menu">
-                                    <a href="{{ $logs->previousPageUrl() }}" class="{{ ($logs->currentPage() == 1) ? ' disabled' : '' }} item">
-                                                Previous
-                                            </a> @for ($i = 1; $i
-                                    <=$logs->lastPage(); $i++)
-                                        <a href="{{ $logs->url($i) }}" class="{{ ($logs->currentPage() == $i) ? ' active' : '' }} item">
-                                                    {{ $i }}
-                                                </a> @endfor
-                                        <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
-                                                Next
-                                            </a>
-                                </div>
-                                @endif
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class="right aligned" colspan="4">
-                                <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
-                            </th>
-                        </tr>
-                    </tfoot>
                 </table>
+            </div>
+            <div class="ui attached segment">
+                @if ($logs->lastPage() > 1)
+                <div class="ui stackable pagination menu">
+                    <a href="{{ $logs->previousPageUrl() }}" class="{{ ($logs->currentPage() == 1) ? ' disabled' : '' }} item">
+                        <i class="ion-arrow-left-b icon"></i>
+                    </a> @for ($i = 1; $i
+                    <=$logs->lastPage(); $i++)
+                        <a href="{{ $logs->url($i) }}" class="{{ ($logs->currentPage() == $i) ? ' active' : '' }} item">
+                                    {{ $i }}
+                        </a> @endfor
+                    <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
+                        <i class="ion-arrow-right-b icon"></i>
+                    </a>
+                </div>
+                @endif
+                <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
             </div>
         </div>
         <div class="six wide column">

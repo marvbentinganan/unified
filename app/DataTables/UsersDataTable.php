@@ -18,7 +18,7 @@ class UsersDataTable extends DataTable
     {
         return datatables($query)
             ->addColumn('action', function ($query) {
-                return '<a href="view/'.$query->id.'" class="ui fluid center aligned green label"><i class="ion-ios-person icon"></i>Manage</a>';
+                return '<a href="'.$query->id.'/manage" class="ui fluid center aligned green label"><i class="ion-ios-person icon"></i>Manage</a>';
             });
     }
 

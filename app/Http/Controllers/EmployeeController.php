@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Permission;
 use App\Models\Employee;
 use App\Models\Role;
 use App\Models\User;
@@ -11,6 +12,17 @@ use Excel;
 
 class EmployeeController extends Controller
 {
+    protected $directory;
+    protected $permissions;
+    protected $roles;
+
+    public function __construct()
+    {
+        $this->directory = 'users.employees';
+        $this->roles = Role::all();
+        $this->permissions = Permission::all();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -78,8 +90,17 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
+        $roles = $this->roles->pluck('display_name', 'id');
+        $access = $employee->user->allPermissions()->pluck('id');
+        if ($access != null) {
+            $permissions = Permission::whereNotIn('id', $access)->get();
+        } else {
+            $permissions = $this->permissions;
+        }
+
+        return view($this->directory.'.show', compact('employee', 'roles', 'permissions'));
     }
 
     /**

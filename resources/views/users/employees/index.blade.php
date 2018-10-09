@@ -151,6 +151,7 @@
                                     <span class="ui purple label" v-if="employee.is_manager == true">Supervisor</span>
                                 </td>
                                 <td class="center aligned">
+                                    <a :href="'show/' + employee.id" class="ui mini blue icon button"><i class="ion-eye icon"></i></a>
                                     <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
                                     <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
                                 </td>

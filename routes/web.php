@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
             Route::get('index', 'UserController@active')->name('active.directory');
             Route::post('add', 'UserController@store')->name('active.directory.add');
             Route::get('list', 'UserController@list')->name('active.list');
+            Route::post('update/permission/{user}', 'EmployeeController@updatePermission')->name('active.update.permission');
         });
 
         // Roles Routes
@@ -107,6 +108,7 @@ Route::middleware('auth')->group(function () {
             Route::post('add', 'EmployeeController@store')->name('employee.add');
             Route::post('upload', 'EmployeeController@upload')->name('employees.upload');
             Route::get('get', 'EmployeeController@get')->name('employee.get');
+            Route::get('show/{employee}', 'EmployeeController@show')->name('employee.show');
             Route::get('get/{employee}', 'EmployeeController@edit')->name('employee.edit');
             Route::post('update/{employee}', 'EmployeeController@update')->name('employee.update');
             Route::get('delete/{employee}', 'EmployeeController@delete')->name('employee.delete');
