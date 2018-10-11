@@ -124,6 +124,7 @@ class StudentController extends Controller
 
     public function destroy(Student $student)
     {
+        $student->user->delete();
         $student->delete();
 
         return response()->json('Student Deleted', 200);

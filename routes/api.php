@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('api')->group(function () {
     Route::prefix('options')->group(function () {
         Route::get('employees', 'EmployeeController@options')->name('employee.options');
+        Route::get('users', 'UserController@options')->name('user.options');
     });
 
     Route::prefix('digihub')->group(function () {

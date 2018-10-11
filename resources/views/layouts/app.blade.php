@@ -26,9 +26,11 @@
 </head>
 
 <body>
+    <header>
     @include('partials.sidebar')
     @include('partials.main_navigation')
-    <div class="dimmed pusher">
+    </header>  
+    <main class="dimmed pusher">
         <div id="app" style="padding-top: 50px;">
             <div class="ui stackable very padded grid">
                 <div class="sixteen wide column">
@@ -36,7 +38,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <script src="{{ asset('js/semantic-ui/semantic.min.js') }}"></script>
     <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>
@@ -63,7 +65,10 @@
 
         $('.dropdown').dropdown();
     </script>
-    @stack('footer_scripts')
+    <footer>
+        @yield('footer')
+        @stack('footer_scripts')
+    </footer>
 </body>
 
 </html>

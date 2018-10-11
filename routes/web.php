@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
             Route::get('get/{role}', 'RoleController@edit')->name('role.edit');
             Route::patch('update/{role}', 'RoleController@update')->name('role.update');
             Route::get('delete/{role}', 'RoleController@destroy')->name('role.delete');
+            Route::any('permissions', 'RoleController@permissions')->name('role.permissions');
         });
 
         // Permission Routes
@@ -99,7 +100,7 @@ Route::middleware('auth')->group(function () {
             Route::post('upload', 'StudentController@upload')->name('students.upload');
             Route::get('get', 'StudentController@get')->name('student.get');
             Route::get('get/{student}', 'StudentController@edit')->name('student.edit');
-            Route::get('delete/{student}', 'StudentController@delete')->name('student.delete');
+            Route::get('delete/{student}', 'StudentController@destroy')->name('student.destroy');
         });
 
         // Employee Routes
@@ -130,7 +131,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('all', 'DigihubController@logs')->name('digihub.logs');
             });
         });
-
+        // Wifi Routes
         Route::prefix('wifi')->group(function () {
             Route::view('index', 'network.wifi.index')->name('wifi');
         });

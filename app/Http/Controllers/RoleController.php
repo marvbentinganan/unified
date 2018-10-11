@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Permission;
 use App\Models\Role;
 
 class RoleController extends Controller
@@ -14,7 +15,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('users.roles');
+        return view('users.roles.index');
     }
 
     /**
@@ -46,6 +47,10 @@ class RoleController extends Controller
             ]
         );
 
+        if ($request->has('permissions')) {
+            $role->attachPermissions($request->permissions);
+        }
+
         return response()->json('Success!', 200);
     }
 
@@ -72,6 +77,10 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        // $role = $role->with(['permissions' => function ($query) {
+        //     $query->pluck('display_name', 'id');
+        // }]);
+
         return response()->json($role);
     }
 
@@ -91,6 +100,10 @@ class RoleController extends Controller
             'description' => $request->description,
         ]);
 
+        if ($request->has('permissions')) {
+            $role->syncPermissions($request->permissions);
+        }
+
         return response()->json('Role Updates', 200);
     }
 
@@ -106,5 +119,17 @@ class RoleController extends Controller
         $role->delete();
 
         return response()->json('Role Deleted', 200);
+    }
+
+    public function permissions(Request $request)
+    {
+        // if ($request->has('permissions')) {
+        //     $role->syncPermissions($request->permissions);
+        // }
+
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('users.roles.permissions', compact('roles', 'permissions'));
     }
 }
