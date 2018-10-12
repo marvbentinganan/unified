@@ -121,15 +121,29 @@ class RoleController extends Controller
         return response()->json('Role Deleted', 200);
     }
 
-    public function permissions(Request $request)
+    public function permissions()
     {
-        // if ($request->has('permissions')) {
-        //     $role->syncPermissions($request->permissions);
-        // }
-
         $roles = Role::all();
         $permissions = Permission::all();
 
         return view('users.roles.permissions', compact('roles', 'permissions'));
+    }
+
+    public function sync_acl(Request $request)
+    {
+        //dd($request->all());
+        $roles = Role::select('name', 'id')->get();
+
+        foreach ($roles as $role) {
+            $data = Role::where('name', $role->name)->first();
+            $var = $role->name.'_permissions';
+            $permissions = $request->$var;
+
+            if ($permissions != null) {
+                $data->syncPermissions($permissions);
+            }
+        }
+
+        return redirect()->back();
     }
 }

@@ -20,7 +20,7 @@
         <div class="ui sixteen wide column">
             <section class="ui segment">
                 <h3 class="ui header">Attach Permissions</h3>
-                <form action="{{ route('role.permissions') }}" method="POST" class="ui form">
+                <form action="{{ route('role.sync') }}" method="POST" class="ui form">
                     @csrf
                     <table class="ui unstackable compact striped celled table">
                         <thead>
@@ -32,13 +32,16 @@
                         <tbody>
                             @foreach($permissions as $permission)
                             <tr>
-                                <th class="two wide">{{ $permission->display_name }}</th>
+                                <th>{{ $permission->display_name }}</th>
                                 @foreach($roles as $role)
-                                <td class="center aligned">
+                                <td class="one wide center aligned">
+                                    <input type="hidden" name="{{ $role->name }}" value="{{ $role->id }}">
                                     @if($role->hasPermission($permission->name))
-                                    <i class="green check icon"></i>
+                                    {{-- <i class="green check icon"></i> --}}
+                                    {!! SemanticForm::checkbox($role->name.'.permissions[]', $permission->id, $permission->id)->label(null) !!}
                                     @else
-                                    <i class="red remove icon"></i>
+                                    {{-- <i class="red remove icon"></i> --}}
+                                    {!! SemanticForm::checkbox($role->name.'.permissions[]', $permission->id, false)->label(null) !!}
                                     @endif
                                 </td>
                                 @endforeach
@@ -46,15 +49,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{-- @foreach($permissions as $permission)
-                        @foreach($roles as $role)
-                            @if($role->hasPermission($permission->name))
-                               
-                            @else
-                               
-                            @endif
-                        @endforeach
-                    @endforeach --}}
+                    
                     <div class="field">
                         <button type="submit" class="ui small animated primary fade submit icon button">
                             <div class="visible content">Update Permissions</div>

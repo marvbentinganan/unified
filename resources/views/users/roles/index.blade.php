@@ -2,7 +2,8 @@
 @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 @endpush
-@section('content') {{-- Breadcrumb --}}
+@section('content') 
+{{-- Breadcrumb --}}
 <div class="row">
     <div class="ui breadcrumb segment">
         <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
@@ -155,7 +156,7 @@
             			var route = 'delete/' + id;
             			axios.get(route)
             			.then(response => {
-            				this.getRoles(),
+            				this.getOptions(),
             				toastr.info(response.data);
             			})
             			.catch(response => {

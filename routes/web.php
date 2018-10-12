@@ -80,7 +80,8 @@ Route::middleware('auth')->group(function () {
             Route::get('get/{role}', 'RoleController@edit')->name('role.edit');
             Route::patch('update/{role}', 'RoleController@update')->name('role.update');
             Route::get('delete/{role}', 'RoleController@destroy')->name('role.delete');
-            Route::any('permissions', 'RoleController@permissions')->name('role.permissions');
+            Route::get('permissions', 'RoleController@permissions')->name('role.permissions');
+            Route::post('sync', 'RoleController@sync_acl')->name('role.sync');
         });
 
         // Permission Routes
