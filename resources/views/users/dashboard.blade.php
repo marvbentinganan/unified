@@ -62,6 +62,28 @@
                         </div>
                     </div>
                 </a>
+                <a href="{{ route('roles') }}" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/roles.jpg') }}" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="header">Roles</div>
+                        <div class="description">
+                            Manage User Roles
+                        </div>
+                    </div>
+                </a>
+                <a href="{{ route('permissions') }}" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/permissions.jpg') }}" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="header">Permissions</div>
+                        <div class="description">
+                            Manage User Permissions
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

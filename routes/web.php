@@ -119,6 +119,8 @@ Route::middleware('auth')->group(function () {
 
     // Network Routes
     Route::prefix('network')->group(function () {
+        Route::view('index', 'network.dashboard')->name('network');
+
         // Digihub Routes
         Route::prefix('digihub')->group(function () {
             Route::view('index', 'network.digihub.index')->name('digihub');

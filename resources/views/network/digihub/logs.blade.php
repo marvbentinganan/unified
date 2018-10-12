@@ -7,7 +7,7 @@
         <div class="ui breadcrumb segment">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Network Services</a>
+            <a href="{{ route('network') }}" class="section">Network Services</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('digihub') }}" class="section">Digihub</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
