@@ -135,8 +135,10 @@ Route::middleware('auth')->group(function () {
             });
         });
         // Wifi Routes
-        Route::prefix('wifi')->group(function () {
+        Route::prefix('wifi')->namespace('Unifi')->group(function () {
             Route::view('index', 'network.wifi.index')->name('wifi');
+            Route::get('logs', 'LogController@logs')->name('wifi.logs');
+            Route::get('active', 'LogController@active')->name('wifi.active');
         });
     });
 });

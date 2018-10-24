@@ -20,12 +20,23 @@ class AccessLog extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function time_remaining()
+    {
+        $remaining = now()->diffInRealMinutes($this->expires_on);
+        if ($this->expires_on < now()) {
+            $remaining = 0;
+        }
+
+        return $remaining.' minutes';
+    }
+
     public function getExpiresInAttribute()
     {
         $remaining = now()->diffInRealMinutes($this->expires_on);
         if ($this->expires_on < now()) {
             $remaining = 0;
         }
+
         return $remaining.' minutes';
     }
 }

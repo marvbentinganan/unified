@@ -23,10 +23,10 @@ class LogController extends Controller
         ->paginate(15);
     }
 
-    public function index()
+    public function logs()
     {
-        $logs = $this->logs;
-        return view('logs.index', compact('logs'));
+        // $logs = $this->logs;
+        return view('network.wifi.logs');
     }
 
     public function active()
@@ -34,7 +34,7 @@ class LogController extends Controller
         $logs = AccessLog::where('expires_on', '>', now())
         ->orderBy('expires_on', 'desc')
         ->with(['user' => function ($query) {
-            $query->with(['roles', 'group']);
+            $query->with(['roles']);
         }])->get();
 
         return response()->json($logs);
