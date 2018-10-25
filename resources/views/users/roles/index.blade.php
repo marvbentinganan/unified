@@ -50,11 +50,14 @@
                 </div>
             </form>
         </div>
-        <div class="ui section divider"></div>
-        <a href="{{ route('role.permissions') }}" class="ui fluid primary icon button">Role - Permission Control</a>
     </div>
     <div class="twelve wide column">
-        <div class="ui top attached header">List of Roles</div>
+        <div class="ui top attached borderless menu">
+            <div class="header item">List of Roles</div>
+            <div class="right menu">
+                <a href="{{ route('role.permissions') }}" class="item"><i class="ion-key icon"></i> Role | Permission Control</a>
+            </div>
+        </div>
         <div class="ui attached segment">
             <table class="ui unstackable compact celled striped table">
                 <thead>

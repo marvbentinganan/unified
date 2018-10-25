@@ -144,7 +144,7 @@
                         <tbody>
                             <tr v-for="employee in filteredEmployees">
                                 <th class="center aligned">@{{ employee.id_number }}</th>
-                                <td>@{{ employee.fullname }}</td>
+                                <td>@{{ employee.firstname }} @{{ employee.lastname }}</td>
                                 <td class="center aligned">
                                     <span class="ui teal label">Regular Employee</span>
                                     <span class="ui green label" v-if="employee.is_faculty == true">Faculty</span>
@@ -234,9 +234,9 @@
                 axios.post(this.route, this.$data.employee)
                 .then(response => {
                     $('form').form('clear'),
-                    this.getEmployees(),
                     this.route = '{{ route('employee.add') }}',
                     toastr.success(response.data),
+                    this.getEmployees(),
                     this.employee = null;
                 })
                 .catch(error => {

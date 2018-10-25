@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Unifi;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Unifi\AccessLog;
 use Carbon\Carbon;
-use Redirect;
+use App\Charts\WifiUsage;
 
 class UnifiController extends Controller
 {
@@ -17,9 +17,33 @@ class UnifiController extends Controller
 
     public function __construct()
     {
-        $this->unifiServer = env("UNIFI_SERVER", "server");
-        $this->unifiUser = env("UNIFI_USER", "username");
-        $this->unifiPassword = env("UNIFI_PASSWORD", "password");
+        $this->unifiServer = env('UNIFI_SERVER', 'server');
+        $this->unifiUser = env('UNIFI_USER', 'username');
+        $this->unifiPassword = env('UNIFI_PASSWORD', 'password');
+    }
+
+    public function index()
+    {
+        $data = collect([]); // Could also be an array
+        $labels = collect([]);
+
+        for ($days_backwards = 6; $days_backwards >= 0; --$days_backwards) {
+            // Could also be an array_push if using an array rather than a collection.
+            $data->push(AccessLog::whereDate('created_at', today()->subDays($days_backwards))->count());
+            $labels->push(today()->subDays($days_backwards)->toFormattedDateString());
+        }
+
+        $weekly = new WifiUsage();
+        $weekly->labels($labels);
+        $weekly->dataset('Last 7 Days', 'bar', $data)->options([
+            'color' => '#f6bb42',
+            'backgroundColor' => '#4a89dc',
+            'lineTension' => 0.5,
+        ]);
+
+        $recents = AccessLog::with(['user'])->latest()->take(10)->get();
+
+        return view('network.wifi.index', compact('weekly', 'recents'));
     }
 
     public function login(Request $request)
@@ -31,7 +55,6 @@ class UnifiController extends Controller
             // Check if Password Matches
             $check = Hash::check($request->password, $user->password);
             if ($check == true) {
-
                 // Set Current Timestamp
                 $now = Carbon::now();
 
@@ -61,11 +84,13 @@ class UnifiController extends Controller
                                     'device' => $request->mac,
                                     'ip' => $request->ip,
                                     'expires_on' => $expiry,
-                                    'url' => $request->url
+                                    'url' => $request->url,
                                 ]);
+
                                 return $this->sendAuthorization($newlog->device, $minutes);
                             }
                         }
+
                         return $this->sendAuthorization($request->mac, $minutes);
                     } else {
                         $expiry = $now->addMinutes($minutes);
@@ -75,15 +100,18 @@ class UnifiController extends Controller
                             'expires_on' => $expiry,
                             'url' => $request->url,
                         ]);
+
                         return $this->sendAuthorization($log->device, $minutes);
                     }
                 } catch (Exception $ex) {
                     return $ex;
                 }
             }
-            return response()->json("Sign In Failed. Please Check your Username and Password", 404);
+
+            return response()->json('Sign In Failed. Please Check your Username and Password', 404);
         }
-        return response()->json("Sign In Failed. Please Check your Username and Password", 404);
+
+        return response()->json('Sign In Failed. Please Check your Username and Password', 404);
     }
 
     public function checkAuthorization(Request $request)
@@ -94,10 +122,11 @@ class UnifiController extends Controller
 
         if ($log != null) {
             $remaining = now()->diffInRealMinutes($log->expires_on);
+
             return $this->sendAuthorization($log->device, $remaining);
         }
 
-        return response()->json(["message" => "Authorization Expired. Login Again"], 500);
+        return response()->json(['message' => 'Authorization Expired. Login Again'], 500);
     }
 
     public function sendAuthorization($id, $minutes)
@@ -112,7 +141,7 @@ class UnifiController extends Controller
         curl_setopt($ch, CURLOPT_POST, true);
 
         // Set up Cookies (or Biscuits)
-        $cookie_file = "/tmp/unifi_cookie";
+        $cookie_file = '/tmp/unifi_cookie';
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file);
 
@@ -122,11 +151,11 @@ class UnifiController extends Controller
         curl_setopt($ch, CURLOPT_SSLVERSION, 1);
 
         // Login to UniFi Controller
-        curl_setopt($ch, CURLOPT_URL, $this->unifiServer."/api/login");
+        curl_setopt($ch, CURLOPT_URL, $this->unifiServer.'/api/login');
 
         $payload = json_encode([
-            "username" => $this->unifiUser,
-            "password" => $this->unifiPassword
+            'username' => $this->unifiUser,
+            'password' => $this->unifiPassword,
         ]);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -137,7 +166,7 @@ class UnifiController extends Controller
         $data = json_encode([
             'cmd' => 'authorize-guest',
             'mac' => $id,
-            'minutes' => $minutes
+            'minutes' => $minutes,
         ]);
 
         // Make the API Call
@@ -147,13 +176,13 @@ class UnifiController extends Controller
         curl_exec($ch);
 
         // Logout of the Connection
-        curl_setopt($ch, CURLOPT_URL, $this->unifiServer."/logout");
+        curl_setopt($ch, CURLOPT_URL, $this->unifiServer.'/logout');
         curl_exec($ch);
         curl_close($ch);
 
         sleep(10);
 
-        return response()->json("Success", 200);
+        return response()->json('Success', 200);
     }
 
     public function unauthorizeDevice($id)
@@ -168,7 +197,7 @@ class UnifiController extends Controller
         curl_setopt($ch, CURLOPT_POST, true);
 
         // Set up Cookies (or Biscuits)
-        $cookie_file = "/tmp/unifi_cookie";
+        $cookie_file = '/tmp/unifi_cookie';
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_file);
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_file);
 
@@ -178,11 +207,11 @@ class UnifiController extends Controller
         curl_setopt($ch, CURLOPT_SSLVERSION, 1);
 
         // Login to UniFi Controller
-        curl_setopt($ch, CURLOPT_URL, $this->unifiServer."/api/login");
+        curl_setopt($ch, CURLOPT_URL, $this->unifiServer.'/api/login');
 
         $payload = json_encode([
-            "username" => $this->unifiUser,
-            "password" => $this->unifiPassword
+            'username' => $this->unifiUser,
+            'password' => $this->unifiPassword,
         ]);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
@@ -192,7 +221,7 @@ class UnifiController extends Controller
         // Send User to authorize and the time allowed
         $data = json_encode([
             'cmd' => 'unauthorize-guest',
-            'mac' => $id
+            'mac' => $id,
         ]);
 
         // Make the API Call
@@ -202,7 +231,7 @@ class UnifiController extends Controller
         curl_exec($ch);
 
         // Logout of the Connection
-        curl_setopt($ch, CURLOPT_URL, $this->unifiServer."/logout");
+        curl_setopt($ch, CURLOPT_URL, $this->unifiServer.'/logout');
         curl_exec($ch);
         curl_close($ch);
 

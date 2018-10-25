@@ -11,7 +11,7 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('network') }}" class="section">Network Services</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">RCI-WIFI</a>
+            <a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="" class="active section">Logs</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
