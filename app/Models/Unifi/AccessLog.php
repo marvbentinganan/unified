@@ -13,7 +13,7 @@ class AccessLog extends Model
 
     protected $dates = ['deleted_at', 'expires_on'];
 
-    protected $appends = ['expires_in'];
+    protected $appends = ['expires_in', 'login'];
 
     public function user()
     {
@@ -38,5 +38,10 @@ class AccessLog extends Model
         }
 
         return $remaining.' minutes';
+    }
+
+    public function getLoginAttribute()
+    {
+        return $this->created_at->toDayDateTimeString();
     }
 }

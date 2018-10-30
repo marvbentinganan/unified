@@ -33,6 +33,7 @@
                         <th class="center aligned">Role</th>
                         <th class="center aligned">IP</th>
                         <th class="center aligned">MAC</th>
+                        <th class="center aligned">Time of Login</th>
                         <th class="center aligned">Expiry</th>
                     </thead>
                     <tbody>
@@ -43,6 +44,7 @@
                             </td>
                             <td class="center aligned">@{{ log.ip }}</td>
                             <td class="center aligned">@{{ log.device }}</td>
+                            <td class="right aligned">@{{ log.login }}</td>
                             <td class="right aligned">@{{ log.expires_in }}</td>
                         </tr>
                     </tbody>
@@ -93,6 +95,10 @@
         },
         mounted() {
             this.init();
+
+            setInterval(function (){
+				this.list();
+			}.bind(this), 30000);
         }
     });
 
