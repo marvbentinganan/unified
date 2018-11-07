@@ -21,7 +21,7 @@ class DigihubController extends Controller
             if ($recent == null) {
                 $usage = $digihub->usages()->create();
             } else {
-                if ($recent->created_at->diffInRealMinutes(Carbon::now()) >= 45) {
+                if ($recent->created_at->diffInRealMinutes(now()) >= 45 and $recent->created_at != now()) {
                     $usage = $digihub->usages()->create();
                 }
             }
