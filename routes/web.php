@@ -131,7 +131,7 @@ Route::middleware('auth')->group(function () {
             Route::get('delete/{digihub}', 'DigihubController@destroy')->name('digihub.destroy');
             Route::prefix('logs')->group(function () {
                 Route::any('{digihub}/single', 'DigihubController@log')->name('digihub.log');
-                Route::get('all', 'DigihubController@logs')->name('digihub.logs');
+                Route::any('all', 'DigihubController@logs')->name('digihub.logs');
             });
         });
 

@@ -50,6 +50,7 @@
                 </form>
             </div>
             <div class="ui attached segment">
+                <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
                 <table class="ui unstackable celled table">
                     <thead>
                         <th class="center aligned">#</th>
@@ -84,10 +85,23 @@
                     </a>
                 </div>
                 @endif
-                <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
+                
             </div>
         </div>
         <div class="six wide column">
+            <div class="ui fluid card">
+                <div class="image">
+                    <img src="{{ asset('images/digihub/'.$digihub->ip.'.jpg') }}" alt="">
+                </div>
+                <div class="content">
+                    <div class="header">{{ $digihub->name }}</div>
+                    <div class="meta">
+                        <span class="date"><i class="ion-ios-world icon"></i>{{ $digihub->ip }}</span>
+                        <span class="date"><i class="ion-ios-location icon"></i>{{ $digihub->location }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui section divider"></div>
             <div class="ui top attached header">{{ $digihub->name }}</div>
             <div class="ui attached segment">
                 {!! $monthly->container() !!}

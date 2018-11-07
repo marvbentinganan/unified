@@ -126,26 +126,63 @@ class DigihubController extends Controller
 
     public function logs(Request $request)
     {
-        $stations = Digihub::with(['usages'])
-        ->orderBy('name')
-        ->get();
+        // $stations = Digihub::with(['usages'])
+        // ->orderBy('name')
+        // ->get();
 
-        $labels = collect([]);
-        $data = collect([]);
-        foreach ($stations as $station) {
-            $data->push($station->usages->count());
-            $labels->push($station->name);
+        if ($request->has('month')) {
+            $stations = Digihub::with(['usages' => function ($query) use ($request) {
+                $query->whereRaw('extract(month from created_at) = ?', $request->month)->whereRaw('extract(year from created_at) = ?', Carbon::now()->year);
+            }])
+            ->orderBy('name')
+            ->get();
+
+            $month = date('F', mktime(0, 0, 0, $request->month, 10));
+            $labels = collect([]);
+            $data = collect([]);
+            foreach ($stations as $station) {
+                $data->push($station->usages()->whereRaw('extract(month from created_at) = ?', $request->month)->whereRaw('extract(year from created_at) = ?', Carbon::now()->year)->count());
+                $labels->push($station->name);
+            }
+        } else {
+            $stations = Digihub::with(['usages'])
+            ->orderBy('name')
+            ->get();
+
+            $month = now()->format('F');
+            $labels = collect([]);
+            $data = collect([]);
+            foreach ($stations as $station) {
+                $data->push($station->usages()->whereRaw('extract(month from created_at) = ?', now()->format('m'))->whereRaw('extract(year from created_at) = ?', Carbon::now()->year)->count());
+                $labels->push($station->name);
+            }
         }
 
-        // Total Usages per Station
+        // Usage for the Current Month
         $chart = new DigihubWeeklyUsage();
         $chart->labels($labels);
-        $chart->dataset('All-time Usage', 'bar', $data)->options([
+        $chart->dataset('Usage for the Month of '.$month, 'bar', $data)->options([
             'color' => '#00e676',
             'backgroundColor' => '#00e676',
             'lineTension' => 0.5,
         ])->backgroundColor(['#00e676', '#ff9100', '#40c4ff', '#d4e157', '#e53935', '#90caf9', '#1de9b6', '#c6ff00', '#ff6d00', '#01579b', '#6d4c41', '#ffff00', '#004d40', '#ce93d8', '#4caf50']);
 
-        return view('network.digihub.logs', compact('chart', 'stations'));
+        $labels2 = collect([]);
+        $all = collect([]);
+        foreach ($stations as $station) {
+            $all->push($station->usages()->count());
+            $labels2->push($station->name);
+        }
+
+        // Total Usage
+        $alltime = new DigihubWeeklyUsage();
+        $alltime->labels($labels);
+        $alltime->dataset('Total Usage', 'bar', $all)->options([
+            'color' => '#00e676',
+            'backgroundColor' => '#00e676',
+            'lineTension' => 0.5,
+        ])->backgroundColor(['#00e676', '#ff9100', '#40c4ff', '#d4e157', '#e53935', '#90caf9', '#1de9b6', '#c6ff00', '#ff6d00', '#01579b', '#6d4c41', '#ffff00', '#004d40', '#ce93d8', '#4caf50']);
+
+        return view('network.digihub.logs', compact('chart', 'stations', 'alltime'));
     }
 }

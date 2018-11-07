@@ -39,8 +39,43 @@
                 </div>
             </div>
             <div class="twelve wide column">
-                <div class="ui raised segment">
+                <div class="ui top attached segment">
+                    <form action="{{ route('digihub.logs') }}" method="POST" class="ui small form">
+                        @csrf
+                        <div class="fields">
+                            <div class="fourteen wide field">
+                                <div class="ui fluid selection dropdown">
+                                    <input type="hidden" name="month">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Select Month...</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="1">January</div>
+                                        <div class="item" data-value="2">February</div>
+                                        <div class="item" data-value="3">March</div>
+                                        <div class="item" data-value="4">April</div>
+                                        <div class="item" data-value="5">May</div>
+                                        <div class="item" data-value="6">June</div>
+                                        <div class="item" data-value="7">July</div>
+                                        <div class="item" data-value="8">August</div>
+                                        <div class="item" data-value="9">September</div>
+                                        <div class="item" data-value="10">October</div>
+                                        <div class="item" data-value="11">November</div>
+                                        <div class="item" data-value="12">December</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="two wide field">
+                                <button type="submit" class="ui primary fluid icon button"><i class="ion-funnel icon"></i> Filter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="ui attached segment">
                     {!! $chart->container() !!}
+                </div>
+                <div class="ui section divider"></div>
+                <div class="ui raised segment">
+                    {!! $alltime->container() !!}
                 </div>
             </div>
         </div>
@@ -62,4 +97,5 @@
     });
 </script>
 {!! $chart->script() !!}
+{!! $alltime->script() !!}
 @endpush
