@@ -81,7 +81,7 @@ class DigihubController extends Controller
             ->latest()
             ->paginate(10);
         } else {
-            $logs = $digihub->usages()->distinct()->latest()->paginate(10);
+            $logs = $digihub->usages()->distinct()->latest()->paginate(20);
         }
 
         $data = collect([]); // Could also be an array
@@ -132,24 +132,26 @@ class DigihubController extends Controller
 
         if ($request->has('month')) {
             $stations = Digihub::with(['usages' => function ($query) use ($request) {
-                $query->whereRaw('extract(month from created_at) = ?', $request->month)->whereRaw('extract(year from created_at) = ?', Carbon::now()->year);
+                $query->whereRaw('extract(month from created_at) = ?', $request->month)->whereRaw('extract(year from created_at) = ?', now()->year);
             }])
             ->orderBy('name')
             ->get();
-
+            // Get month name
             $month = date('F', mktime(0, 0, 0, $request->month, 10));
+            // Collect Chart Data
             $labels = collect([]);
             $data = collect([]);
             foreach ($stations as $station) {
-                $data->push($station->usages()->whereRaw('extract(month from created_at) = ?', $request->month)->whereRaw('extract(year from created_at) = ?', Carbon::now()->year)->count());
+                $data->push($station->usages()->whereRaw('extract(month from created_at) = ?', $request->month)->whereRaw('extract(year from created_at) = ?', now()->year)->count());
                 $labels->push($station->name);
             }
         } else {
             $stations = Digihub::with(['usages'])
             ->orderBy('name')
             ->get();
-
+            // Get month name
             $month = now()->format('F');
+            // Collect Chart Data
             $labels = collect([]);
             $data = collect([]);
             foreach ($stations as $station) {

@@ -74,7 +74,7 @@
                     {!! $chart->container() !!}
                 </div>
                 <div class="ui section divider"></div>
-                <div class="ui raised segment">
+                <div class="ui segment">
                     {!! $alltime->container() !!}
                 </div>
             </div>

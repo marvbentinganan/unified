@@ -56,10 +56,7 @@
                 </form>
             </div>
             <div class="ui section divider"></div>
-            <div class="ui top attached segment">
-                <a href="{{ route('digihub.logs') }}" class="ui primary fluid icon button"><i class="ion-stats-bars icon"></i> View Statistics</a>
-            </div> 
-            <table class="ui attached padded compact celled striped table">
+            <table class="ui padded compact celled striped table">
                 <thead>
                     <th class="center aligned">Name</th>
                     <th class="center aligned">Location</th>
@@ -75,28 +72,36 @@
             </table>
         </div>
         <div class="twelve wide column">
-            <div class="ui four doubling raised cards">
-                <div class="card" v-for="station in digihubs">
-                    <div class="image">
-                        <img v-bind:src="station.thumb" alt="">
-                    </div>
-                    <div class="content">
-                        <div class="header">@{{ station.name }}</div>
-                        <div class="meta">
-                            <span class="date"><i class="ion-ios-world icon"></i> @{{ station.ip }}</span>
-                        </div>
-                        <div class="description">
-                            @{{ station.location }}
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <div class="ui three mini buttons">
-                            <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
-                            <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
-                            <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
-                        </div>
-                    </div>
+            <div class="ui top attached borderless menu">
+                <div class="header item">Digihub Stations</div>
+                <div class="right menu">
+                    <a href="{{ route('digihub.logs') }}" class="item"><i class="ion-podium icon"></i>View Statistics</a>
                 </div>
+            </div>
+            <div class="ui attached segment">
+                <div class="ui four doubling raised cards">
+                        <div class="card" v-for="station in digihubs">
+                            <div class="image">
+                                <img v-bind:src="station.thumb" alt="">
+                            </div>
+                            <div class="content">
+                                <div class="header">@{{ station.name }}</div>
+                                <div class="meta">
+                                    <span class="date"><i class="ion-ios-world icon"></i> @{{ station.ip }}</span>
+                                </div>
+                                <div class="description">
+                                    @{{ station.location }}
+                                </div>
+                            </div>
+                            <div class="extra content">
+                                <div class="ui three mini buttons">
+                                    <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
+                                    <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
+                                    <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

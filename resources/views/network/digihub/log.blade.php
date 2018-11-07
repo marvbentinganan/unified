@@ -23,6 +23,33 @@
     <div class="ui section divider"></div>
     <div class="ui stackable two column grid">
         <div class="ten wide column">
+            <div class="ui fluid card">
+                <div class="image">
+                    <img src="{{ asset('images/digihub/'.$digihub->ip.'.jpg') }}" alt="">
+                </div>
+                <div class="content">
+                    <div class="header">{{ $digihub->name }}</div>
+                    <div class="meta">
+                        <span class="date"><i class="ion-ios-world icon"></i>{{ $digihub->ip }}</span>
+                        <span class="date"><i class="ion-ios-location icon"></i>{{ $digihub->location }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ui section divider"></div>
+            <div class="ui stackable two column grid">
+                <div class="column">
+                    <div class="ui segment">
+                        {!! $monthly->container() !!}
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui segment">
+                        {!! $chart->container() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="six wide column">
             <div class="ui top attached segment">
                 <form action="{{ route('digihub.log', $digihub->id) }}" method="POST" class="ui form">
                     @csrf
@@ -44,7 +71,7 @@
                             </div>
                         </div>
                         <div class="two wide field">
-                            <button type="submit" class="ui primary fluid icon button"><i class="ion-funnel icon"></i> Filter</button>
+                            <button type="submit" class="ui primary fluid icon button"><i class="ion-funnel icon"></i></button>
                         </div>
                     </div>
                 </form>
@@ -74,42 +101,17 @@
                 @if ($logs->lastPage() > 1)
                 <div class="ui stackable pagination menu">
                     <a href="{{ $logs->previousPageUrl() }}" class="{{ ($logs->currentPage() == 1) ? ' disabled' : '' }} item">
-                        <i class="ion-arrow-left-b icon"></i>
-                    </a> @for ($i = 1; $i
+                                    <i class="ion-arrow-left-b icon"></i>
+                                </a> @for ($i = 1; $i
                     <=$logs->lastPage(); $i++)
                         <a href="{{ $logs->url($i) }}" class="{{ ($logs->currentPage() == $i) ? ' active' : '' }} item">
-                                    {{ $i }}
-                        </a> @endfor
-                    <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
-                        <i class="ion-arrow-right-b icon"></i>
-                    </a>
+                                                {{ $i }}
+                                    </a> @endfor
+                        <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
+                                    <i class="ion-arrow-right-b icon"></i>
+                                </a>
                 </div>
                 @endif
-                
-            </div>
-        </div>
-        <div class="six wide column">
-            <div class="ui fluid card">
-                <div class="image">
-                    <img src="{{ asset('images/digihub/'.$digihub->ip.'.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <div class="header">{{ $digihub->name }}</div>
-                    <div class="meta">
-                        <span class="date"><i class="ion-ios-world icon"></i>{{ $digihub->ip }}</span>
-                        <span class="date"><i class="ion-ios-location icon"></i>{{ $digihub->location }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="ui section divider"></div>
-            <div class="ui top attached header">{{ $digihub->name }}</div>
-            <div class="ui attached segment">
-                {!! $monthly->container() !!}
-            </div>
-            <div class="ui section divider"></div>
-            <div class="ui top attached header">{{ $digihub->name }}</div>
-            <div class="ui attached segment">
-                {!! $chart->container() !!}
             </div>
         </div>
     </div>
