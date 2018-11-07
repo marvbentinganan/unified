@@ -78,7 +78,7 @@
             <div class="ui four doubling raised cards">
                 <div class="card" v-for="station in digihubs">
                     <div class="image">
-                        <img src="{{ asset('images/desktop.jpg') }}" alt="">
+                        <img v-bind:src="station.thumb" alt="">
                     </div>
                     <div class="content">
                         <div class="header">@{{ station.name }}</div>

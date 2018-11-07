@@ -14,6 +14,8 @@ class Digihub extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $appends = ['thumb'];
+
     // protected $casts = [
     //     'ip' => 'ipAddress',
     // ];
@@ -35,5 +37,12 @@ class Digihub extends Model
         $name = date('F', mktime(0, 0, 0, $month, 1));
 
         return $name;
+    }
+
+    public function getThumbAttribute()
+    {
+        // return '<img src="'.asset('images/digihub/'.$this->ip.'.jpg').'">';
+        return asset('images/digihub/'.$this->ip.'.jpg');
+        //<img src="http://localhost/unified/public/images/digihub/172.17.1.81.jpg">
     }
 }

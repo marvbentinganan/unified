@@ -21,9 +21,9 @@
                         <img src="{{ asset('images/wifi.jpg') }}" alt="">
                     </div>
                     <div class="content">
-                        <div class="header">RCI - Wifi</div>
+                        <div class="header">RCI - WIFI</div>
                         <div class="description">
-                            Manage RCI - Wifi
+                            Manage RCI - WIFI
                         </div>
                     </div>
                 </a>
@@ -40,7 +40,7 @@
                 </a>
                 <a href="https://192.168.255.73:10000/" target="_blank" class="card">
                     <div class="image">
-                        <img src="{{ asset('images/dashboard.jpg') }}" alt="">
+                        <img src="{{ asset('images/webmin.png') }}" alt="">
                     </div>
                     <div class="content">
                         <div class="header">Web Server</div>
@@ -51,12 +51,23 @@
                 </a>
                 <a href="https://172.18.1.1:8443" target="_blank" class="card">
                     <div class="image">
-                        <img src="{{ asset('images/unifi.jpg') }}" alt="">
+                        <img src="{{ asset('images/unifi.png') }}" alt="">
                     </div>
                     <div class="content">
                         <div class="header">UnifiController</div>
                         <div class="description">
                             Manage UnifiController
+                        </div>
+                    </div>
+                </a>
+                <a href="https://172.16.16.16:4444" target="_blank" class="card">
+                    <div class="image">
+                        <img src="{{ asset('images/sophos.png') }}" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="header">Firewall</div>
+                        <div class="description">
+                            Manage Sophos Firewall
                         </div>
                     </div>
                 </a>
