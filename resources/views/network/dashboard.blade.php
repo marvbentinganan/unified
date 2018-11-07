@@ -8,14 +8,14 @@
         <div class="ui breadcrumb segment">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('network') }}" class="section">Network Services</a>
+            <a href="{{ route('network') }}" class="active section">Network Services</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>
-    <div class="ui padded grid">
+    <div class="ui centered padded grid">
         <div class="sixteen wide column">
-            <div class="ui four doubling raised cards">
+            <div class="ui stackable two doubling raised cards">
                 <a href="{{ route('wifi') }}" class="card">
                     <div class="image">
                         <img src="{{ asset('images/wifi.jpg') }}" alt="">
@@ -38,6 +38,8 @@
                         </div>
                     </div>
                 </a>
+            </div>
+            <div class="ui stackable three doubling raised cards">
                 <a href="https://192.168.255.73:10000/" target="_blank" class="card">
                     <div class="image">
                         <img src="{{ asset('images/webmin.png') }}" alt="">
