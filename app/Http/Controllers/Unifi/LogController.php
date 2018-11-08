@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Unifi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Unifi\AccessLog;
+use App\Models\User;
 
 class LogController extends Controller
 {
@@ -51,5 +52,10 @@ class LogController extends Controller
         ->get();
 
         return response()->json($logs);
+    }
+
+    public function usage(User $user)
+    {
+        return view('network.wifi.usage', compact('user'));
     }
 }

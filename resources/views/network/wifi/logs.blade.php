@@ -38,7 +38,9 @@
                     </thead>
                     <tbody>
                         <tr v-for="log in filteredLogs">
-                            <td>@{{ log.user.firstname }} @{{ log.user.lastname }}</td>
+                            <td>
+                                <a :href="'usage/' + log.user.id"><i class="address card icon"></i> @{{ log.user.firstname }} @{{ log.user.lastname }}</a>
+                            </td>
                             <td>
                                 <span class="ui green label" v-for="role in log.user.roles">@{{ role.display_name }}</span>
                             </td>

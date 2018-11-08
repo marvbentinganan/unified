@@ -140,6 +140,7 @@ Route::middleware('auth')->group(function () {
             Route::get('index', 'UnifiController@index')->name('wifi');
             Route::get('logs', 'LogController@logs')->name('wifi.logs');
             Route::get('active', 'LogController@active')->name('wifi.active');
+            Route::get('usage/{user}', 'LogController@usage')->name('wifi.usage');
         });
     });
 });

@@ -38,7 +38,7 @@
                             </div>
                             <div class="content">
                                 <div class="summary">
-                                    <a href="" class="user">{{ $recent->user->firstname.' '.$recent->user->lastname }}</a>
+                                    <a href="{{ route('wifi.usage', $recent->user->id) }}" class="user">{{ $recent->user->firstname.' '.$recent->user->lastname }}</a>
                                     <div class="date">{{ $recent->created_at->diffForHumans() }}</div>
                                 </div>
                                 <div class="meta">
