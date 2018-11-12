@@ -12,4 +12,9 @@ class Semester extends Model
     protected $fillable = ['name'];
 
     protected $dates = ['deleted_at'];
+
+    public function classes()
+    {
+        return $this->hasMany('App\Models\MyClass');
+    }
 }

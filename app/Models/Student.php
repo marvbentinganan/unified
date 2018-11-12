@@ -46,4 +46,9 @@ class Student extends Model
 
         return $password;
     }
+
+    public function classes()
+    {
+        return $this->belongsToMany(MyClass::class);
+    }
 }

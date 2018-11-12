@@ -27,6 +27,11 @@ class Employee extends Model
         return $this->belongsToMany(Build\Program::class);
     }
 
+    public function classes()
+    {
+        return $this->hasMany(MyClass::class);
+    }
+
     public function evaluations()
     {
         return $this->hasMany(Tbi\Evaluation::class);

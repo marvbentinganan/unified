@@ -128,8 +128,8 @@
                 </div>
                 <div class="two fields">
                         {!! SemanticForm::select('menu_id', $parents, $menu->menu_id)->label('Parent
-                        Menu') !!}
-                        {!! SemanticForm::selectMultiple('roles[]', $roles, $menu->roles->pluck('id')->toArray())->addClass('multiple')->label('Roles')
+                        Menu')->placeholder('Select...') !!}
+                        {!! SemanticForm::selectMultiple('roles[]', $roles, $menu->roles->pluck('id')->toArray())->addClass('multiple')->label('Roles')->placeholder('Select...')
                         !!}
                 </div>
                 <div class="two fields">

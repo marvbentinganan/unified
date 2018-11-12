@@ -22,4 +22,14 @@ class Department extends Model
     {
         return $this->hasMany('App\Models\Student');
     }
+
+    public function classes()
+    {
+        return $this->hasMany('App\Models\MyClass');
+    }
+
+    public function year_levels()
+    {
+        return $this->hasMany(YearLevel::class);
+    }
 }

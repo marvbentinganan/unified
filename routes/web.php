@@ -36,6 +36,13 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', 'EvaluationController@dashboard')->name('evaluation.dashboard');
     });
 
+    Route::prefix('classes')->group(function () {
+        Route::get('me', 'ClassController@myClasses')->name('my.classes');
+        Route::any('add', 'ClassController@add')->name('class.add');
+        Route::any('list', 'ClassController@my_classes')->name('class.list');
+        Route::get('view/{class}', 'ClassController@view')->name('class.view');
+    });
+
     // Unifi Routes
     Route::prefix('unifi')->namespace('Unifi')->group(function () {
         Route::get('login', 'UnifiController@show')->name('unifi.login');

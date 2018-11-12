@@ -22,4 +22,9 @@ class Program extends Model
     {
         return $this->belongsToMany('App\Models\Employee');
     }
+
+    public function classes()
+    {
+        return $this->hasMany('App\Models\MyClass');
+    }
 }

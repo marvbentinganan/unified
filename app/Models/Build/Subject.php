@@ -13,11 +13,18 @@ class Subject extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(Type::class);
     }
 
-    public function departments(){
+    public function departments()
+    {
         return $this->belongsToMany(Department::class);
+    }
+
+    public function classes()
+    {
+        return $this->hasMany('App\Models\MyClass');
     }
 }

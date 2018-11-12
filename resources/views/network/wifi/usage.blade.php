@@ -11,7 +11,7 @@
 			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 			<a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
 			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-			<a href="{{ route('wifi.usage', $user->id) }}" class="active section">{{ $user->firstname }}</a>
+			<a href="{{ route('wifi.usage', $user->id) }}" class="active section">{{ $user->firstname.' '.$user->lastname }}</a>
 			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 		</div>
 	</div>
@@ -31,30 +31,40 @@
 			</div>
 		</div>
 		<div class="twelve wide column">
-			<table class="ui compact unstackable striped celled table">
-				<thead>
-					<th class="center aligned">Device</th>
-					<th class="center aligned">IP</th>
-					<th class="center aligned">Logged In</th>
-					<th class="center aligned">Remaining Time</th>
-					<th class="center aligned">Status</th>
-				</thead>
-				<tbody>
-					@foreach($user->access_logs->sortByDesc('created_at') as $key => $log)
-					<tr>
-						<td class="center aligned">{{ $log->device }}</td>
-						<td class="center aligned">{{ $log->ip }}</td>
-						<td class="center aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
-						<td class="right aligned">{{ $log->time_remaining() }}</td>
-						<td class="center aligned">
-							@if( now() < $log->expires_on)
+			<div class="ui top attached borderless menu">
+				<div class="header item">Usage History</div>
+				<div class="right menu">
+					<a href="{{ route('wifi.logs') }}" class="item"><i class="blue server icon"></i>Active Logs</a>
+					<a href="{{ route('wifi') }}" class="item"><i class="blue wifi icon"></i>RCI-WIFI</a>
+				</div>
+			</div>
+			<div class="ui attached segment">
+				<table class="ui compact unstackable striped celled table">
+					<thead>
+						<th class="center aligned">Device</th>
+						<th class="center aligned">IP</th>
+						<th class="center aligned">Logged In</th>
+						<th class="center aligned">Remaining Time</th>
+						<th class="center aligned">Status</th>
+					</thead>
+					<tbody>
+						@foreach($user->access_logs->sortByDesc('created_at') as $key => $log)
+						<tr>
+							<td class="center aligned">{{ $log->device }}</td>
+							<td class="center aligned">{{ $log->ip }}</td>
+							<td class="center aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
+							<td class="right aligned">{{ $log->time_remaining() }}</td>
+							<td class="center aligned">
+								@if( now()
+								< $log->expires_on)
 								<span class="ui green label">Authorized</span> @else
 								<span class="ui red label">Expired</span> @endif
-						</td>
-					</tr>
-					@endforeach
-				</tbody>
-			</table>
+							</td>
+						</tr>
+						@endforeach
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
