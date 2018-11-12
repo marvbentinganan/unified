@@ -19,11 +19,78 @@
     <div class="ui section divider"></div>
     <div class="ui stackable very padded two column grid">
         <div class="eleven wide column">
-            <div class="ui top attached header"><i class="ion-ios-list-outline icon"></i> Class List</div>
-            <div class="ui attached placeholder segment"></div>
+            <div class="ui top attached gray inverted header"><i class="ion-ios-list icon"></i> Class List</div>
+            <table class="ui attached small unstackable celled table">
+                <thead>
+                    <th class="one wide center aligned">#</th>
+                    <th class="center aligned">ID Number</th>
+                    <th class="center aligned">Firstname</th>
+                    <th class="center aligned">Middlename</th>
+                    <th class="center aligned">Lastname</th>
+                    <th class="center aligned">Action</th>
+                </thead>
+                <tbody>
+                    @if($class->has('students'))
+                    @foreach($class->students as $key => $student)
+                    <tr>
+                        <td class="one wide center aligned">{{ ++$key }}</td>
+                        <td class="center aligned">{{ $student->id_number }}</td>
+                        <td>{{ $student->firstname.' '.$student->suffix }}</td>
+                        <td>{{ $student->middlename }}</td>
+                        <td>{{ $student->lastname }}</td>
+                        <td></td>
+                    </tr>
+                    @endforeach
+                    @else
+                    <tr>
+                        <td class="center aligned" colspan="6">No Students Enrolled</td>
+                    </tr>
+                    @endif
+                </tbody>
+            </table>
         </div>
         <div class="five wide column">
-            <div class="ui top attached header"><i class="ion-ios-personadd icon"></i> Add Students</div>
+            <div class="ui top attached gray inverted header"><i class="ion-information-circled icon"></i> Class Information</div>
+            <table class="ui attached small definition table">
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ $class->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Code</td>
+                        <td>{{ $class->code }}</td>
+                    </tr>
+                    <tr>
+                        <td>Department</td>
+                        <td>{{ $class->department->name }}</td>
+                    </tr>
+                    <tr>
+                        @if($class->department->id == 1)
+                        <td>Strand</td>
+                        @else
+                        <td>Course</td>
+                        @endif
+                        <td>{{ $class->program->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Year Level</td>
+                        <td>{{ $class->year_level->name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Section</td>
+                        <td>{{ $class->section }}</td>
+                    </tr>
+                    <tr>
+                        <td>Subject</td>
+                        <td>{{ $class->subject->name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="ui section divider"></div>
+
+            <div class="ui top attached gray inverted header"><i class="ion-ios-personadd icon"></i> Add Students</div>
             <div class="ui attached center aligned segment">
                 <div class="ui left icon action fluid input">
                     <i class="search icon"></i>
@@ -33,7 +100,7 @@
                 <div class="ui horizontal divider">
                     Or
                 </div>
-                <form action="" method="POST" class="ui form" id="uploadForm" enctype="multipart/form-data">
+                <form action="{{ route('class.upload', $class->code) }}" method="POST" class="ui form" id="uploadForm" enctype="multipart/form-data">
                     @csrf
                     <div class="fields">
                         <div class="twelve wide field">
@@ -51,7 +118,7 @@
                 </form>
             </div>
             <div class="ui section divider"></div>
-            <div class="ui top attached header"><i class="ion-ios-chatboxes-outline icon"></i> Class Logs</div>
+            <div class="ui top attached gray inverted header"><i class="ion-ios-chatboxes-outline icon"></i> Class Logs</div>
             <div class="ui attached placeholder segment"></div>
         </div>
     </div>

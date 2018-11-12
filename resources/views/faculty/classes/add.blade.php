@@ -79,7 +79,7 @@
                         </div>
                         <div class="extra content">
                             <div class="ui two mini buttons">
-                                <a href="" class="ui blue icon button"><i class="ion-share icon"></i></a>
+                                <a :href="'view/' + classlist.code" class="ui blue icon button"><i class="ion-share icon"></i></a>
                                 <a href="" class="ui red icon button"><i class="ion-trash-a icon"></i></a>
                             </div>
                         </div>

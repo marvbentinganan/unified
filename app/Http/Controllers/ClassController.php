@@ -9,6 +9,8 @@ use App\Models\Build\Program;
 use App\Models\Build\YearLevel;
 use App\Models\Build\Setting;
 use App\Models\MyClass;
+use App\Models\Student;
+use Excel;
 
 class ClassController extends Controller
 {
@@ -96,6 +98,27 @@ class ClassController extends Controller
     public function view(MyClass $class)
     {
         return view($this->directory.'.view', compact('class'));
+    }
+
+    public function upload(Request $request, MyClass $class)
+    {
+        if ($request->hasFile('doc')) {
+            $file = $request->file('doc');
+            $path = $file->getRealPath();
+            $students = Excel::load($path, function ($reader) {
+            })->get();
+
+            if ($students->count() != 0) {
+                foreach ($students as $data) {
+                    $student = Student::where('id_number', trim($data->id_number))->first();
+                    $student->classes()->attach([$class->id]);
+                }
+            }
+
+            return redirect()->back()->with(['success_message' => 'Students Uploaded Successfully']);
+        }
+
+        return response()->json('Failed to Upload');
     }
 
     private function checkRecord($request)

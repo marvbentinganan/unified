@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::any('add', 'ClassController@add')->name('class.add');
         Route::any('list', 'ClassController@my_classes')->name('class.list');
         Route::get('view/{class}', 'ClassController@view')->name('class.view');
+        Route::post('upload/{class}', 'ClassController@upload')->name('class.upload');
     });
 
     // Unifi Routes
