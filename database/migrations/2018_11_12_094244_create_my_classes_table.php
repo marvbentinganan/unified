@@ -50,7 +50,6 @@ class CreateMyClassesTable extends Migration
             $table->foreign('my_class_id')->references('id')->on('my_classes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('student_id')->references('id')->on('students')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

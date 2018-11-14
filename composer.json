@@ -20,6 +20,7 @@
         "maatwebsite/excel": "^2.1",
         "phpoffice/phpspreadsheet": "^1.1",
         "santigarcor/laratrust": "^5.0",
+        "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-buttons": "^3.0",
         "yajra/laravel-datatables-html": "^3.0",
         "yajra/laravel-datatables-oracle": "~8.0"

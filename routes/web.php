@@ -20,6 +20,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/laravel-filemanager', '\UniSharp\LaravelFilemanager\Controllers\LfmController@show');
+    Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
+
     Route::prefix('navigation')->group(function () {
         Route::get('index', 'NavigationController@index')->name('navigation');
         Route::post('add', 'NavigationController@store')->name('navigation.add');
@@ -36,12 +39,25 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', 'EvaluationController@dashboard')->name('evaluation.dashboard');
     });
 
+    // Classes Routes
     Route::prefix('classes')->group(function () {
         Route::get('me', 'ClassController@myClasses')->name('my.classes');
         Route::any('add', 'ClassController@add')->name('class.add');
         Route::any('list', 'ClassController@my_classes')->name('class.list');
         Route::get('view/{class}', 'ClassController@view')->name('class.view');
         Route::post('upload/{class}', 'ClassController@upload')->name('class.upload');
+    });
+
+    // Lessons Routes
+    Route::prefix('lessons')->group(function () {
+        Route::get('index', 'LessonController@index')->name('lessons');
+        Route::get('new', 'LessonController@new')->name('lesson.new');
+        Route::get('list', 'LessonController@list')->name('lessons.list');
+        Route::post('add', 'LessonController@store')->name('lesson.add');
+
+        Route::prefix('chapters')->group(function () {
+            Route::any('{lesson}/add', 'LessonController@add_chapter')->name('chapter.add');
+        });
     });
 
     // Unifi Routes

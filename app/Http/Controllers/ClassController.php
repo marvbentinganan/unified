@@ -111,7 +111,9 @@ class ClassController extends Controller
             if ($students->count() != 0) {
                 foreach ($students as $data) {
                     $student = Student::where('id_number', trim($data->id_number))->first();
-                    $student->classes()->attach([$class->id]);
+                    if ($student) {
+                        $student->classes()->attach([$class->id]);
+                    }
                 }
             }
 
@@ -145,7 +147,7 @@ class ClassController extends Controller
         $section = $class->section;
         $subject = $class->subject->code;
 
-        $class_name = $program.'-'.$year_level.$section.'-'.$subject;
+        $class_name = $program.'-'.$year_level.'-'.$section.'-'.$subject;
 
         // Update Class Name
         $class->update([

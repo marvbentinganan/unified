@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MyClass extends Model
 {
+    use softDeletes;
+
     protected $fillable = [
         'name',
         'code',
@@ -59,6 +62,11 @@ class MyClass extends Model
     public function students()
     {
         return $this->belongsToMany(Student::class);
+    }
+
+    public function lessons()
+    {
+        return $this->belongsToMany(Lms\Lesson::class);
     }
 
     public function getRouteKeyName()

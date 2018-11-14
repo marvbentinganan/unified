@@ -8,7 +8,7 @@
         <div class="ui breadcrumb segment">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Class Management</a>
+            <a href="" class="section">Class Manager</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('class.add') }}" class="active section">Add New Class</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
