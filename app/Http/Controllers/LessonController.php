@@ -87,4 +87,9 @@ class LessonController extends Controller
 
         return view($this->directory.'.chapters.new', compact('lesson'));
     }
+
+    public function list_chapter(Lesson $lesson)
+    {
+        return view($this->directory.'.chapters.list', compact('lesson'));
+    }
 }

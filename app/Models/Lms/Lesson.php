@@ -23,6 +23,21 @@ class Lesson extends Model
         return $this->belongsToMany('App\Models\MyClass');
     }
 
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Build\Department');
+    }
+
+    public function program()
+    {
+        return $this->belongsTo('App\Models\Build\Program');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo('App\Models\Build\Subject');
+    }
+
     public function created_by()
     {
         return $this->belongsTo('App\Models\User', 'id', 'user_id');

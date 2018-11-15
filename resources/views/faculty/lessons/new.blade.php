@@ -19,7 +19,7 @@
     </div>
     <div class="ui section divider"></div>
     <div class="ui stackable very padded two column grid">
-        <div class="thirteen wide column">
+        <div class="ten wide column">
             <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Add New Lesson</div>
             <div class="ui attached segment">
                 <form action="{{ route('lesson.add') }}" method="POST" id="lesson-form" class="ui form">
@@ -66,7 +66,8 @@
                 </form>
             </div>
         </div>
-        <div class="three wide column">
+        <div class="six wide column">
+            <div class="ui gray inverted top attached header"><i class="ion-ios-browsers icon"></i> My Lessons</div>
             <div id="lesson-container"></div>
         </div>
     </div>
@@ -82,14 +83,13 @@
 		tinyMCE.triggerSave();
 		var route = '{{ route('lesson.add') }}';
 		var data = $('#lesson-form').serialize();
-		console.log(data);
 		axios.post(route, data)
 		.then(response => {
-			console.log(response.data),
 			toastr.success(response.data),
 			$('form').form('clear'),
             tinyMCE.get('objective').setContent(''),
-			tinyMCE.get('description').setContent('');
+			tinyMCE.get('description').setContent(''),
+            getLessons();
 		})
 		.catch(response => {
 			console.log(response.data);

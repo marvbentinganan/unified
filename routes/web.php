@@ -57,6 +57,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('chapters')->group(function () {
             Route::any('{lesson}/add', 'LessonController@add_chapter')->name('chapter.add');
+            Route::any('{lesson}/list', 'LessonController@list_chapter')->name('chapters.list');
         });
     });
 
