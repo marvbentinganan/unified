@@ -39,8 +39,8 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', 'EvaluationController@dashboard')->name('evaluation.dashboard');
     });
 
-    Route::namespace('Lms')->group(function (){
-            // Classes Routes
+    Route::namespace('Lms')->group(function () {
+        // Classes Routes
         Route::prefix('classes')->group(function () {
             Route::get('me', 'ClassController@myClasses')->name('my.classes');
             Route::any('add', 'ClassController@add')->name('class.add');
@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
 
             Route::prefix('chapters')->group(function () {
                 Route::any('{lesson}/add', 'ChapterController@store')->name('chapter.add');
-                Route::any('{lesson}/update', 'ChapterController@update')->name('chapter.update');
+                Route::any('{lesson}/{chapter}/update', 'ChapterController@update')->name('chapter.update');
                 Route::any('{lesson}/list', 'ChapterController@list')->name('chapters.list');
             });
         });

@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Lms;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Build\Subject;
-use App\Models\Build\Department;
-use App\Models\Build\Program;
 use App\Models\Lms\Lesson;
+use App\Models\Lms\Chapter;
 
 class ChapterController extends Controller
 {
@@ -38,9 +36,19 @@ class ChapterController extends Controller
         return view($this->directory.'.new', compact('lesson'));
     }
 
-    public function update(Request $request, Chapter $chapter)
+    public function update(Request $request, Lesson $lesson, Chapter $chapter)
     {
-        
+        if ($request->has('content')) {
+            $chapter->update([
+                'title' => $request->title,
+                'slug' => str_slug($request->title, '-'),
+                'content' => $request->content,
+            ]);
+
+            return response()->json('Chapter Updated', 200);
+        }
+
+        return view($this->directory.'.update', compact('chapter', 'lesson'));
     }
 
     public function list(Lesson $lesson)

@@ -1,7 +1,5 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
-
-
 @endpush 
 @section('content')
 <div class="sixteen wide column">

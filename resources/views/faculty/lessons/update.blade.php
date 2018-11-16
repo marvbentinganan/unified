@@ -21,7 +21,7 @@
     <div class="ui section divider"></div>
     <div class="ui stackable very padded two column grid">
         <div class="ten wide column">
-            <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Update Lesson</div>
+            <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Update {{ $lesson->title }}</div>
             <div class="ui attached segment">
                 <form action="{{ route('lesson.update', $lesson->slug) }}" method="POST" id="lesson-form" class="ui form">
                     @csrf
@@ -61,7 +61,7 @@
                     <div class="field">
                         <button class="ui animated fade primary icon button">
                             <div class="visible content">Update Lesson</div>
-                            <div class="hidden content"><i class="ion-compose icon"></i></div>
+                            <div class="hidden content"><i class="loading ion-loop icon"></i></div>
                         </button>
                     </div>
                 </form>
@@ -87,9 +87,6 @@
 		axios.post(route, data)
 		.then(response => {
 			toastr.success(response.data),
-			$('form').form('clear'),
-            tinyMCE.get('objective').setContent(''),
-			tinyMCE.get('description').setContent(''),
             getLessons();
 		})
 		.catch(response => {
