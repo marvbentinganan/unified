@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Lms;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Build\Subject;
 use App\Models\Build\Department;
@@ -77,28 +78,27 @@ class LessonController extends Controller
         return view($this->directory.'.list', compact('lessons'));
     }
 
-    public function add_chapter(Request $request, Lesson $lesson)
+    // Update Lesson
+    public function update(Request $request, Lesson $lesson)
     {
-        if ($request->has('content')) {
-            try {
-                $lesson->chapters()->create([
-                    'title' => $request->title,
-                    'slug' => str_slug($request->title, '-'),
-                    'content' => $request->content,
-                    'user_id' => auth()->user()->id,
-                ]);
+        if($request->has('title')){
+            $lesson->update([
+                'title' => $request->title,
+                'slug' => str_slug($request->title, '-'),
+                'department_id' => $request->department_id,
+                'program_id' => $request->program_id,
+                'subject_id' => $request->subject_id,
+                'description' => $request->description,
+                'objective' => $request->objective
+            ]);
 
-                return response()->json('Chapter Added', 200);
-            } catch (Exception $ex) {
-                return $ex;
-            }
+            return redirect()->back();
         }
 
-        return view($this->directory.'.chapters.new', compact('lesson'));
-    }
+        $subjects = Subject::pluck('code', 'id');
+        $departments = Department::pluck('name', 'id');
+        $programs = Program::pluck('code', 'id');
 
-    public function list_chapter(Lesson $lesson)
-    {
-        return view($this->directory.'.chapters.list', compact('lesson'));
+        return view($this->directory.'.update', compact('subjects', 'departments', 'programs', 'lesson'));
     }
 }

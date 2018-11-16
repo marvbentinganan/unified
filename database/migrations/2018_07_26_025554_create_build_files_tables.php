@@ -23,6 +23,7 @@ class CreateBuildFilesTables extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('code');
             $table->unsignedInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

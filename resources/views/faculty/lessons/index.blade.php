@@ -2,7 +2,7 @@
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 
 
-@endpush 
+@endpush
 @section('content')
 <div class="sixteen wide column">
     {{-- Breadcrumb --}}
@@ -60,14 +60,14 @@
                         </div>
                         <div class="ui attached basic buttons">
                             <a href="" class="ui icon button"><i class="blue ion-ios-browsers icon"></i></a>
-                            <a href="" class="ui icon button"><i class="teal ion-compose icon"></i></a>
+                            <a href="{{ route('lesson.update', $lesson->slug) }}" class="ui icon button"><i class="teal ion-compose icon"></i></a>
                             <a href="" class="ui icon button"><i class="red ion-trash-a icon"></i></a>
                             @if(auth()->user()->hasRole('management') && $lesson->active == false)
                             <a href="" class="ui icon button"><i class="green ion-check icon"></i></a>
                             @endif
                         </div>
                     </div>
-                    
+
                     @endforeach
                 </div>
             </div>

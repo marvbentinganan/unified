@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Lms;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Build\Subject;
 use App\Models\Build\Department;

@@ -17,48 +17,92 @@ class TypesTableSeeder extends Seeder
      */
     public function run()
     {
-        Department::create([
+        $shs = Department::create([
             'name' => "Senior High School"
         ]);
 
+        $shs->programs()->create([
+            'name' => "Science, Technology, Engineering and Mathematics",
+            'code' => "STEM"
+        ]);
+
+        $shs->programs()->create([
+            'name' => "Accountancy, Business and Management",
+            'code' => "ABM"
+        ]);
+
+        $shs->programs()->create([
+            'name' => "General Academic Strand",
+            'code' => "GAS"
+        ]);
+
+        $shs->programs()->create([
+            'name' => "Home Economics - Caregiving",
+            'code' => "HE"
+        ]);
+
+        $shs->programs()->create([
+            'name' => "Information Communication Technology",
+            'code' => "ICT"
+        ]);
+
+        $shs->programs()->create([
+            'name' => "Industrial Arts",
+            'code' => "IA"
+        ]);
+
+        $shs->programs()->create([
+            'name' => "Humanities and Social Sciences",
+            'code' => "HUMMS"
+        ]);
+
         $college = Department::create([
-            'name' => "College"
+            'name' => "College",
         ]);
 
         $college->programs()->create([
-            'name' => 'Nursing'
+            'name' => 'Nursing',
+            'code' => "BSN"
         ]);
 
         $college->programs()->create([
-            'name' => 'Physical Therapy'
+            'name' => 'Physical Therapy',
+            'code' => "BSPT"
         ]);
 
         $college->programs()->create([
-            'name' => 'Medical Technology'
+            'name' => 'Medical Technology',
+            'code' => "BSMT"
         ]);
 
         $college->programs()->create([
-            'name' => 'Radiologic Technology'
+            'name' => 'Radiologic Technology',
+            'code' => "BSRT"
         ]);
 
         $college->programs()->create([
-            'name' => 'Pharmacy'
+            'name' => 'Pharmacy',
+            'code' => "BSPMY"
         ]);
 
         $college->programs()->create([
-            'name' => 'Psychology'
+            'name' => 'Psychology',
+            'code' => "BSPSY"
         ]);
 
         $college->programs()->create([
-            'name' => 'Business Administration'
+            'name' => 'Business Administration',
+            'code' => "BSBA"
         ]);
 
         $college->programs()->create([
-            'name' => 'Entrepreneurship'
+            'name' => 'Entrepreneurship',
+            'code' => "BSENTREP"
         ]);
 
         $college->programs()->create([
-            'name' => 'Interdisciplinary Studies'
+            'name' => 'Interdisciplinary Studies',
+            'code' => "ABIDS"
         ]);
 
         $college->programs()->create([

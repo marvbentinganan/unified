@@ -39,25 +39,29 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', 'EvaluationController@dashboard')->name('evaluation.dashboard');
     });
 
-    // Classes Routes
-    Route::prefix('classes')->group(function () {
-        Route::get('me', 'ClassController@myClasses')->name('my.classes');
-        Route::any('add', 'ClassController@add')->name('class.add');
-        Route::any('list', 'ClassController@my_classes')->name('class.list');
-        Route::get('view/{class}', 'ClassController@view')->name('class.view');
-        Route::post('upload/{class}', 'ClassController@upload')->name('class.upload');
-    });
+    Route::namespace('Lms')->group(function (){
+            // Classes Routes
+        Route::prefix('classes')->group(function () {
+            Route::get('me', 'ClassController@myClasses')->name('my.classes');
+            Route::any('add', 'ClassController@add')->name('class.add');
+            Route::any('list', 'ClassController@my_classes')->name('class.list');
+            Route::get('view/{class}', 'ClassController@view')->name('class.view');
+            Route::post('upload/{class}', 'ClassController@upload')->name('class.upload');
+        });
 
-    // Lessons Routes
-    Route::prefix('lessons')->group(function () {
-        Route::get('index', 'LessonController@index')->name('lessons');
-        Route::get('new', 'LessonController@new')->name('lesson.new');
-        Route::get('list', 'LessonController@list')->name('lessons.list');
-        Route::post('add', 'LessonController@store')->name('lesson.add');
+        // Lessons Routes
+        Route::prefix('lessons')->group(function () {
+            Route::get('index', 'LessonController@index')->name('lessons');
+            Route::get('new', 'LessonController@new')->name('lesson.new');
+            Route::get('list', 'LessonController@list')->name('lessons.list');
+            Route::post('add', 'LessonController@store')->name('lesson.add');
+            Route::any('{lesson}/update', 'LessonController@update')->name('lesson.update');
 
-        Route::prefix('chapters')->group(function () {
-            Route::any('{lesson}/add', 'LessonController@add_chapter')->name('chapter.add');
-            Route::any('{lesson}/list', 'LessonController@list_chapter')->name('chapters.list');
+            Route::prefix('chapters')->group(function () {
+                Route::any('{lesson}/add', 'ChapterController@store')->name('chapter.add');
+                Route::any('{lesson}/update', 'ChapterController@update')->name('chapter.update');
+                Route::any('{lesson}/list', 'ChapterController@list')->name('chapters.list');
+            });
         });
     });
 
