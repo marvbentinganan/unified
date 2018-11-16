@@ -40,12 +40,12 @@ class Lesson extends Model
 
     public function created_by()
     {
-        return $this->belongsTo('App\Models\User', 'id', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     public function approved_by()
     {
-        return $this->belongsTo('App\Models\User', 'id', 'approved_by');
+        return $this->belongsTo('App\Models\User', 'approved_by', 'id');
     }
 
     public function setTitleAttribute($value)

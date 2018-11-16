@@ -19,7 +19,16 @@ class LessonController extends Controller
 
     public function index()
     {
-        return view($this->directory.'.index');
+        if (auth()->user()->hasRole('faculty')) {
+            $lessons = auth()->user()->lessons()->with(['department', 'program', 'subject'])->get();
+        } elseif (auth()->user()->hasRole('management')) {
+            $programs = auth()->user()->employee()->programs()->pluck('id');
+            $lessons = Lesson::whereIn('program_id', $programs)->with(['departments', 'programs', 'subjects'])->get();
+        } else {
+            $lessons = Lesson::with(['department', 'program', 'subject'])->get();
+        }
+
+        return view($this->directory.'.index', compact('lessons'));
     }
 
     public function new()

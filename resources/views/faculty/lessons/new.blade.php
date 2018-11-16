@@ -11,9 +11,9 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="" class="section">Lesson Manager</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">My Lessons</a>
+            <a href="{{ route('lessons') }}" class="section">My Lessons</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="active section">New Lesson</a>
+            <a href="{{ route('lesson.new') }}" class="active section">New Lesson</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>

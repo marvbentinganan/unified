@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Student::class, 'id_number', 'id_number');
     }
+
+    public function lessons()
+    {
+        return $this->hasMany(Lms\Lesson::class);
+    }
 }
