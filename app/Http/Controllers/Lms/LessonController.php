@@ -20,11 +20,12 @@ class LessonController extends Controller
 
     public function index()
     {
-        if (auth()->user()->hasRole('faculty')) {
+        if (auth()->user()->hasRole('management')) {
+            $employee = auth()->user()->employee;
+            $programs = $employee->programs;
+            $lessons = Lesson::whereIn('program_id', $programs->pluck('id'))->with(['department', 'program', 'subject'])->get();
+        } elseif (auth()->user()->hasRole('faculty')) {
             $lessons = auth()->user()->lessons()->with(['department', 'program', 'subject'])->get();
-        } elseif (auth()->user()->hasRole('management')) {
-            $programs = auth()->user()->employee()->programs()->pluck('id');
-            $lessons = Lesson::whereIn('program_id', $programs)->with(['departments', 'programs', 'subjects'])->get();
         } else {
             $lessons = Lesson::with(['department', 'program', 'subject'])->get();
         }
@@ -44,7 +45,14 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         try {
-            $lesson = Lesson::updateOrCreate(
+            $request->validate([
+                'title' => 'required',
+                'subject_id' => 'required',
+                'department_id' => 'required',
+                'program_id' => 'required',
+            ]);
+
+            $lesson = auth()->user()->lessons()->updateOrCreate(
                 [
                     'subject_id' => $request->subject_id,
                     'department_id' => $request->department_id,
@@ -58,7 +66,6 @@ class LessonController extends Controller
                     'program_id' => $request->program_id,
                     'objective' => $request->objective,
                     'description' => $request->description,
-                    'user_id' => auth()->user()->id,
                 ]
             );
 
@@ -81,7 +88,7 @@ class LessonController extends Controller
     // Update Lesson
     public function update(Request $request, Lesson $lesson)
     {
-        if($request->has('title')){
+        if ($request->has('title')) {
             $lesson->update([
                 'title' => $request->title,
                 'slug' => str_slug($request->title, '-'),
@@ -89,7 +96,7 @@ class LessonController extends Controller
                 'program_id' => $request->program_id,
                 'subject_id' => $request->subject_id,
                 'description' => $request->description,
-                'objective' => $request->objective
+                'objective' => $request->objective,
             ]);
 
             return redirect()->back();

@@ -19,6 +19,11 @@ class ChapterController extends Controller
     public function store(Request $request, Lesson $lesson)
     {
         if ($request->has('content')) {
+            $request->validate([
+                'title' => 'required',
+                'content' => 'required',
+            ]);
+
             try {
                 $lesson->chapters()->create([
                     'title' => $request->title,
@@ -39,6 +44,11 @@ class ChapterController extends Controller
     public function update(Request $request, Lesson $lesson, Chapter $chapter)
     {
         if ($request->has('content')) {
+            $request->validate([
+                'title' => 'required',
+                'content' => 'required',
+            ]);
+
             $chapter->update([
                 'title' => $request->title,
                 'slug' => str_slug($request->title, '-'),
