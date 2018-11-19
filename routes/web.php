@@ -73,6 +73,14 @@ Route::middleware('auth')->group(function () {
 
     //Build Files
     Route::prefix('build')->group(function () {
+        Route::namespace('Build')->group(function () {
+            Route::prefix('departments')->group(function () {
+                Route::get('index', 'DepartmentController@index')->name('departments');
+                Route::post('add', 'DepartmentController@store')->name('department.add');
+                Route::get('edit', 'DepartmentController@edit')->name('department.edit');
+            });
+        });
+        // Evaluation Build Files
         Route::namespace('Evaluation')->group(function () {
             Route::prefix('categories')->group(function () {
                 Route::get('index', 'CategoryController@index')->name('categories');
