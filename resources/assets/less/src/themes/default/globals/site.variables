@@ -6,11 +6,11 @@
        Fonts
 --------------------*/
 
-@fontName          : 'Noto Sans';
+@fontName          : 'Lato';
 @fontSmoothing     : antialiased;
 
-@headerFont        : @fontName, sans-serif;
-@pageFont          : @fontName, sans-serif;
+@headerFont        : @fontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+@pageFont          : @fontName, 'Helvetica Neue', Arial, Helvetica, sans-serif;
 
 @googleFontName    : @fontName;
 @importGoogleFonts : true;
