@@ -23,9 +23,11 @@
         "unisharp/laravel-filemanager": "~1.8",
         "yajra/laravel-datatables-buttons": "^3.0",
         "yajra/laravel-datatables-html": "^3.0",
-        "yajra/laravel-datatables-oracle": "~8.0"
+        "yajra/laravel-datatables-oracle": "~8.0",
+        "orangehill/iseed": "dev-master"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.2",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
