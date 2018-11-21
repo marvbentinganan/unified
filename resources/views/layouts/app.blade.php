@@ -21,10 +21,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/semantic-ui/semantic.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/normalize.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+    {{--  <link href="{{ asset('plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
-</head>
+</head>  --}}
 
 <body>
     <header>
@@ -44,6 +44,7 @@
     {{--  <script src="{{ asset('js/app.js') }}"></script>  --}}
     <script src="{{ asset('js/semantic-ui/semantic.min.js') }}"></script>
     <script src="{{ asset('js/all.js') }}"></script>
+    {{--  <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>  --}}
     {{--  <script src="{{ asset('plugins/toastr/js/toastr.min.js') }}"></script>  --}}
 
     <script>
