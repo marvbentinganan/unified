@@ -26,7 +26,6 @@ div.dt-buttons {
         <a href="{{ route('users') }}" class="section">Users</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         <a href="{{ route('active.directory') }}" class="active section">Active Directory</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
     </div>
 </div>
 <div class="row">

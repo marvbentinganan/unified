@@ -12,7 +12,6 @@
             <a href="{{ route('digihub') }}" class="section">Digihub</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="#" class="active section">Statistics</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

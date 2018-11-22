@@ -13,7 +13,6 @@
             <a href="{{ route('my.classes') }}" class="section">My Classes</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('class.view', $class->code) }}" class="active section">{{ $class->name }}</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

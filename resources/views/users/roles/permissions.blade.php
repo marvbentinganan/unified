@@ -12,7 +12,6 @@
             <a href="{{ route('roles') }}" class="section">Roles</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('role.permissions') }}" class="active section">Role Permissions</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

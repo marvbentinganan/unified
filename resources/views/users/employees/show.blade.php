@@ -14,7 +14,6 @@
             <a href="{{ route('employees') }}" class="section">Employees</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('employee.show', $employee->id) }}" class="active section">{{ $employee->fullname }}</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

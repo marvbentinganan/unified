@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
             Route::get('new', 'LessonController@new')->name('lesson.new');
             Route::get('list', 'LessonController@list')->name('lessons.list');
             Route::post('add', 'LessonController@store')->name('lesson.add');
+            Route::get('view/{lesson}', 'LessonController@view')->name('lesson.view');
             Route::any('{lesson}/update', 'LessonController@update')->name('lesson.update');
 
             Route::prefix('chapters')->group(function () {

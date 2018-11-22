@@ -15,7 +15,6 @@
             <a href="" class="section">{{ $lesson->title }}</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('chapter.add', $lesson->slug) }}" class="active section">New Chapter</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

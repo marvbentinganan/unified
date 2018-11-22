@@ -10,7 +10,6 @@
         <a href="{{ route('navigation') }}" class="section">Navigation</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         <a href="{{ route('navigation.edit', $menu->id) }}" class="active section">{{ $menu->name }}</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
     </div>
 </div>
 <div class="ui section divider"></div>

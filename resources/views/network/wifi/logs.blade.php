@@ -13,8 +13,7 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="active section">Logs</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+            <a href="{{ route('wifi.active') }}" class="active section">Logs</a>
         </div>
     </div>
     <div class="ui section divider"></div>

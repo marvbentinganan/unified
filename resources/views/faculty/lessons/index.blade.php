@@ -13,7 +13,6 @@
             <a href="" class="section">Lesson Manager</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('lessons') }}" class="active section">My Lessons</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>
@@ -59,7 +58,7 @@
                             </div>
                         </div>
                         <div class="ui attached basic buttons">
-                            <a href="" class="ui icon button"><i class="blue ion-ios-browsers icon"></i></a>
+                            <a href="{{ route('lesson.view', $lesson->slug) }}" class="ui icon button"><i class="blue ion-ios-browsers icon"></i></a>
                             <a href="{{ route('lesson.update', $lesson->slug) }}" class="ui icon button"><i class="teal ion-compose icon"></i></a>
                             <a href="" class="ui icon button"><i class="red ion-trash-a icon"></i></a>
                             @if(auth()->user()->hasRole('management') && $lesson->active == false)

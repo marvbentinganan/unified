@@ -12,7 +12,6 @@
 			<a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
 			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 			<a href="{{ route('wifi.usage', $user->id) }}" class="active section">{{ $user->firstname.' '.$user->lastname }}</a>
-			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 		</div>
 	</div>
 	<div class="ui section divider"></div>

@@ -13,7 +13,6 @@
             <a href="{{ route('network') }}" class="section">Network Services</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('digihub') }}" class="active section">Digihub</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

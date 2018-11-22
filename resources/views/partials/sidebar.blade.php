@@ -1,7 +1,5 @@
 <div class="ui large left vertical accordion sidebar menu">
-    @php $role = auth()->user()->roles()->first();
-    @endphp @foreach($role->menus->where('is_primary', true)->sortBy('order')
-    as $menu) @if($menu->has_children == true)
+    @foreach($menus as $menu) @if($menu->has_children == true)
     <div class="item">
         <div class="title">
             {{ $menu->name }}

@@ -17,7 +17,6 @@
             <a href="{{ route('digihub.log', $digihub->id) }}" class="section">{{ $digihub->name }}</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="#" class="active section">Logs</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

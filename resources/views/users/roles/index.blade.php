@@ -11,7 +11,6 @@
         <a href="{{ route('users') }}" class="section">Users</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         <a href="{{ route('roles') }}" class="active section">Roles</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
     </div>
 </div>
 <div class="ui section divider"></div>

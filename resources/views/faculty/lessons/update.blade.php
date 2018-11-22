@@ -12,10 +12,9 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('lessons') }}" class="section">My Lessons</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lessons') }}" class="section">{{ $lesson->title }}</a>
+            <a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('lesson.update', $lesson->slug) }}" class="active section">Update</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

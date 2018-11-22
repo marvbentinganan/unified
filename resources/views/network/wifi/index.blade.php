@@ -10,7 +10,6 @@
             <a href="{{ route('network') }}" class="section">Network Services</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('wifi') }}" class="active section">RCI-WIFI</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

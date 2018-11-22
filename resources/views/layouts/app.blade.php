@@ -61,7 +61,7 @@
                     $('.sidebar').sidebar('setting', 'transition', 'push').sidebar('toggle');
                 }
         
-                $('.dropdown').dropdown('clearable');
+                $('.dropdown').dropdown();
         </script>
         @yield('footer')
         @stack('footer_scripts')

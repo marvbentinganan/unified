@@ -78,6 +78,12 @@ class LessonController extends Controller
         }
     }
 
+    // View Lesson
+    public function view(Lesson $lesson)
+    {
+        return view($this->directory.'.view', compact('lesson'));
+    }
+
     public function list()
     {
         $lessons = Lesson::where('user_id', auth()->user()->id)->latest()->get();

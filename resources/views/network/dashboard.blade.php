@@ -9,7 +9,6 @@
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('network') }}" class="active section">Network Services</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         </div>
     </div>
     <div class="ui section divider"></div>

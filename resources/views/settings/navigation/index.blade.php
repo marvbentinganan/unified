@@ -8,7 +8,6 @@
         <a href="" class="section">Settings</a>
         <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
         <a href="{{ route('navigation') }}" class="active section">Navigation</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
     </div>
 </div>
 <div class="ui section divider"></div>
