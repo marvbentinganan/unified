@@ -107,7 +107,7 @@
     </div>
 </div>
 @endsection
- @push('footer_scripts')
+@push('footer_scripts')
 <script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script>
     new Vue({
@@ -191,7 +191,5 @@
             this.init();
         }
     });
-
 </script>
-
 @endpush

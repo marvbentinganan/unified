@@ -22,9 +22,6 @@
     <!-- Styles -->
     <link href="{{ asset('css/semantic-ui/semantic.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
-    {{--  <link href="{{ asset('plugins/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
-</head>  --}}
 
 <body>
     <header>
@@ -41,34 +38,31 @@
         </div>
     </main>
 
-    {{--  <script src="{{ asset('js/app.js') }}"></script>  --}}
     <script src="{{ asset('js/semantic-ui/semantic.min.js') }}"></script>
     <script src="{{ asset('js/all.js') }}"></script>
-    {{--  <script src="{{ asset('plugins/sweetalert2/sweetalert2.all.js') }}"></script>  --}}
-    {{--  <script src="{{ asset('plugins/toastr/js/toastr.min.js') }}"></script>  --}}
-
-    <script>
-        function confirm(){
-            swal({ title: 'Are you sure?',
-            text: "You will be logged out of the system",
-            type: 'question',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes' })
-            .then((result) => {
-                if (result.value){
-                    $('#logout').submit();
-                }
-            })
-        }
-        function showSidebar(){
-            $('.sidebar').sidebar('setting', 'transition', 'push').sidebar('toggle');
-        }
-
-        $('.dropdown').dropdown();
-    </script>
+    
     <footer>
+        <script>
+            function confirm(){
+                    swal({ title: 'Are you sure?',
+                    text: "You will be logged out of the system",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes' })
+                    .then((result) => {
+                        if (result.value){
+                            $('#logout').submit();
+                        }
+                    })
+                }
+                function showSidebar(){
+                    $('.sidebar').sidebar('setting', 'transition', 'push').sidebar('toggle');
+                }
+        
+                $('.dropdown').dropdown('clearable');
+        </script>
         @yield('footer')
         @stack('footer_scripts')
     </footer>
