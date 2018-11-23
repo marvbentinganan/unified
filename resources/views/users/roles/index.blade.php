@@ -18,32 +18,30 @@
                 <a href="{{ route('role.permissions') }}" class="item"><i class="ion-key icon"></i> Role | Permission Control</a>
             </div>
         </div>
-        <div class="ui attached segment">
-            <table class="ui unstackable compact celled striped table">
-                <thead>
-                    <th class="center aligned">Name</th>
-                    <th class="center aligned">Display Name</th>
-                    <th class="center aligned">Description</th>
-                    <th class="center aligned">Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="role in options.roles">
-                        <td>@{{ role.name }}</td>
-                        <td>@{{ role.display_name }}</td>
-                        <td>@{{ role.description }}</td>
-                        <td class="center aligned">
-                            <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i> Edit</button>
-                            <button class="ui mini red icon button" @click="destroy(role.id)"><i class="ion-trash-a icon"></i> Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="ui attached small unstackable compact celled striped table">
+            <thead>
+                <th class="center aligned">Name</th>
+                <th class="center aligned">Display Name</th>
+                <th class="center aligned">Description</th>
+                <th class="center aligned">Actions</th>
+            </thead>
+            <tbody>
+                <tr v-for="role in options.roles">
+                    <td>@{{ role.name }}</td>
+                    <td>@{{ role.display_name }}</td>
+                    <td>@{{ role.description }}</td>
+                    <td class="center aligned">
+                        <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i> Edit</button>
+                        <button class="ui mini red icon button" @click="destroy(role.id)"><i class="ion-trash-a icon"></i> Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="four wide column">
         <div class="ui top attached header">@{{ label }} Role</div>
         <div class="ui attached segment">
-            <form action="" method="POST" class="ui form" @submit.prevent="add()">
+            <form action="" method="POST" class="ui small form" @submit.prevent="add()">
                 @csrf
                 <div class="field">
                     <div class="ui left icon input">

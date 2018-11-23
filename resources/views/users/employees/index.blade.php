@@ -12,6 +12,43 @@
 @section('content')
 <div class="sixteen wide column">
     <div class="ui stackable two column grid">
+        <div class="ten wide column">
+            {{-- Employees table --}}
+            <div class="row">
+                <div class="ui top attached segment">
+                    <div class="ui fluid icon input">
+                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Employee...">
+                        <i class="inverted circular search icon"></i>
+                    </div>
+                </div>
+                <div class="ui attached segment">
+                    <table class="ui compact celled table">
+                        <thead>
+                            <th class="center aligned">ID Number</th>
+                            <th class="center aligned">Name</th>
+                            <th class="center aligned">Designation</th>
+                            <th class="center aligned">Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="employee in filteredEmployees">
+                                <th class="center aligned">@{{ employee.id_number }}</th>
+                                <td>@{{ employee.firstname }} @{{ employee.lastname }}</td>
+                                <td class="center aligned">
+                                    <span class="ui teal label">Regular Employee</span>
+                                    <span class="ui green label" v-if="employee.is_faculty == true">Faculty</span>
+                                    <span class="ui purple label" v-if="employee.is_manager == true">Supervisor</span>
+                                </td>
+                                <td class="center aligned">
+                                    <a :href="'show/' + employee.id" class="ui mini blue icon button"><i class="ion-eye icon"></i></a>
+                                    <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
+                                    <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div class="six wide column">
             <div class="row">
                 <div class="ui top attached header">
@@ -116,43 +153,6 @@
                             </button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-        <div class="ten wide column">
-            {{-- Employees table --}}
-            <div class="row">
-                <div class="ui top attached segment">
-                    <div class="ui fluid icon input">
-                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Employee...">
-                        <i class="inverted circular search icon"></i>
-                    </div>
-                </div>
-                <div class="ui attached segment">
-                    <table class="ui compact celled table">
-                        <thead>
-                            <th class="center aligned">ID Number</th>
-                            <th class="center aligned">Name</th>
-                            <th class="center aligned">Designation</th>
-                            <th class="center aligned">Actions</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="employee in filteredEmployees">
-                                <th class="center aligned">@{{ employee.id_number }}</th>
-                                <td>@{{ employee.firstname }} @{{ employee.lastname }}</td>
-                                <td class="center aligned">
-                                    <span class="ui teal label">Regular Employee</span>
-                                    <span class="ui green label" v-if="employee.is_faculty == true">Faculty</span>
-                                    <span class="ui purple label" v-if="employee.is_manager == true">Supervisor</span>
-                                </td>
-                                <td class="center aligned">
-                                    <a :href="'show/' + employee.id" class="ui mini blue icon button"><i class="ion-eye icon"></i></a>
-                                    <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
-                                    <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

@@ -12,6 +12,40 @@
 @section('content')
 <div class="sixteen wide column">
     <div class="ui stackable two column grid">
+        {{-- Students table --}}
+        <div class="ten wide column">
+            <div class="row">
+                <div class="ui top attached segment">
+                    <div class="ui fluid icon input">
+                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Student...">
+                        <i class="inverted circular search icon"></i>
+                    </div>
+                </div>
+                <div class="ui attached segment">
+                    <table class="ui small unstackable compact celled striped table">
+                        <thead>
+                            <th class="center aligned">ID Number</th>
+                            <th class="center aligned">Name</th>
+                            <th class="center aligned">Department</th>
+                            <th class="center aligned">Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="student in filteredStudents">
+                                <th class="center aligned">@{{ student.id_number }}</th>
+                                <td>@{{ student.fullname }}</td>
+                                <td>@{{ student.department.name }}</td>
+                                <td class="center aligned">
+                                    <div class="ui mini buttons">
+                                        <button class="ui mini teal icon button" @click="edit(student.id)"><i class="ion-edit icon"></i></button>
+                                        <button class="ui mini red icon button" @click="destroy(student.id)"><i class="ion-trash-b icon"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         {{--  Add Student Form  --}}
         <div class="six wide column">
             <div class="row">
@@ -19,7 +53,7 @@
                     <i class="ion-ios-personadd icon"></i>@{{ label }} Student
                 </div>
                 <div class="ui attached segment">
-                    <form action="" class="ui form" id="student-form" @submit.prevent="addStudent()">
+                    <form action="" class="ui small form" id="student-form" @submit.prevent="addStudent()">
                         @csrf
                         <div class="field">
                             <label for="">Firstname</label>
@@ -74,7 +108,7 @@
             <div class="row">
                 <div class="ui top attached header"><i class="ion-upload icon"></i> Upload Students</div>
                 <div class="ui attached segment">
-                    <form action="{{ route('students.upload') }}" method="POST" class="ui form" id="uploadForm" enctype="multipart/form-data">
+                    <form action="{{ route('students.upload') }}" method="POST" class="ui small form" id="uploadForm" enctype="multipart/form-data">
                         @csrf
                         <div class="field">
                             <div class="ui input">
@@ -88,38 +122,6 @@
                             </button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-        {{-- Students table --}}
-        <div class="ten wide column">
-            <div class="row">
-                <div class="ui top attached segment">
-                    <div class="ui fluid icon input">
-                        <input type="text" name="keyword" v-model="keyword" id="" placeholder="Search for Student...">
-                        <i class="inverted circular search icon"></i>
-                    </div>
-                </div>
-                <div class="ui attached segment">
-                    <table class="ui compact celled table">
-                        <thead>
-                            <th class="center aligned">ID Number</th>
-                            <th class="center aligned">Name</th>
-                            <th class="center aligned">Department</th>
-                            <th class="center aligned">Actions</th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="student in filteredStudents">
-                                <th class="center aligned">@{{ student.id_number }}</th>
-                                <td>@{{ student.fullname }}</td>
-                                <td>@{{ student.department.name }}</td>
-                                <td class="center aligned">
-                                    <button class="ui mini teal icon button" @click="edit(student.id)"><i class="ion-edit icon"></i></button>
-                                    <button class="ui mini red icon button" @click="destroy(student.id)"><i class="ion-trash-b icon"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

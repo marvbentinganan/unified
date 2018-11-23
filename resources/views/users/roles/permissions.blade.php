@@ -15,7 +15,7 @@
         <div class="ui sixteen wide column">
             <section class="ui segment">
                 <h3 class="ui header">Attach Permissions</h3>
-                <form action="{{ route('role.sync') }}" method="POST" class="ui form">
+                <form action="{{ route('role.sync') }}" method="POST" class="ui small form">
                     @csrf
                     <table class="ui unstackable compact striped celled table">
                         <thead>
@@ -48,7 +48,7 @@
                     <div class="field">
                         <button type="submit" class="ui small animated primary fade submit icon button">
                             <div class="visible content">Update Permissions</div>
-                            <div class="hidden content"><i class="sync icon"></i></div>
+                            <div class="hidden content"><i class="loading sync icon"></i></div>
                         </button>
                     </div>
                 </form>

@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="ui attached segment">
-                <div class="ui four doubling raised cards">
+                <div class="ui three doubling raised cards">
                     <div class="card" v-for="station in digihubs">
                         <div class="image">
                             <img v-bind:src="station.thumb" alt="">
@@ -48,7 +48,7 @@
         <div class="four wide column">
             <div class="ui top attached header">Add Digihub Station</div>
             <div class="ui attached segment">
-                <form action="" class="ui form" @submit.prevent="add()">
+                <form action="" class="ui small form" @submit.prevent="add()">
                     @csrf
                     <div class="field">
                         <div class="ui left icon input">
@@ -70,14 +70,14 @@
                     </div>
                     <div class="field">
                         <button type="submit" class="ui animated fade fluid primary submit icon button">
-                            <div class="visible content"><i class="ion-ios-plus icon"></i>Add</div>
-                            <div class="hidden content">Add Digihub Station</div>
+                            <div class="visible content">Add Digihub Station</div>
+                            <div class="hidden content"><i class="ion-ios-plus icon"></i></div>
                         </button>
                     </div>
                 </form>
             </div>
             <div class="ui section divider"></div>
-            <table class="ui padded compact celled striped table">
+            <table class="ui small compact celled striped table">
                 <thead>
                     <th class="center aligned">Name</th>
                     <th class="center aligned">Location</th>

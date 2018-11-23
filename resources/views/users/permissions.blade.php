@@ -11,10 +11,32 @@
 @endsection
 @section('content')
 <div class="ui stackable two column grid">
+    <div class="twelve wide column">
+        <div class="ui top attached header">List of Permissions</div>
+        <table class="ui attached small unstackable compact celled striped table">
+            <thead>
+                <th class="center aligned">Name</th>
+                <th class="center aligned">Display Name</th>
+                <th class="center aligned">Description</th>
+                <th class="center aligned">Actions</th>
+            </thead>
+            <tbody>
+                <tr v-for="permission in permissions">
+                    <td>@{{ permission.name }}</td>
+                    <td>@{{ permission.display_name }}</td>
+                    <td>@{{ permission.description }}</td>
+                    <td class="center aligned">
+                        <button class="ui mini teal icon button" @click="edit(permission.id)"><i class="ion-edit icon"></i> Edit</button>
+                        <button class="ui mini red icon button" @click="deletePermission(permission.id)"><i class="ion-trash-a icon"></i> Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div class="four wide column">
         <div class="ui top attached header">@{{ label }} Permission</div>
         <div class="ui attached segment">
-            <form action="" method="POST" class="ui form" @submit.prevent="addPermission()">
+            <form action="" method="POST" class="ui small form" @submit.prevent="addPermission()">
                 @csrf
                 <div class="field">
                     <div class="ui left icon input">
@@ -38,30 +60,6 @@
                     <button class="ui primary submit icon button"><i class="ion-plus-circled icon"></i> @{{ label }}</button>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="twelve wide column">
-        <div class="ui top attached header">List of Permissions</div>
-        <div class="ui attached segment">
-            <table class="ui unstackable compact celled striped table">
-                <thead>
-                    <th class="center aligned">Name</th>
-                    <th class="center aligned">Display Name</th>
-                    <th class="center aligned">Description</th>
-                    <th class="center aligned">Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="permission in permissions">
-                        <td>@{{ permission.name }}</td>
-                        <td>@{{ permission.display_name }}</td>
-                        <td>@{{ permission.description }}</td>
-                        <td class="center aligned">
-                            <button class="ui mini teal icon button" @click="edit(permission.id)"><i class="ion-edit icon"></i> Edit</button>
-                            <button class="ui mini red icon button" @click="deletePermission(permission.id)"><i class="ion-trash-a icon"></i> Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
