@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded two column grid">
+    <div class="ui stackable two column grid">
         <div class="eleven wide column">
             <div class="ui top attached gray inverted header">
                 <i class="ion-ios-list icon"></i> Class List

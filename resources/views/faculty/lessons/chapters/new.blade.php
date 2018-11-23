@@ -14,7 +14,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded grid">
+    <div class="ui stackable grid">
         <div class="sixteen wide column">
             <div class="ui secondary pointing two item tabular menu">
                 <a class="item active" data-tab="add"><i class="ion-plus icon"></i> Form</a>

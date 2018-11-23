@@ -11,7 +11,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded two column grid">
+    <div class="ui stackable two column grid">
         <div class="ten wide column">
             <div class="ui top attached header"><i class="ion flask icon"></i> My Classes</div>
             <div class="ui attached segment">

@@ -10,7 +10,7 @@
 <a href="{{ route('permissions') }}" class="active section">Permissions</a>
 @endsection
 @section('content')
-<div class="ui stackable two column padded grid">
+<div class="ui stackable two column grid">
     <div class="four wide column">
         <div class="ui top attached header">@{{ label }} Permission</div>
         <div class="ui attached segment">

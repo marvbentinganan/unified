@@ -11,7 +11,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable two column padded grid">
+    <div class="ui stackable two column grid">
         {{--  Add Student Form  --}}
         <div class="six wide column">
             <div class="row">

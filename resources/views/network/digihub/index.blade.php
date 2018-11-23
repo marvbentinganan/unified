@@ -11,33 +11,60 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable two column padded grid">
+    <div class="ui stackable two column grid">
+        <div class="twelve wide column">
+            <div class="ui top attached borderless menu">
+                <div class="header item">Digihub Stations</div>
+                <div class="right menu">
+                    <a href="{{ route('digihub.logs') }}" class="item"><i class="ion-podium icon"></i>View Statistics</a>
+                </div>
+            </div>
+            <div class="ui attached segment">
+                <div class="ui four doubling raised cards">
+                    <div class="card" v-for="station in digihubs">
+                        <div class="image">
+                            <img v-bind:src="station.thumb" alt="">
+                        </div>
+                        <div class="content">
+                            <div class="header">@{{ station.name }}</div>
+                            <div class="meta">
+                                <span class="date"><i class="ion-ios-world icon"></i> @{{ station.ip }}</span>
+                            </div>
+                            <div class="description">
+                                @{{ station.location }}
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui three mini buttons">
+                                <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
+                                <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
+                                <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="four wide column">
             <div class="ui top attached header">Add Digihub Station</div>
             <div class="ui attached segment">
                 <form action="" class="ui form" @submit.prevent="add()">
                     @csrf
                     <div class="field">
-                        <div class="ui labeled input">
-                            <div class="ui blue label">
-                                <i class="ion-pricetag icon"></i>
-                            </div>
+                        <div class="ui left icon input">
+                            <i class="ion-pricetag icon"></i>    
                             <input type="text" name="name" v-model="digihub.name" placeholder="Name of e-Kiosk Station">
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui labeled input">
-                            <div class="ui blue label">
-                                <i class="ion-ios-world icon"></i>
-                            </div>
+                        <div class="ui left icon input">
+                            <i class="ion-ios-world icon"></i>    
                             <input type="text" name="ip" v-model="digihub.ip" placeholder="Static IP Address">
                         </div>
                     </div>
                     <div class="field">
-                        <div class="ui labeled input">
-                            <div class="ui blue label">
-                                <i class="ion-ios-location icon"></i>
-                            </div>
+                        <div class="ui left icon input">
+                            <i class="ion-ios-location icon"></i>    
                             <input type="text" name="location" v-model="digihub.location" placeholder="Location">
                         </div>
                     </div>
@@ -64,39 +91,6 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="twelve wide column">
-            <div class="ui top attached borderless menu">
-                <div class="header item">Digihub Stations</div>
-                <div class="right menu">
-                    <a href="{{ route('digihub.logs') }}" class="item"><i class="ion-podium icon"></i>View Statistics</a>
-                </div>
-            </div>
-            <div class="ui attached segment">
-                <div class="ui four doubling raised cards">
-                        <div class="card" v-for="station in digihubs">
-                            <div class="image">
-                                <img v-bind:src="station.thumb" alt="">
-                            </div>
-                            <div class="content">
-                                <div class="header">@{{ station.name }}</div>
-                                <div class="meta">
-                                    <span class="date"><i class="ion-ios-world icon"></i> @{{ station.ip }}</span>
-                                </div>
-                                <div class="description">
-                                    @{{ station.location }}
-                                </div>
-                            </div>
-                            <div class="extra content">
-                                <div class="ui three mini buttons">
-                                    <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
-                                    <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
-                                    <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
         </div>
     </div>
 </div>

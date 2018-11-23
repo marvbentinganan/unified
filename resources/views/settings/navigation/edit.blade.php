@@ -10,7 +10,68 @@
 <a href="{{ route('navigation.edit', $menu->id) }}" class="active section">{{ $menu->name }}</a>
 @endsection
 @section('content')
-<div class="ui stackable vey padded two column grid">
+<div class="ui stackable two column grid">
+    <div class="twelve wide column">
+        <div class="ui top attached header"><i class="blue ion-edit icon"></i>Update Menu Item</div>
+        <div class="ui attached segment">
+            <form action="{{ route('navigation.update', $menu->id) }}" method="POST" class="ui form">
+                @csrf
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Name</label>
+                        <div class="ui left icon input">
+                            <input type="text" name="name" placeholder="Name..." value="{{ $menu->name }}">
+                            <i class="ion-ios-pricetag icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="">Route</label>
+                        <div class="ui left icon input">
+                            <input type="text" name="link" placeholder="Link..." value="{{ $menu->link }}">
+                            <i class="ion-link icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <label for="">Order</label>
+                        <div class="ui left icon input">
+                            <input type="number" name="order" placeholder="Order..." value="{{ $menu->order }}">
+                            <i class="ion-shuffle icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="">Icon</label>
+                        <div class="ui left icon input">
+                            <input type="text" name="icon" placeholder="Icon..." value="{{ $menu->icon }}">
+                            <i class="ion-ionic icon"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="two fields">
+                    {!! SemanticForm::select('menu_id', $parents, $menu->menu_id)->label('Parent
+                    Menu')->placeholder('Select...') !!}
+                    {!! SemanticForm::selectMultiple('roles[]', $roles, $menu->roles->pluck('id')->toArray())->addClass('multiple')->label('Roles')->placeholder('Select...')
+                    !!}
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        {!! SemanticForm::checkbox('has_children', true, $menu->has_children)->label('Has Children') !!}
+                    </div>
+                    <div class="field">
+                        {!! SemanticForm::checkbox('is_primary', true, $menu->is_primary)->label('Is Primary') !!}
+                    </div>
+                </div>
+                <div class="field">
+                    @permission(['update-navigation'])
+                    <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> Update</button>
+                    @else
+                    <button class="ui disabled primary submit icon button"><i class="save icon"></i> Update</button>
+                    @endpermission
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="four wide column">
         <div class="ui top attached header"><i class="blue ion-information-circled icon"></i>Menu Item Details</div>
         <div class="ui attached segment">
@@ -55,11 +116,11 @@
                     <tr>
                         <th>Roles</th>
                         <td>
-                           <div class="ui list">
-                               @foreach($menu->roles as $role)
-                               <div class="item">{{ $role->display_name }}</div>
-                               @endforeach
-                           </div>
+                            <div class="ui list">
+                                @foreach($menu->roles as $role)
+                                <div class="item">{{ $role->display_name }}</div>
+                                @endforeach
+                            </div>
                         </td>
                     </tr>
                     @if($menu->children->count() > 0 )
@@ -67,10 +128,10 @@
                         <th>Sub Menus</th>
                         <td>
                             <div class="ui list">
-                               @foreach($menu->children as $child)
-                               <div class="item">{{ $child->name }}</div>
-                               @endforeach
-                           </div>
+                                @foreach($menu->children as $child)
+                                <div class="item">{{ $child->name }}</div>
+                                @endforeach
+                            </div>
                         </td>
                     </tr>
                     @else
@@ -83,67 +144,6 @@
                     @endif
                 </tbody>
             </table>
-        </div>
-    </div>
-    <div class="twelve wide column">
-        <div class="ui top attached header"><i class="blue ion-edit icon"></i>Update Menu Item</div>
-        <div class="ui attached segment">
-            <form action="{{ route('navigation.update', $menu->id) }}" method="POST" class="ui form">
-                @csrf
-                <div class="two fields">
-                    <div class="field">
-                        <label for="">Name</label>
-                        <div class="ui left icon input">
-                            <input type="text" name="name" placeholder="Name..." value="{{ $menu->name }}">
-                            <i class="ion-ios-pricetag icon"></i>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="">Route</label>
-                        <div class="ui left icon input">
-                            <input type="text" name="link" placeholder="Link..." value="{{ $menu->link }}">
-                            <i class="ion-link icon"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <label for="">Order</label>
-                        <div class="ui left icon input">
-                            <input type="number" name="order" placeholder="Order..." value="{{ $menu->order }}">
-                            <i class="ion-shuffle icon"></i>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="">Icon</label>
-                        <div class="ui left icon input">
-                            <input type="text" name="icon" placeholder="Icon..." value="{{ $menu->icon }}">
-                            <i class="ion-ionic icon"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="two fields">
-                        {!! SemanticForm::select('menu_id', $parents, $menu->menu_id)->label('Parent
-                        Menu')->placeholder('Select...') !!}
-                        {!! SemanticForm::selectMultiple('roles[]', $roles, $menu->roles->pluck('id')->toArray())->addClass('multiple')->label('Roles')->placeholder('Select...')
-                        !!}
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        {!! SemanticForm::checkbox('has_children', true, $menu->has_children)->label('Has Children') !!}
-                    </div>
-                    <div class="field">
-                        {!! SemanticForm::checkbox('is_primary', true, $menu->is_primary)->label('Is Primary') !!}
-                    </div>
-                </div>
-                <div class="field">
-                    @permission(['update-navigation'])
-                    <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> Update</button>
-                    @else
-                    <button class="ui disabled primary submit icon button"><i class="save icon"></i> Update</button>
-                    @endpermission
-                </div>
-            </form>
         </div>
     </div>
 </div>

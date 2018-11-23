@@ -14,7 +14,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded two column grid">
+    <div class="ui stackable two column grid">
         <div class="ten wide column">
             <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Update {{ $lesson->title }}</div>
             <div class="ui attached segment">

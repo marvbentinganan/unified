@@ -9,7 +9,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui padded grid">
+    <div class="ui stackable grid">
         <div class="sixteen wide column">
             <div class="ui four doubling raised cards">
                 <a href="{{ route('employees') }}" class="card">

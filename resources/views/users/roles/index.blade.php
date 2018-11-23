@@ -10,7 +10,36 @@
 <a href="{{ route('roles') }}" class="active section">Roles</a>
 @endsection
 @section('content')
-<div class="ui stackable two column padded grid">
+<div class="ui stackable two column grid">
+    <div class="twelve wide column">
+        <div class="ui top attached borderless menu">
+            <div class="header item">List of Roles</div>
+            <div class="right menu">
+                <a href="{{ route('role.permissions') }}" class="item"><i class="ion-key icon"></i> Role | Permission Control</a>
+            </div>
+        </div>
+        <div class="ui attached segment">
+            <table class="ui unstackable compact celled striped table">
+                <thead>
+                    <th class="center aligned">Name</th>
+                    <th class="center aligned">Display Name</th>
+                    <th class="center aligned">Description</th>
+                    <th class="center aligned">Actions</th>
+                </thead>
+                <tbody>
+                    <tr v-for="role in options.roles">
+                        <td>@{{ role.name }}</td>
+                        <td>@{{ role.display_name }}</td>
+                        <td>@{{ role.description }}</td>
+                        <td class="center aligned">
+                            <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i> Edit</button>
+                            <button class="ui mini red icon button" @click="destroy(role.id)"><i class="ion-trash-a icon"></i> Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="four wide column">
         <div class="ui top attached header">@{{ label }} Role</div>
         <div class="ui attached segment">
@@ -46,40 +75,11 @@
             </form>
         </div>
     </div>
-    <div class="twelve wide column">
-        <div class="ui top attached borderless menu">
-            <div class="header item">List of Roles</div>
-            <div class="right menu">
-                <a href="{{ route('role.permissions') }}" class="item"><i class="ion-key icon"></i> Role | Permission Control</a>
-            </div>
-        </div>
-        <div class="ui attached segment">
-            <table class="ui unstackable compact celled striped table">
-                <thead>
-                    <th class="center aligned">Name</th>
-                    <th class="center aligned">Display Name</th>
-                    <th class="center aligned">Description</th>
-                    <th class="center aligned">Actions</th>
-                </thead>
-                <tbody>
-                    <tr v-for="role in options.roles">
-                        <td>@{{ role.name }}</td>
-                        <td>@{{ role.display_name }}</td>
-                        <td>@{{ role.description }}</td>
-                        <td class="center aligned">
-                            <button class="ui mini teal icon button" @click="edit(role.id)"><i class="ion-edit icon"></i> Edit</button>
-                            <button class="ui mini red icon button" @click="destroy(role.id)"><i class="ion-trash-a icon"></i> Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 </div>
 @endsection
 @push('footer_scripts')
 <script>
-     new Vue({
+    new Vue({
 		el: '#app',
 		data: {
             role: {
@@ -95,13 +95,13 @@
             label : "Add",
             route : '{{ route('role.add') }}',
         },
-
+        
         methods: {
             init() {
                 this.getOptions(),
                 $('.dropdown').dropdown();
             },
-
+            
             add(){
                 axios.post(this.route, this.$data.role)
                 .then(response => {
@@ -115,7 +115,7 @@
                     console.log(error.response.data);
                 });
             },
-
+            
             getOptions(){
                 axios.get('{{ route('user.options') }}')
                 .then(response => {
@@ -125,42 +125,42 @@
                     console.log(error.response.data);
                 })
             },
-
+            
             edit(id){
                 var route = "get/" + id;
-            	axios.get(route)
-            	.then((response) => {
-            		this.role = response.data,
+                axios.get(route)
+                .then((response) => {
+                    this.role = response.data,
                     this.route = '{{ url('users/roles/update') }}' + '/' + id,
                     this.label = "Update";
-            	})
-            	.catch(error => {
-            		console.log(error.response.data)
-            	});
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                });
             },
-
+            
             destroy(id){
-            	swal({
-            		title: 'Are you sure?',
-            		text: "This Role will be Deleted",
-            		type: 'question',
-            		showCancelButton: true,
-            		confirmButtonColor: '#3085d6',
-            		cancelButtonColor: '#d33',
-            		confirmButtonText: 'Yes'
-            	}).then((result) => {
-            		if (result.value) {
-            			var route = 'delete/' + id;
-            			axios.get(route)
-            			.then(response => {
-            				this.getOptions(),
-            				toastr.info(response.data);
-            			})
-            			.catch(response => {
-            				toastr.error("Unable to Delete Role");
-            			});
-            		}
-            	})
+                swal({
+                    title: 'Are you sure?',
+                    text: "This Role will be Deleted",
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        var route = 'delete/' + id;
+                        axios.get(route)
+                        .then(response => {
+                            this.getOptions(),
+                            toastr.info(response.data);
+                        })
+                        .catch(response => {
+                            toastr.error("Unable to Delete Role");
+                        });
+                    }
+                })
             },
         },
         mounted() {

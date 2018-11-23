@@ -8,7 +8,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui centered padded grid">
+    <div class="ui centered grid">
         <div class="sixteen wide column">
             <div class="ui stackable two doubling raised cards">
                 <a href="{{ route('wifi') }}" class="card">

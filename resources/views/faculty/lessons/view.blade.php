@@ -12,7 +12,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded grid">
+    <div class="ui stackable grid">
         <div class="sixteen wide column">
             <article class="ui raised relaxed divided items piled very padded segment">
                 <h1 class="ui header">{{ $lesson->title }}</h1>

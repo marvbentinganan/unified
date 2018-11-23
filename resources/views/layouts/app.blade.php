@@ -30,8 +30,11 @@
     </header>
     <main class="dimmed pusher">
         <div id="app" style="padding-top: 50px;">
-            <div class="ui stackable very padded grid">
-                <div class="sixteen wide column">
+            <div class="ui stackable two column padded grid">
+                <div class="three wide computer only tablet only column">
+                    @include('partials.left_navigation')
+                </div>
+                <div class="sixteen wide mobile only thirteen wide computer only tablet only column">
                     <div class="ui small breadcrumb">
                         @yield('breadcrumb')
                     </div>

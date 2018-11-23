@@ -13,8 +13,8 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded two column grid">
-        <div class="ten wide column">
+    <div class="ui stackable two column grid">
+        <div class="eleven wide column">
             <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Add New Lesson</div>
             <div class="ui attached segment">
                 <form action="{{ route('lesson.add') }}" method="POST" id="lesson-form" class="ui form">
@@ -61,7 +61,7 @@
                 </form>
             </div>
         </div>
-        <div class="six wide column">
+        <div class="five wide column">
             <div class="ui gray inverted top attached header"><i class="ion-ios-browsers icon"></i> My Lessons</div>
             <div id="lesson-container"></div>
         </div>

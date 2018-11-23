@@ -11,7 +11,7 @@
 @endsection
 @section('content')
 <div class="sixteen wide column">
-    <div class="ui stackable very padded grid">
+    <div class="ui stackable grid">
        <div class="column">
             <div class="ui top attached borderless menu">
                 <div class="header item"><i class="ion-ios-browsers icon"></i>My Lessons</div>
