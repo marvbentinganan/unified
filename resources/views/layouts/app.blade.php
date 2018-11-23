@@ -42,6 +42,7 @@
     <script src="{{ asset('js/all.js') }}"></script>
     
     <footer>
+        <script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
         <script>
             function confirm(){
                     swal({ title: 'Are you sure?',

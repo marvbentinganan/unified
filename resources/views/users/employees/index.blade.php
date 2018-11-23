@@ -164,7 +164,6 @@
 </div>
 @endsection
  @push('footer_scripts')
-<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script>
     new Vue({
 		el: '#app',

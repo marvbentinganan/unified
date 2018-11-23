@@ -11,7 +11,7 @@
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="" class="section">Lesson Manager</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lessons') }}" class="section">My Lessons</a>
+            <a href="{{ route('lessons') }}" class="section">Lessons</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="{{ route('lesson.new') }}" class="active section">New Lesson</a>
         </div>
@@ -73,7 +73,6 @@
 </div>
 @endsection
 @push('footer_scripts')
-<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
 <script>
     getLessons();

@@ -57,6 +57,10 @@ Route::middleware('auth')->group(function () {
             Route::post('add', 'LessonController@store')->name('lesson.add');
             Route::get('view/{lesson}', 'LessonController@view')->name('lesson.view');
             Route::any('{lesson}/update', 'LessonController@update')->name('lesson.update');
+            Route::get('delete/{lesson}', 'LessonController@destroy')->name('lesson.destroy');
+            Route::get('restore/{lesson}', 'LessonController@restore')->name('lesson.restore');
+            Route::get('approve/{lesson}', 'LessonController@approve')->name('lesson.approve');
+            Route::get('disapprove/{lesson}', 'LessonController@disapprove')->name('lesson.disapprove');
 
             Route::prefix('chapters')->group(function () {
                 Route::any('{lesson}/add', 'ChapterController@store')->name('chapter.add');

@@ -23,11 +23,11 @@ class LessonController extends Controller
         if (auth()->user()->hasRole('management')) {
             $employee = auth()->user()->employee;
             $programs = $employee->programs;
-            $lessons = Lesson::whereIn('program_id', $programs->pluck('id'))->with(['department', 'program', 'subject'])->get();
+            $lessons = Lesson::whereIn('program_id', $programs->pluck('id'))->with(['department', 'program', 'subject'])->withTrashed()->get();
         } elseif (auth()->user()->hasRole('faculty')) {
-            $lessons = auth()->user()->lessons()->with(['department', 'program', 'subject'])->get();
+            $lessons = auth()->user()->lessons()->with(['department', 'program', 'subject'])->withTrashed()->get();
         } else {
-            $lessons = Lesson::with(['department', 'program', 'subject'])->get();
+            $lessons = Lesson::with(['department', 'program', 'subject'])->withTrashed()->get();
         }
 
         return view($this->directory.'.index', compact('lessons'));
@@ -113,5 +113,61 @@ class LessonController extends Controller
         $programs = Program::pluck('code', 'id');
 
         return view($this->directory.'.update', compact('subjects', 'departments', 'programs', 'lesson'));
+    }
+
+    public function destroy($lesson)
+    {
+        try {
+            $data = Lesson::find($lesson);
+            $data->delete();
+
+            return response()->json('Lesson Deleted');
+        } catch (Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function restore($lesson)
+    {
+        try {
+            $data = Lesson::where('id', $lesson)->withTrashed()->first();
+            $data->restore();
+
+            return response()->json('Lesson Restored');
+        } catch (Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function approve($lesson)
+    {
+        try {
+            $data = Lesson::find($lesson);
+            $data->update([
+                'active' => true,
+                'for_approval' => false,
+                'approved_by' => auth()->user()->id,
+            ]);
+
+            return response()->json('Lesson Published');
+        } catch (Exception $exception) {
+            return $exception;
+        }
+    }
+
+    public function disapprove($lesson)
+    {
+        try {
+            $data = Lesson::find($lesson);
+            $data->update([
+                'active' => false,
+                'for_approval' => true,
+                'approved_by' => null,
+            ]);
+
+            return response()->json('Lesson Unpublished');
+        } catch (Exception $exception) {
+            return $exception;
+        }
     }
 }
