@@ -1,23 +1,19 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 @endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="" class="section">Lesson Manager</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('lessons') }}" class="section">Lessons</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('lesson.update', $lesson->slug) }}" class="active section">Update</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Lesson Manager</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lessons') }}" class="section">Lessons</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lesson.update', $lesson->slug) }}" class="active section">Update</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui stackable very padded two column grid">
         <div class="ten wide column">
             <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Update {{ $lesson->title }}</div>

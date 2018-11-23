@@ -32,6 +32,10 @@
         <div id="app" style="padding-top: 50px;">
             <div class="ui stackable very padded grid">
                 <div class="sixteen wide column">
+                    <div class="ui small breadcrumb">
+                        @yield('breadcrumb')
+                    </div>
+                    <div class="ui section divider"></div>
                     @yield('content')
                 </div>
             </div>
@@ -62,7 +66,9 @@
                     $('.sidebar').sidebar('setting', 'transition', 'push').sidebar('toggle');
                 }
         
-                $('.dropdown').dropdown();
+                $('.dropdown').dropdown({
+                    clearable : true
+                });
         </script>
         @yield('footer')
         @stack('footer_scripts')

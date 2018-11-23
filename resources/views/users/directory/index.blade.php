@@ -16,18 +16,15 @@ div.dt-buttons {
   bottom: 2px !important;
 }
 </style>
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('users') }}" class="section">Users</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('active.directory') }}" class="active section">Active Directory</a>
+@endsection
 @section('content')
-{{-- Breadcrumb --}}
-<div class="row">
-    <div class="ui breadcrumb segment">
-        <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-        <a href="{{ route('users') }}" class="section">Users</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-        <a href="{{ route('active.directory') }}" class="active section">Active Directory</a>
-    </div>
-</div>
 <div class="row">
     <div class="ui padded grid">
         <div class="sixteen wide column">

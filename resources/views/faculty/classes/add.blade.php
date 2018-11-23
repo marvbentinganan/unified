@@ -1,19 +1,15 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="" class="section">Class Manager</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('class.add') }}" class="active section">Add New Class</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Class Manager</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('class.add') }}" class="active section">Add New Class</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui stackable very padded two column grid">
         <div class="ten wide column">
             <div class="ui top attached header"><i class="ion-plus icon"></i> Add New Class</div>

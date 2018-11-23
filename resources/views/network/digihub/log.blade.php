@@ -1,25 +1,20 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 <script src="{{ asset('plugins/vuejs/vuejs-datepicker.min.js') }}"></script>
-
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('network') }}" class="section">Network Services</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('digihub') }}" class="section">Digihub</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('digihub.log', $digihub->id) }}" class="section">{{ $digihub->name }}</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="#" class="active section">Logs</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('network') }}" class="section">Network Services</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('digihub') }}" class="section">Digihub</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('digihub.log', $digihub->id) }}" class="section">{{ $digihub->name }}</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="#" class="active section">Logs</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui stackable two column grid">
         <div class="ten wide column">
             <div class="ui fluid card">
@@ -100,15 +95,15 @@
                 @if ($logs->lastPage() > 1)
                 <div class="ui stackable pagination menu">
                     <a href="{{ $logs->previousPageUrl() }}" class="{{ ($logs->currentPage() == 1) ? ' disabled' : '' }} item">
-                                    <i class="ion-arrow-left-b icon"></i>
-                                </a> @for ($i = 1; $i
+                        <i class="ion-arrow-left-b icon"></i>
+                    </a> @for ($i = 1; $i
                     <=$logs->lastPage(); $i++)
-                        <a href="{{ $logs->url($i) }}" class="{{ ($logs->currentPage() == $i) ? ' active' : '' }} item">
-                                                {{ $i }}
-                                    </a> @endfor
-                        <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
-                                    <i class="ion-arrow-right-b icon"></i>
-                                </a>
+                    <a href="{{ $logs->url($i) }}" class="{{ ($logs->currentPage() == $i) ? ' active' : '' }} item">
+                        {{ $i }}
+                    </a> @endfor
+                    <a href="{{ $logs->nextPageUrl() }}" class="{{ ($logs->currentPage() == $logs->lastPage()) ? ' disabled' : '' }} item">
+                        <i class="ion-arrow-right-b icon"></i>
+                    </a>
                 </div>
                 @endif
             </div>

@@ -1,22 +1,18 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 <script src="{{ asset('plugins/vuejs/vuejs-datepicker.min.js') }}"></script>
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('network') }}" class="section">Network Services</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('wifi.active') }}" class="active section">Logs</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('network') }}" class="section">Network Services</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('wifi.active') }}" class="active section">Logs</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui stackable two column padded grid">
         <div class="row">
             <div class="ui top attached segment">

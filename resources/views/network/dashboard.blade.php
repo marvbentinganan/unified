@@ -1,17 +1,13 @@
 @extends('layouts.app') 
 @push('header_scripts')
 @endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('network') }}" class="active section">Network Services</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('network') }}" class="active section">Network Services</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui centered padded grid">
         <div class="sixteen wide column">
             <div class="ui stackable two doubling raised cards">

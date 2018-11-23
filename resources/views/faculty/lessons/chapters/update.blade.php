@@ -6,7 +6,7 @@
 <div class="sixteen wide column">
     {{-- Breadcrumb --}}
     <div class="row">
-        <div class="ui breadcrumb segment">
+        <div class="ui small breadcrumb segment">
             <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
             <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
             <a href="" class="section">Lesson Manager</a>

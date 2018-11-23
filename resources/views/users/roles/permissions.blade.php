@@ -1,20 +1,16 @@
 @extends('layouts.app') @push('header_scripts') 
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('users') }}" class="section">Users</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('roles') }}" class="section">Roles</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('role.permissions') }}" class="active section">Role Permissions</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('users') }}" class="section">Users</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('roles') }}" class="section">Roles</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('role.permissions') }}" class="active section">Role Permissions</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui stackable grid">
         <div class="ui sixteen wide column">
             <section class="ui segment">

@@ -1,20 +1,16 @@
 @extends('layouts.app') @push('header_scripts') 
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('network') }}" class="section">Network Services</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('wifi.usage', $user->id) }}" class="active section">{{ $user->firstname.' '.$user->lastname }}</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-	{{-- Breadcrumb --}}
-	<div class="row">
-		<div class="ui breadcrumb segment">
-			<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-			<a href="{{ route('network') }}" class="section">Network Services</a>
-			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-			<a href="{{ route('wifi') }}" class="section">RCI-WIFI</a>
-			<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-			<a href="{{ route('wifi.usage', $user->id) }}" class="active section">{{ $user->firstname.' '.$user->lastname }}</a>
-		</div>
-	</div>
-	<div class="ui section divider"></div>
 	<div class="ui stackable two column grid">
 		<div class="four wide column">
 			<div class="ui fluid card">

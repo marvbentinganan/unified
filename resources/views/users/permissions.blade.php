@@ -2,17 +2,14 @@
 @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
 @endpush
-@section('content') {{-- Breadcrumb --}}
-<div class="row">
-    <div class="ui breadcrumb segment">
-        <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-        <a href="{{ route('users') }}" class="section">Users</a>
-        <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-        <a href="{{ route('permissions') }}" class="active section">Permissions</a>
-    </div>
-</div>
-<div class="ui section divider"></div>
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('users') }}" class="section">Users</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('permissions') }}" class="active section">Permissions</a>
+@endsection
+@section('content')
 <div class="ui stackable two column padded grid">
     <div class="four wide column">
         <div class="ui top attached header">@{{ label }} Permission</div>
