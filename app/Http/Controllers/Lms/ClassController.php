@@ -9,6 +9,7 @@ use App\Models\Build\Department;
 use App\Models\Build\Program;
 use App\Models\Build\YearLevel;
 use App\Models\Build\Setting;
+use App\Models\Lms\Lesson;
 use App\Models\MyClass;
 use App\Models\Student;
 use Excel;
@@ -98,7 +99,45 @@ class ClassController extends Controller
 
     public function view(MyClass $class)
     {
-        return view($this->directory.'.view', compact('class'));
+        if ($class->lessons->count() == null) {
+            $lessons = Lesson::where('subject_id', $class->subject_id)
+            ->where('department_id', $class->department_id)
+            ->where('program_id', $class->program_id)
+            ->where('active', true)
+            ->get();
+        } else {
+            $lessons = $class->lessons;
+        }
+
+        //dd($lessons);
+
+        return view($this->directory.'.view', compact('class', 'lessons'));
+    }
+
+    // Attach Lesson to Class
+    public function attach(MyClass $class, $lesson)
+    {
+        $data = Lesson::find($lesson);
+        try {
+            $class->lessons()->sync($data->id);
+
+            return response()->json('Lesson Added', 200);
+        } catch (Exception $exception) {
+            return $exception;
+        }
+    }
+
+    // Detach Lesson to Class
+    public function detach(MyClass $class, $lesson)
+    {
+        $data = Lesson::find($lesson);
+        try {
+            $class->lessons()->detach($data->id);
+
+            return response()->json('Lesson Removed', 200);
+        } catch (Exception $exception) {
+            return $exception;
+        }
     }
 
     public function upload(Request $request, MyClass $class)

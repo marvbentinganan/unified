@@ -18,7 +18,7 @@ class Lesson extends Model
         return $this->hasMany(Chapter::class);
     }
 
-    public function class()
+    public function classes()
     {
         return $this->belongsToMany('App\Models\MyClass');
     }

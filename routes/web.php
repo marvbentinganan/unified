@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
             Route::any('list', 'ClassController@my_classes')->name('class.list');
             Route::get('view/{class}', 'ClassController@view')->name('class.view');
             Route::post('upload/{class}', 'ClassController@upload')->name('class.upload');
+            Route::get('attach/{class}/{lesson}', 'ClassController@attach')->name('class.attach.lesson');
+            Route::get('detach/{class}/{lesson}', 'ClassController@detach')->name('class.detach.lesson');
         });
 
         // Lessons Routes

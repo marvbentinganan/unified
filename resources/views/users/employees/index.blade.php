@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="ui attached segment">
-                    <table class="ui compact celled table">
+                    <table class="ui small compact celled table">
                         <thead>
                             <th class="center aligned">ID Number</th>
                             <th class="center aligned">Name</th>
@@ -34,14 +34,16 @@
                                 <th class="center aligned">@{{ employee.id_number }}</th>
                                 <td>@{{ employee.firstname }} @{{ employee.lastname }}</td>
                                 <td class="center aligned">
-                                    <span class="ui teal label">Regular Employee</span>
-                                    <span class="ui green label" v-if="employee.is_faculty == true">Faculty</span>
-                                    <span class="ui purple label" v-if="employee.is_manager == true">Supervisor</span>
+                                    <span class="ui small teal label">Regular Employee</span>
+                                    <span class="ui small green label" v-if="employee.is_faculty == true">Faculty</span>
+                                    <span class="ui small purple label" v-if="employee.is_manager == true">Supervisor</span>
                                 </td>
                                 <td class="center aligned">
-                                    <a :href="'show/' + employee.id" class="ui mini blue icon button"><i class="ion-eye icon"></i></a>
-                                    <button class="ui mini teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
-                                    <button class="ui mini red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
+                                    <div class="ui mini buttons">
+                                        <a :href="'show/' + employee.id" class="ui blue icon button"><i class="ion-eye icon"></i></a>
+                                        <button class="ui teal icon button" @click="edit(employee.id)"><i class="ion-edit icon"></i></button>
+                                        <button class="ui red icon button" @click="destroy(employee.id)"><i class="ion-trash-b icon"></i></button>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

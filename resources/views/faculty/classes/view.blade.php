@@ -17,7 +17,7 @@
             <div class="ui top attached gray inverted header">
                 <i class="ion-ios-list icon"></i> Class List
             </div>
-            <table class="ui attached small unstackable celled table">
+            <table class="ui attached small unstackable table">
                 <thead>
                     <th class="one wide center aligned">#</th>
                     <th class="center aligned">ID Number</th>
@@ -27,7 +27,7 @@
                     <th class="center aligned">Action</th>
                 </thead>
                 <tbody>
-                    @if($class->has('students'))
+                    @if($class->students->count() != null)
                     @foreach($class->students as $key => $student)
                     <tr>
                         <td class="one wide center aligned">{{ ++$key }}</td>
@@ -82,9 +82,69 @@
                         <td>Subject</td>
                         <td>{{ $class->subject->name }}</td>
                     </tr>
+                    <tr>
+                        <td>No. of Students</td>
+                        <td>{{ $class->students->count() }}</td>
+                    </tr>
                 </tbody>
             </table>
             
+            <div class="ui section divider"></div>
+
+            <div class="ui top attached gray inverted header"><i class="ion-ios-chatboxes-outline icon"></i> Related Lessons</div>
+            <div class="ui attached segment">
+                <div class="ui stackable raised cards">
+                    @foreach ($lessons as $lesson)
+                    <div class="card">
+                        <div class="image">
+                            <img src="{{ asset('images/books.jpg') }}" alt=""> 
+                            @if($lesson->has('chapters'))
+                            <a href="" class="ui blue top left attached label">{{ $lesson->chapters->count() }} 
+                                @if($lesson->chapters->count() > 1) 
+                                Chapters 
+                                @else
+                                Chapter 
+                                @endif
+                            </a> 
+                            @else
+                            <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label"><i class="ion-plus icon"></i> Add Chapter</a>        
+                            @endif
+                        </div>
+                        <div class="content">
+                            <div class="header">{{ $lesson->title }}</div>
+                            <div class="meta">
+                                <span class="date"><i class="ion-ios-person icon"></i> {{ $lesson->created_by->firstname.' '.$lesson->created_by->lastname }}</span>
+                                <span class="date"><i class="ion-calendar icon"></i> {{ $lesson->created_at->toFormattedDateString() }}</span>
+                            </div>
+                            <div class="description">
+                                <div class="ui label">{{ $lesson->department->name }}</div>
+                                <div class="ui label">{{ $lesson->program->code }}</div>
+                                <div class="ui label">{{ $lesson->subject->code }}</div>
+                                {{-- {!! $lesson->description !!} --}}
+                            </div>
+                        </div>
+                        <div class="ui attached two basic buttons">
+                            @if($class->lessons->count() == null)
+                                <a href="{{ route('lesson.view', $lesson->slug) }}" target="_blank" class="ui icon button">
+                                    <i class="blue ion-ios-redo icon"></i> Preview Lesson
+                                </a>
+                                <button class="ui icon button" onclick="attach('{{ $class->code }}', {{ $lesson->id }})">
+                                    <i class="purple ion-plus icon"></i> Add to Class
+                                </button>
+                            @else
+                                <a href="{{ route('lesson.view', $lesson->slug) }}" target="_blank" class="ui icon button">
+                                    <i class="blue ion-ios-redo icon"></i> View Lesson
+                                </a>
+                                <button class="ui icon button" onclick="detach('{{ $class->code }}', {{ $lesson->id }})">
+                                    <i class="red ion-minus icon"></i> Remove
+                                </button>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
             <div class="ui section divider"></div>
 
             <div class="ui top attached gray inverted header"><i class="ion-ios-personadd icon"></i> Add Students</div>
@@ -114,13 +174,64 @@
                     </div>
                 </form>
             </div>
+
             <div class="ui section divider"></div>
+
             <div class="ui top attached gray inverted header"><i class="ion-ios-chatboxes-outline icon"></i> Class Logs</div>
             <div class="ui attached placeholder segment"></div>
         </div>
     </div>
 </div>
 @endsection
- @push('footer_scripts')
-<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
+@push('footer_scripts')
+<script>
+    function attach(class_id, lesson){
+        swal({ 
+            title: 'Are you sure?', 
+            text: "This Lesson will be added to your Class", 
+            type: 'question', 
+            showCancelButton: true, 
+            confirmButtonColor: '#3085d6', 
+            cancelButtonColor: '#d33', 
+            confirmButtonText: 'Yes' 
+            })
+            .then((result) => { 
+                if (result.value) { 
+                    var route = '{{ url('classes/attach') }}' + '/' + class_id + '/' + lesson; 
+                    axios.get(route) 
+                    .then(response => { 
+                        swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
+                        }, 1500);
+                    })
+            .catch(response => { 
+                swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
+                }, 1500);
+            }); 
+        } }) 
+    }
+    function detach(class_id, lesson){
+        swal({ 
+            title: 'Are you sure?', 
+            text: "This Lesson will be removed from your Class", 
+            type: 'question', 
+            showCancelButton: true, 
+            confirmButtonColor: '#3085d6', 
+            cancelButtonColor: '#d33', 
+            confirmButtonText: 'Yes' 
+            })
+            .then((result) => { 
+                if (result.value) { 
+                    var route = '{{ url('classes/detach') }}' + '/' + class_id + '/' + lesson; 
+                    axios.get(route) 
+                    .then(response => { 
+                        swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
+                        }, 1500);
+                    })
+            .catch(response => { 
+                swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
+                }, 1500);
+            }); 
+        } }) 
+    }
+</script>
 @endpush

@@ -63,21 +63,25 @@
         <div class="six wide column">
             <div class="ui top attached header"><i class="ion flask icon"></i> My Classes</div>
             <div class="ui attached segment">
-                <div class="ui two doubling raised cards" >
-                    <div class="card" v-for="classlist in classes">
+                <div class="ui relaxed divided items" >
+                    <div class="item" v-for="classlist in classes">
+                        <div class="image">
+                            <img src="{{ asset('images/students.jpg') }}" alt="">
+                        </div>
                         <div class="content">
                             <div class="header">@{{ classlist.name }}</div>
                             <div class="meta">
                                 <span class="date"><i class="ion-cube icon"></i> @{{ classlist.section }}</span>
                                 <span class="date"><i class="ion-erlenmeyer-flask icon"></i> @{{ classlist.subject.name }}</span>
                             </div>
-                        </div>
-                        <div class="extra content">
-                            <div class="ui two mini buttons">
-                                <a :href="'view/' + classlist.code" class="ui blue icon button"><i class="ion-share icon"></i></a>
-                                <a href="" class="ui red icon button"><i class="ion-trash-a icon"></i></a>
+                            <div class="extra content">
+                                <div class="ui two mini buttons">
+                                    <a :href="'view/' + classlist.code" class="ui blue icon button"><i class="ion-share icon"></i></a>
+                                    <a href="" class="ui red icon button"><i class="ion-trash-a icon"></i></a>
+                                </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
@@ -86,7 +90,6 @@
 </div>
 @endsection
  @push('footer_scripts')
-<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script>
     new Vue({
 		el: '#app',

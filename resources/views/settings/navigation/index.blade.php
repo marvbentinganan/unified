@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="ui attached segment">
-        <table class="ui unstackable compact celled striped small table">
+        <table class="ui unstackable small compact celled striped small table">
             <thead>
                 <th class="center aligned">Name</th>
                 <th class="center aligned">Route</th>
@@ -68,14 +68,13 @@
                         </div>
                     </td>
                     <td class="two wide center aligned">
-                        @permission(['update-navigation|delete-navigation'])
-                        @if($menu->deleted_at != null)
-                        <button class="ui mini yellow icon button" onclick="restoreMenu({{ $menu->id }})"><i class="ion-loop icon"></i></button>
-                        @else
-                        <a href="{{ route('navigation.edit', $menu->id) }}" class="ui mini teal icon button"><i class="ion-edit icon"></i></a>
-                        <button class="ui mini red icon button" onclick="deleteMenu({{ $menu->id }})"><i class="ion-trash-a icon"></i></button>
-                        @endif
-                        @endpermission
+                        <div class="ui mini buttons">
+                            @permission(['update-navigation|delete-navigation']) @if($menu->deleted_at != null)
+                            <button class="ui mini yellow icon button" onclick="restoreMenu({{ $menu->id }})"><i class="ion-loop icon"></i></button>@else
+                            <a href="{{ route('navigation.edit', $menu->id) }}" class="ui mini teal icon button"><i class="ion-edit icon"></i></a>
+                            <button class="ui mini red icon button" onclick="deleteMenu({{ $menu->id }})"><i class="ion-trash-a icon"></i></button> @endif
+                            @endpermission
+                        </div>
                     </td>
                 </tr>
                 @endforeach @endif

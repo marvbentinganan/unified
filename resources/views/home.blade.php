@@ -5,6 +5,7 @@
 @section('content')
 <div class="sixteen wide column">
     <div class="ui stackable very padded two column grid">
+        @role('administrator')
         <div class="twelve wide column">
             <div class="ui segment">
                 <div class="ui horizontal header">
@@ -32,6 +33,7 @@
                 </div>
             </div>
         </div>
+        @endrole
     </div>
 </div>
 @endsection
