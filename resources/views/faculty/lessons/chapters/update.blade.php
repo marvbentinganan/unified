@@ -1,36 +1,31 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
-
-@endpush 
+@endpush
+@section('breadcrumb')
+<a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="" class="section">Lesson Manager</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('lessons') }}" class="section">Lessons</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="" class="section">{{ $chapter->title }}</a>
+<div class="divider"><i class="blue ion-chevron-right icon"></i></div>
+<a href="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" class="active section">Update</a>
+@endsection
 @section('content')
 <div class="sixteen wide column">
-    {{-- Breadcrumb --}}
-    <div class="row">
-        <div class="ui small breadcrumb segment">
-            <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">Lesson Manager</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lessons') }}" class="section">Lessons</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="" class="section">{{ $chapter->title }}</a>
-            <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-            <a href="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" class="active section">Update</a>
-        </div>
-    </div>
-    <div class="ui section divider"></div>
     <div class="ui stackable grid">
         <div class="sixteen wide column">
-            <div class="ui secondary pointing two item tabular menu">
-                <a class="item active" data-tab="add"><i class="ion-plus icon"></i> Form</a>
+            <div class="ui two item tabular menu">
+                <a class="item active" data-tab="add"><i class="ion-compose icon"></i> Form</a>
                 <a class="item" data-tab="preview"><i class="eye icon"></i> Preview</a>
             </div>
 
             <div class="ui bottom attached tab active" data-tab="add">
                 {{-- Add Chapter Form --}}
-                <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Update Chapter</div>
+                <div class="ui gray inverted top attached header"><i class="ion-compose icon"></i> Update Chapter</div>
                 <div class="ui attached segment">
                     <form action="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" method="POST" id="chapter-form" class="ui form">
                         @csrf

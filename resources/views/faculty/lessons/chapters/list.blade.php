@@ -14,7 +14,9 @@
                     {!! $chapter->content !!}
                 </div>
                 <div class="extra">
+                    @if($lesson->active == false)
                     <a href="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" class="ui mini teal icon button"><i class="ion-compose icon"></i> Update</a>
+                    @endif
                 </div>
             </div>
         </div>

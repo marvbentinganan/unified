@@ -17,11 +17,15 @@
             <article class="ui raised relaxed divided items piled very padded segment">
                 <h1 class="ui header">{{ $lesson->title }}</h1>
                 <span><i class="ion-ios-person icon"></i>{{ $lesson->created_by->firstname.' '.$lesson->created_by->lastname }}</span>
-                <span><i class="ion-calendar icon"></i>{{ $lesson->created_at->toFormattedDateString() }}</span> {{-- Approval --}} @if($lesson->for_approval
-                == true)
-                <a class="ui orange top right attached label">For Approval</a> @elseif($lesson->active == true)
-                <a class="ui green top right attached label">Approved</a> @else
-                <a class="ui top right attached label">Pending</a> @endif
+                <span><i class="ion-calendar icon"></i>{{ $lesson->created_at->toFormattedDateString() }}</span>
+                 {{-- Approval --}} 
+                @if($lesson->for_approval == true)
+                <a class="ui orange top right attached label">Pending Approval</a> 
+                <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label">Add Chapter</a>
+                @else
+                <a class="ui green top right attached label">
+                    <span><i class="check icon"></i>Approved by: {{ $lesson->approved->firstname.' '.$lesson->approved->lastname }}</span>
+                </a> @endif
                 <div class="ui small message">
                     <div class="header">
                         Description
@@ -35,18 +39,27 @@
                     </div>
                     <p>{!! $lesson->objective !!}</p>
                 </div>
-                @endif @foreach($lesson->chapters as $chapter)
+                @endif 
+                @foreach($lesson->chapters as $chapter)
                 <section class="item">
                     <div class="content">
                         <h3 class="header">{{ $chapter->title }}</h3>
                         <div class="description">
                             {!! $chapter->content !!}
                         </div>
+                        <div class="extra">
+                            @if($lesson->active == false)
+                            <a href="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" class="ui mini teal icon button"><i class="ion-compose icon"></i> Update</a>  @endif
+                        </div>
                     </div>
                 </section>
-                @endforeach @if(auth()->user()->hasRole(['management', 'administrator'])) @if($lesson->active == false)
-                <button class="ui green icon button" onclick="publish({{ $lesson->id }})"><i class="ion-thumbsup icon"></i> Approve for Publication</button>    @else
-                <button class="ui red icon button" onclick="unpublish({{ $lesson->id }})"><i class="ion-thumbsdown icon"></i> Rescind Approval</button>    @endif @endif
+                @endforeach 
+                @if(auth()->user()->hasRole(['management', 'administrator'])) 
+                    @if($lesson->active == false)
+                    <button class="ui green icon button" onclick="publish({{ $lesson->id }})"><i class="ion-thumbsup icon"></i> Approve for Publication</button>    @else
+                    <button class="ui red icon button" onclick="unpublish({{ $lesson->id }})"><i class="ion-thumbsdown icon"></i> Rescind Approval</button>    
+                    @endif
+                @endif
             </article>
         </div>
     </div>

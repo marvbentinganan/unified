@@ -15,7 +15,7 @@
                 {!! $lesson->description !!}
             </div>
             <div class="extra">
-                <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui right floated blue icon button"><i class="ion-plus icon"></i> Add Chapter</a>
+                <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui right floated primary icon button"><i class="ion-plus icon"></i> Add Chapter</a>
                 <div class="ui label"><i class="ion-cube icon"></i>{{ $lesson->department->name }}</div>
                 <div class="ui label"><i class="ion-briefcase icon"></i>{{ $lesson->program->name }}</div>
                 <div class="ui label"><i class="ion-beaker icon"></i>{{ $lesson->subject->code }}</div>

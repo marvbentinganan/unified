@@ -56,7 +56,7 @@
     </div>
 </div>
 @endsection
- @push('footer_scripts')
+@push('footer_scripts')
 <script src="{{ asset('plugins/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('js/jquery.address.js') }}"></script>
 <script>

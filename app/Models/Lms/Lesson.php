@@ -43,7 +43,7 @@ class Lesson extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    public function approved_by()
+    public function approved()
     {
         return $this->belongsTo('App\Models\User', 'approved_by', 'id');
     }

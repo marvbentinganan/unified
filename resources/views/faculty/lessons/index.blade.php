@@ -30,9 +30,8 @@
                             @else
                                 {{-- Approval --}}
                                 @if($lesson->for_approval == true)
-                                <a class="ui orange top right attached label">For Approval</a> @elseif($lesson->active == true)
-                                <a class="ui green top right attached label">Approved</a> @else
-                                <a class="ui top right attached label">Pending</a> @endif
+                                <a class="ui orange top right attached label">For Approval</a> @else
+                                <a class="ui green top right attached label">Approved</a>@endif
                                 {{-- Chapters --}}
                                 @if($lesson->has('chapters'))
                                 <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label">{{ $lesson->chapters->count() }} @if($lesson->chapters->count() > 1) Chapters @else
@@ -57,14 +56,21 @@
                             </div>
                         </div>
                         <div class="ui attached basic buttons">
+                            {{-- Show restore Button if Lesson is Deleted --}}
                             @if($lesson->deleted_at)
                             <button class="ui icon button" onclick="restore({{ $lesson->id }})"><i class="yellow ion-refresh icon"></i></button>
                             @else
                             <a href="{{ route('lesson.view', $lesson->slug) }}" class="ui icon button"><i class="blue ion-ios-browsers icon"></i></a>
+                            {{-- Hide Update Button if Lesson is Published --}}
+                            @if($lesson->for_approval == true)
                             <a href="{{ route('lesson.update', $lesson->slug) }}" class="ui icon button"><i class="teal ion-compose icon"></i></a>
+                            @endif
                             <button class="ui icon button" onclick="destroy({{ $lesson->id }})"><i class="red ion-trash-a icon"></i></button>
+                            {{-- Show Publish Button if User is Manager/Area Head --}}
                             @if(auth()->user()->hasRole('management') && $lesson->active == false)
                             <button class="ui icon button" onclick="publish({{ $lesson->id }})"><i class="green check icon"></i></button>
+                            @elseif(auth()->user()->hasRole('management') && $lesson->active == true)
+                            <button class="ui icon button" onclick="unpublish({{ $lesson->id }})"><i class="orange close icon"></i></button>
                             @endif
                             @endif
                         </div>
@@ -141,6 +147,31 @@
             .then((result) => { 
                 if (result.value) { 
                     var route = '{{ url('lessons/approve') }}' + '/' + lesson; 
+                    axios.get(route) 
+                    .then(response => { 
+                        swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
+                        }, 1500);
+                    })
+            .catch(response => { 
+                swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
+                }, 1500);
+            }); 
+        } }) 
+    }
+
+    function unpublish(lesson){
+        swal({ 
+            title: 'Are you sure?', 
+            text: "This Lesson will be Unpublished", 
+            type: 'question', 
+            showCancelButton: true, 
+            confirmButtonColor: '#3085d6', 
+            cancelButtonColor: '#d33', 
+            confirmButtonText: 'Yes' 
+            })
+            .then((result) => { 
+                if (result.value) { 
+                    var route = '{{ url('lessons/disapprove') }}' + '/' + lesson; 
                     axios.get(route) 
                     .then(response => { 
                         swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 }), setTimeout(function(){ location.reload();
