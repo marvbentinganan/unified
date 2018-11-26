@@ -72,7 +72,7 @@
             </div>
             <div class="ui attached segment">
                 <div class="ui sub header">Total Records: {{ $logs->total() }}</div>
-                <table class="ui unstackable celled table">
+                <table class="ui unstackable small compact celled table">
                     <thead>
                         <th class="center aligned">#</th>
                         <th class="center aligned">Name</th>

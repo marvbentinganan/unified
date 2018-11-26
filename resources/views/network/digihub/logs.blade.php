@@ -14,24 +14,22 @@
     <div class="ui stackable grid">
         <div class="row">
             <div class="four wide column">
-                <div class="ui raised segment">
-                    <table class="ui padded compact striped table">
-                        <thead>
-                            <th class="center aligned">Station</th>
-                            <th class="center aligned">Location</th>
-                            <th class="center aligned">Usage</th>
-                        </thead>
-                        <tbody>
-                            @foreach($stations as $station)
-                            <tr>
-                                <td>{{ $station->name }}</td>
-                                <td>{{ $station->location }}</td>
-                                <td class="right aligned">{{ $station->usages->count() }}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                <table class="ui padded small compact striped table">
+                    <thead>
+                        <th class="center aligned">Station</th>
+                        <th class="center aligned">Location</th>
+                        <th class="center aligned">Usage</th>
+                    </thead>
+                    <tbody>
+                        @foreach($stations as $station)
+                        <tr>
+                            <td>{{ $station->name }}</td>
+                            <td>{{ $station->location }}</td>
+                            <td class="right aligned">{{ $station->usages->count() }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
             <div class="twelve wide column">
                 <div class="ui top attached segment">

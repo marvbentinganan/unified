@@ -51,7 +51,7 @@
                         <img src="{{ asset('images/unifi.png') }}" alt="">
                     </div>
                     <div class="content">
-                        <div class="header">UnifiController</div>
+                        <div class="header">UniFi Controller</div>
                         <div class="description">
                             Manage UnifiController
                         </div>

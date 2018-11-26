@@ -9,12 +9,14 @@
 @endsection
 @section('content')
 <div class="row">
-    <div class="ui top attached icon menu">
-        <a class="item" onclick="showModal()">
-            <i class="blue large ion-plus-circled icon"></i>
-        </a>
+    <div class="ui top attached borderless icon menu">
         <div class="header item">
             Navigation Menus
+        </div>
+        <div class="right menu">
+            <a class="item" onclick="showModal()">
+                <i class="ion-plus-circled icon"></i> Add Menu
+            </a>
         </div>
     </div>
     <div class="ui attached segment">
