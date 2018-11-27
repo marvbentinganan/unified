@@ -217,7 +217,7 @@
                 this.employee.is_manager = false,
                 this.employee.roles = [],
                 this.employee.programs = [],
-            }
+            },
 
             getEmployees(){
                 axios.get('{{ route('employee.get') }}')
