@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
     // User Routes
     Route::prefix('users')->group(function () {
         Route::get('dashboard', 'UserController@index')->name('users');
+        Route::any('audit', 'UserController@audit')->name('users.audit');
 
         // Active Directory
         Route::prefix('active-directory')->group(function () {
@@ -145,6 +146,7 @@ Route::middleware('auth')->group(function () {
             Route::post('upload', 'StudentController@upload')->name('students.upload');
             Route::get('get', 'StudentController@get')->name('student.get');
             Route::get('get/{student}', 'StudentController@edit')->name('student.edit');
+            Route::post('update/{student}', 'StudentController@update')->name('student.update');
             Route::get('delete/{student}', 'StudentController@destroy')->name('student.destroy');
         });
 

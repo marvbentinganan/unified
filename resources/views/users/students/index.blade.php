@@ -99,7 +99,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> @{{ label }}</button>
+                            <button type="submit" class="ui fluid primary submit icon button"><i class="save icon"></i> @{{ label }} Student</button>
                         </div>
                     </form>
                 </div>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="field">
                             <button type="submit" class="ui animated fade fluid primary icon button">
-                                <div class="visible content">Upload</div>
+                                <div class="visible content"><i class="ion-upload icon"></i> Upload</div>
                                 <div class="hidden content"><i class="ion-upload icon"></i></div>
                             </button>
                         </div>
@@ -144,6 +144,7 @@
                 date_of_birth : '',
             },
             label : "Add",
+            route : '{{ route('student.add') }}',
         },
         components: { vuejsDatepicker },
         computed : {
@@ -164,6 +165,17 @@
                 $('.dropdown').dropdown();
             },
 
+            resetForm(){
+                this.student.firstname = '', 
+                this.student.middlename = '', 
+                this.student.lastname = '', 
+                this.student.suffix = '', 
+                this.student.id_number = '', 
+                this.student.date_of_birth = '',
+                this.label = "Add", 
+                this.route = '{{ route('student.add') }}';
+            },
+
             getStudents(){
                 axios.get('{{ route('student.get') }}')
                 .then(response => {
@@ -175,15 +187,15 @@
             },
 
             addStudent(){
-                axios.post('{{ route('student.add') }}', this.$data.student)
+                axios.post(this.route, this.$data.student)
                 .then(response => {
-                    $('form').form('clear'),
-                    this.student = null,
                     this.getStudents(),
-                    toastr.success(response.data);
+                    this.resetForm(),
+                    swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
                 })
                 .catch(error => {
                     console.log(error.response.data);
+                    swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
                 });
             },
 
@@ -192,7 +204,8 @@
             	axios.get(route)
             	.then((response) => {
             		this.student = response.data,
-                    this.label = "Update";
+                    this.label = "Update", 
+                    this.route = '{{ url('users/students/update') }}' + '/' + id;
             	})
             	.catch(error => {
             		console.log(error.response.data)

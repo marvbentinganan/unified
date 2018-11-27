@@ -4,17 +4,17 @@
 {{-- <link rel="stylesheet" href="{{ asset('plugins/datatables/css/buttons.dataTables.min.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('plugins/datatables/css/buttons.semanticui.min.css') }}">
 <style>
-#dataTableBuilder{
-    width: 100% !Important;
-}
-
-div.dt-buttons { 
-    float: right; 
-}
-
-.sorting:after, .sorting_desc:after, .sorting_asc:after {
-  bottom: 2px !important;
-}
+    #dataTableBuilder{
+        width: 100% !Important;
+    }
+    
+    div.dt-buttons { 
+        float: right; 
+    }
+    
+    .sorting:after, .sorting_desc:after, .sorting_asc:after {
+        bottom: 2px !important;
+    }
 </style>
 @endpush
 @section('breadcrumb')
@@ -44,6 +44,6 @@ div.dt-buttons {
 <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 {!! $dataTable->scripts() !!}
 <script>
-    $('#dataTableBuilder').addClass('ui responsive celled table');
+    $('#dataTableBuilder').addClass('ui compact small responsive celled table');
 </script>
 @endpush

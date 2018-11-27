@@ -206,6 +206,19 @@
                 $('.dropdown').dropdown();
             },
 
+            resetForm(){
+                this.employee.firstname = '',
+                this.employee.middlename = '',
+                this.employee.lastname = '',
+                this.employee.suffix : '',
+                this.employee.id_number : '',
+                this.employee.title : '',
+                this.employee.is_faculty : false,
+                this.employee.is_manager : false,
+                this.employee.roles : [],
+                this.employee.programs : [],
+            }
+
             getEmployees(){
                 axios.get('{{ route('employee.get') }}')
                 .then(response => {
@@ -229,11 +242,11 @@
             addEmployee(){
                 axios.post(this.route, this.$data.employee)
                 .then(response => {
-                    $('form').form('clear'),
-                    this.route = '{{ route('employee.add') }}',
-                    toastr.success(response.data),
                     this.getEmployees(),
-                    this.employee = null;
+                    this.resetForm(),
+                    this.route = '{{ route('employee.add') }}',
+                    swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
+                    
                 })
                 .catch(error => {
                     console.log(error.response.data);

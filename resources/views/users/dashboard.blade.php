@@ -79,10 +79,33 @@
                     </div>
                 </a>
             </div>
+            <div class="ui section divider"></div>
+            <div class="ui stackable two column grid">
+                <div class="column">
+                    <div class="ui top attached header"><i class="ion-upload icon"></i> Remove Inactive SHS Students</div>
+                    <div class="ui attached segment">
+                        <form action="{{ route('users.audit') }}" method="POST" class="ui small form" id="uploadForm" enctype="multipart/form-data">
+                            @csrf
+                            <div class="field">
+                                <div class="ui input">
+                                    <input type="file" name="doc" id="file" placeholder="Select File...">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <button type="submit" class="ui animated fade fluid primary icon button">
+                                    <div class="visible content"><i class="ion-upload icon"></i> Upload</div>
+                                    <div class="hidden content"><i class="ion-upload icon"></i></div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="column"></div>
+            </div>
         </div>
     </div>
 </div>
 @endsection
- @push('footer_scripts')
+@push('footer_scripts')
 
 @endpush

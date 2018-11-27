@@ -25,21 +25,18 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        // Set Variables
-        $date_of_birth = Carbon::parse($request->date_of_birth)->toDateString();
-        if (starts_with($request->id_number, 'SHS') == true) {
-            $barcode = substr_replace($request->id_number, '-', 7, 0);
-            $department = 1;
-        } else {
-            $barcode = $request->id_number;
-            $department = 2;
-        }
+        try {
+            // Set Variables
+            $date_of_birth = Carbon::parse($request->date_of_birth)->toDateString();
+            if (starts_with($request->id_number, 'SHS') == true) {
+                $barcode = substr_replace($request->id_number, '-', 7, 0);
+                $department = 1;
+            } else {
+                $barcode = $request->id_number;
+                $department = 2;
+            }
 
-        $student = Student::updateOrCreate(
-            [
-                'id_number' => $request->id_number,
-            ],
-            [
+            $student = Student::create([
                 'firstname' => $request->firstname,
                 'middlename' => $request->middlename,
                 'lastname' => $request->lastname,
@@ -48,12 +45,16 @@ class StudentController extends Controller
                 'id_number' => $request->id_number,
                 'barcode' => $barcode,
                 'department_id' => $department,
-            ]
-        );
+            ]);
 
-        $this->createUser($student);
+            if ($student) {
+                $this->createUser($student);
+            }
 
-        return response()->json('Success!', 200);
+            return response()->json('Student Added', 200);
+        } catch (Exception $exception) {
+            return response()->json('Unable to Add Student', 500);
+        }
     }
 
     public function upload(Request $request)
@@ -120,6 +121,35 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         return response()->json($student);
+    }
+
+    public function update(Request $request, Student $student)
+    {
+        try {
+            $date_of_birth = Carbon::parse($request->date_of_birth)->toDateString();
+            if (starts_with($request->id_number, 'SHS') == true) {
+                $barcode = substr_replace($request->id_number, '-', 7, 0);
+                $department = 1;
+            } else {
+                $barcode = $request->id_number;
+                $department = 2;
+            }
+
+            $student->update([
+                'firstname' => $request->firstname,
+                'middlename' => $request->middlename,
+                'lastname' => $request->lastname,
+                'suffix' => $request->suffix,
+                'date_of_birth' => $date_of_birth,
+                'id_number' => $request->id_number,
+                'barcode' => $barcode,
+                'department_id' => $department,
+            ]);
+
+            return response()->json('Student Updated', 200);
+        } catch (Exception $exception) {
+            return response()->json('Unable to Update Student', 500);
+        }
     }
 
     public function destroy(Student $student)

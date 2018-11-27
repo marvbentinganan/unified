@@ -14,7 +14,7 @@
 <div class="sixteen wide column">
     <div class="ui stackable grid">
         <div class="sixteen wide column">
-            <article class="ui raised relaxed divided items piled very padded segment">
+            <article class="ui raised relaxed divided items stacked very padded segment">
                 <h1 class="ui header">{{ $lesson->title }}</h1>
                 <span><i class="ion-ios-person icon"></i>{{ $lesson->created_by->firstname.' '.$lesson->created_by->lastname }}</span>
                 <span><i class="ion-calendar icon"></i>{{ $lesson->created_at->toFormattedDateString() }}</span>

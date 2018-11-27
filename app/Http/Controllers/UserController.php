@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\DataTables\UsersDataTable;
 use App\Models\User;
+use App\Models\Student;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\Build\Department;
+use Excel;
 
 class UserController extends Controller
 {
@@ -49,5 +53,34 @@ class UserController extends Controller
         ];
 
         return response()->json($options);
+    }
+
+    public function audit(Request $request)
+    {
+        $department = Department::find(1);
+        $students = $department->students->pluck('id_number')->toArray();
+
+        $temp = collect([]);
+        if ($request->hasFile('doc')) {
+            $file = $request->file('doc');
+            $path = $file->getRealPath();
+            $data = Excel::load($path, function ($reader) {})->get();
+
+            if ($data->count() != 0) {
+                foreach ($data as $datum) {
+                    $temp->push($datum->id_number);
+                }
+            }
+
+            $filtered = array_diff($students, $temp->toArray());
+
+            foreach ($filtered as $gone) {
+                $student = Student::where('id_number', $gone)->first();
+                $student->user->delete();
+                $student->delete();
+            }
+
+            return redirect()->back()->with(['success_message' => 'Students Filtered']);
+        }
     }
 }

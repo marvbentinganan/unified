@@ -34,7 +34,7 @@
         </table>
     </div>
     <div class="four wide column">
-        <div class="ui top attached header">@{{ label }} Permission</div>
+        <div class="ui top attached header">Manage Permission</div>
         <div class="ui attached segment">
             <form action="" method="POST" class="ui small form" @submit.prevent="addPermission()">
                 @csrf
@@ -57,7 +57,9 @@
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui primary submit icon button"><i class="ion-plus-circled icon"></i> Add Permission</button>
+                    <button class="ui fluid primary submit icon button">
+                        <i class="ion-plus-circled icon"></i> Add Permission
+                    </button>
                 </div>
             </form>
         </div>
@@ -83,6 +85,12 @@
                 $('.dropdown').dropdown();
             },
 
+            resetForm(){
+                this.permission.name = '', 
+                this.permission.display_name = '', 
+                this.permission.description = '';
+            },
+
             getPermissions(){
                 axios.get('{{ route('permission.get') }}')
                 .then(response => {
@@ -97,6 +105,7 @@
                 axios.post(this.route, this.$data.permission)
                 .then(response => {
                     this.getPermissions(),
+                    this.resetForm(),
                     this.route = '{{ route('permission.add') }}',
                     swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
                 })
@@ -111,7 +120,7 @@
             	axios.get(route)
             	.then((response) => {
             		this.permission = response.data,
-                    this.route = '{{ url('permission/update') }}' + '/' + id;
+                    this.route = '{{ url('users/permissions/update') }}' + '/' + id;
             	})
             	.catch(error => {
             		swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });

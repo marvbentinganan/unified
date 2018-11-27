@@ -68,7 +68,7 @@
                     </select>
                 </div>
                 <div class="field">
-                    <button class="ui primary submit icon button"><i class="ion-plus-circled icon"></i> @{{ label }}</button>
+                    <button class="ui fluid primary submit icon button"><i class="ion-plus-circled icon"></i> @{{ label }} Role</button>
                 </div>
             </form>
         </div>
