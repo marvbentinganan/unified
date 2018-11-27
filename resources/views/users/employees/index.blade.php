@@ -216,7 +216,7 @@
                 this.employee.is_faculty = false,
                 this.employee.is_manager = false,
                 this.employee.roles = [],
-                this.employee.programs = [],
+                this.employee.programs = [];
             },
 
             getEmployees(){
