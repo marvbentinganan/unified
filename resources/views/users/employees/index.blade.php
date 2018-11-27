@@ -210,13 +210,13 @@
                 this.employee.firstname = '',
                 this.employee.middlename = '',
                 this.employee.lastname = '',
-                this.employee.suffix : '',
-                this.employee.id_number : '',
-                this.employee.title : '',
-                this.employee.is_faculty : false,
-                this.employee.is_manager : false,
-                this.employee.roles : [],
-                this.employee.programs : [],
+                this.employee.suffix = '',
+                this.employee.id_number = '',
+                this.employee.title = '',
+                this.employee.is_faculty = false,
+                this.employee.is_manager = false,
+                this.employee.roles = [],
+                this.employee.programs = [],
             }
 
             getEmployees(){
