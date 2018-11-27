@@ -35,18 +35,19 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $permission = Permission::updateOrCreate(
-            [
-                'name' => $request->name,
-            ],
-            [
-                'name' => $request->name,
-                'display_name' => $request->display_name,
-                'description' => $request->description,
-            ]
-        );
+        try {
+            $permission = Permission::create(
+                [
+                    'name' => $request->name,
+                    'display_name' => $request->display_name,
+                    'description' => $request->description,
+                ]
+            );
 
-        return response()->json('Success!', 200);
+            return response()->json('Success!', 200);
+        } catch (Exception $exception) {
+            return $exception;
+        }
     }
 
     /**
@@ -83,8 +84,19 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Permission $permission)
     {
+        try {
+            $permission->update([
+                'name' => $request->name,
+                'display_name' => $request->display_name,
+                'description' => $request->description,
+            ]);
+
+            return response()->json('Success!', 200);
+        } catch (Exception $exception) {
+            return $exception;
+        }
     }
 
     /**

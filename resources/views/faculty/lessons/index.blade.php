@@ -67,11 +67,13 @@
                             @endif
                             <button class="ui icon button" onclick="destroy({{ $lesson->id }})"><i class="red ion-trash-a icon"></i></button>
                             {{-- Show Publish Button if User is Manager/Area Head --}}
-                            @if(auth()->user()->hasRole('management') && $lesson->active == false)
+                            @role('management')
+                            @if($lesson->active == false)
                             <button class="ui icon button" onclick="publish({{ $lesson->id }})"><i class="green check icon"></i></button>
-                            @elseif(auth()->user()->hasRole('management') && $lesson->active == true)
+                            @elseif($lesson->active == true)
                             <button class="ui icon button" onclick="unpublish({{ $lesson->id }})"><i class="orange close icon"></i></button>
                             @endif
+                            @endrole
                             @endif
                         </div>
                     </div>

@@ -57,4 +57,14 @@ class Lesson extends Model
     {
         return 'slug';
     }
+
+    public function scopeForManagers($query)
+    {
+        if (auth()->user()->hasRole('management')) {
+            $employee = auth()->user()->employee;
+            $programs = $employee->programs;
+
+            return $query->whereIn('program_id', $programs->pluck('id'))->with(['department', 'program', 'subject'])->withTrashed();
+        }
+    }
 }

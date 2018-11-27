@@ -21,9 +21,7 @@ class LessonController extends Controller
     public function index()
     {
         if (auth()->user()->hasRole('management')) {
-            $employee = auth()->user()->employee;
-            $programs = $employee->programs;
-            $lessons = Lesson::whereIn('program_id', $programs->pluck('id'))->with(['department', 'program', 'subject'])->withTrashed()->get();
+            $lessons = Lesson::forManagers()->get();
         } elseif (auth()->user()->hasRole('faculty')) {
             $lessons = auth()->user()->lessons()->with(['department', 'program', 'subject'])->withTrashed()->get();
         } else {

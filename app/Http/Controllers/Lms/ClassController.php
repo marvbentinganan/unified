@@ -109,8 +109,6 @@ class ClassController extends Controller
             $lessons = $class->lessons;
         }
 
-        //dd($lessons);
-
         return view($this->directory.'.view', compact('class', 'lessons'));
     }
 

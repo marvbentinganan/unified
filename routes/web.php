@@ -134,8 +134,8 @@ Route::middleware('auth')->group(function () {
             Route::post('add', 'PermissionController@store')->name('permission.add');
             Route::get('get', 'PermissionController@get')->name('permission.get');
             Route::get('get/{permission}', 'PermissionController@edit')->name('permission.edit');
-            Route::patch('update/{permission}', 'PermissionController@update')->name('permission.update');
-            Route::delete('delete/{permission}', 'PermissionController@destroy')->name('permission.delete');
+            Route::post('update/{permission}', 'PermissionController@update')->name('permission.update');
+            Route::get('delete/{permission}', 'PermissionController@destroy')->name('permission.delete');
         });
 
         // Student Routes

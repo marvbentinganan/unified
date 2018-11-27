@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="field">
-                    <button class="ui primary submit icon button"><i class="ion-plus-circled icon"></i> @{{ label }}</button>
+                    <button class="ui primary submit icon button"><i class="ion-plus-circled icon"></i> Add Permission</button>
                 </div>
             </form>
         </div>
@@ -75,7 +75,7 @@
                 display_name : '',
                 description : '',
             },
-            label : "Add",
+            route : '{{ route('permission.add') }}',
         },
         methods: {
             init() {
@@ -89,20 +89,20 @@
                     this.permissions = response.data;
                 })
                 .catch(error => {
-                    console.log(error.response.data);
+                    swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
                 })
             },
 
             addPermission(){
-                axios.post('{{ route('permission.add') }}', this.$data.permission)
+                axios.post(this.route, this.$data.permission)
                 .then(response => {
-                    $('form').form('clear'),
                     this.getPermissions(),
-                    this.permission = null,
-                    toastr.success(response.data);
+                    this.route = '{{ route('permission.add') }}',
+                    swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
                 })
                 .catch(error => {
-                    console.log(error.response.data);
+                    console.log(error.response.data),
+                    swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
                 });
             },
 
@@ -111,10 +111,10 @@
             	axios.get(route)
             	.then((response) => {
             		this.permission = response.data,
-                    this.label = "Update";
+                    this.route = '{{ url('permission/update') }}' + '/' + id;
             	})
             	.catch(error => {
-            		console.log(error.response.data)
+            		swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
             	});
             },
 
@@ -133,10 +133,10 @@
             			axios.get(route)
             			.then(response => {
             				this.getPermissions(),
-            				toastr.info(response.data);
+            				swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
             			})
             			.catch(response => {
-            				toastr.error("Unable to Delete Role");
+            				swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
             			});
             		}
             	})
