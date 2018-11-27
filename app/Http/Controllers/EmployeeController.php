@@ -51,11 +51,8 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::updateOrCreate(
-            [
-                'id_number' => $request->id_number,
-            ],
-            [
+        try {
+            $employee = Employee::create([
                 'id_number' => $request->id_number,
                 'firstname' => ucwords($request->firstname),
                 'middlename' => ucwords($request->middlename),
@@ -64,21 +61,25 @@ class EmployeeController extends Controller
                 'title' => $request->title,
                 'is_faculty' => $request->is_faculty,
                 'is_manager' => $request->is_manager,
-            ]
-        );
+                ]);
 
-        if ($request->has('programs')) {
-            $employee->programs()->sync($request->programs);
+            if ($request->has('programs')) {
+                $employee->programs()->sync($request->programs);
+            }
+
+            $user = $this->createUser($employee);
+            $user->syncRoles($request->roles);
+
+            return response()->json('Employee Added', 200);
+        } catch (Exception $exception) {
+            return response()->json('Unable to Add Employee', 500);
         }
-
-        $user = $this->createUser($employee);
-        $user->syncRoles($request->roles);
     }
 
     public function get()
     {
         $employees = Employee::orderby('lastname')
-        ->get();
+            ->get();
 
         return response()->json($employees);
     }
@@ -129,15 +130,15 @@ class EmployeeController extends Controller
             $id_number = $employee->id_number;
 
             $employee->update([
-                'id_number' => $request->id_number,
-                'firstname' => $request->firstname,
-                'middlename' => $request->middlename,
-                'lastname' => $request->lastname,
-                'suffix' => $request->suffix,
-                'title' => $request->title,
-                'is_faculty' => $request->is_faculty,
-                'is_manager' => $request->is_manager,
-            ]);
+                    'id_number' => $request->id_number,
+                    'firstname' => $request->firstname,
+                    'middlename' => $request->middlename,
+                    'lastname' => $request->lastname,
+                    'suffix' => $request->suffix,
+                    'title' => $request->title,
+                    'is_faculty' => $request->is_faculty,
+                    'is_manager' => $request->is_manager,
+                    ]);
 
             if ($request->has('programs')) {
                 $employee->programs()->sync($request->programs);
@@ -147,7 +148,7 @@ class EmployeeController extends Controller
 
             $user->syncRoles($request->roles);
 
-            return response()->json('User Updated', 200);
+            return response()->json('Employee Updated', 200);
         } catch (Exception $ex) {
             return $ex;
         }
@@ -232,8 +233,8 @@ class EmployeeController extends Controller
                 'lastname' => $employee->lastname,
                 'id_number' => $employee->id_number,
                 'password' => $employee->generatePassword(),
-            ]
-        );
+                ]
+            );
 
         return $user;
     }
@@ -253,8 +254,8 @@ class EmployeeController extends Controller
                 'firstname' => $employee->firstname,
                 'lastname' => $employee->lastname,
                 'password' => $password,
-            ]
-        );
+                ]
+            );
 
         return $user;
     }

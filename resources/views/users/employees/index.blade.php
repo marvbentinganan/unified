@@ -132,7 +132,10 @@
                             </select>
                         </div>
                         <div class="field">
-                            <button type="submit" class="ui primary submit icon button"><i class="save icon"></i> @{{ label }}</button>
+                            <button type="submit" class="ui fade fluid animated primary submit icon button">
+                                <div class="visible content">@{{ label }} Employee</div>
+                                <div class="hidden content"><i class="ion-plus icon"></i></div>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -216,7 +219,8 @@
                 this.employee.is_faculty = false,
                 this.employee.is_manager = false,
                 this.employee.roles = [],
-                this.employee.programs = [];
+                this.employee.programs = [],
+                this.route = '{{ route('employee.add') }}';
             },
 
             getEmployees(){
@@ -244,7 +248,6 @@
                 .then(response => {
                     this.getEmployees(),
                     this.resetForm(),
-                    this.route = '{{ route('employee.add') }}',
                     swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
                     
                 })

@@ -99,7 +99,10 @@
                             </div>
                         </div>
                         <div class="field">
-                            <button type="submit" class="ui fluid primary submit icon button"><i class="save icon"></i> @{{ label }} Student</button>
+                            <button type="submit" class="ui animated fade fluid primary submit icon button">
+                                <div class="visible content">@{{ label }} Student</div>
+                                <div class="hidden content"><i class="ion-plus icon"></i></div> 
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -117,7 +120,7 @@
                         </div>
                         <div class="field">
                             <button type="submit" class="ui animated fade fluid primary icon button">
-                                <div class="visible content"><i class="ion-upload icon"></i> Upload</div>
+                                <div class="visible content">Upload</div>
                                 <div class="hidden content"><i class="ion-upload icon"></i></div>
                             </button>
                         </div>

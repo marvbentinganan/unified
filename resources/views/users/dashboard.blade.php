@@ -84,6 +84,13 @@
                 <div class="column">
                     <div class="ui top attached header"><i class="ion-upload icon"></i> Remove Inactive SHS Students</div>
                     <div class="ui attached segment">
+                        <div class="ui small info icon message">
+                            <i class="ion-alert icon"></i>
+                            <div class="content">
+                                <div class="header">Instruction</div>
+                                <p>Create and Excel File with a list of Student ID Numbers of Enrolled Students.</p>
+                            </div>
+                        </div>
                         <form action="{{ route('users.audit') }}" method="POST" class="ui small form" id="uploadForm" enctype="multipart/form-data">
                             @csrf
                             <div class="field">
