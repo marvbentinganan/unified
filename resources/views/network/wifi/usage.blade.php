@@ -34,7 +34,7 @@
 				</div>
 			</div>
 			<div class="ui attached segment">
-				<table class="ui compact unstackable striped celled table">
+				<table class="ui small compact unstackable table">
 					<thead>
 						<th class="center aligned">Device</th>
 						<th class="center aligned">IP</th>
@@ -43,11 +43,11 @@
 						<th class="center aligned">Status</th>
 					</thead>
 					<tbody>
-						@foreach($user->access_logs->sortByDesc('created_at') as $key => $log)
+						@foreach($user->access_logs->sortByDesc('created_at')->take(15) as $key => $log)
 						<tr>
 							<td class="center aligned">{{ $log->device }}</td>
 							<td class="center aligned">{{ $log->ip }}</td>
-							<td class="center aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
+							<td class="right aligned">{{ $log->created_at->toDayDateTimeString() }}</td>
 							<td class="right aligned">{{ $log->time_remaining() }}</td>
 							<td class="center aligned">
 								@if( now()

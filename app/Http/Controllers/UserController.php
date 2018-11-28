@@ -89,6 +89,8 @@ class UserController extends Controller
         $deleted_users = User::onlyTrashed()->get();
         foreach ($deleted_users as $user) {
             $user->restore();
+            $student = Student::where('id_number', $user->id_number)->withTrashed()->first();
+            $student->restore();
         }
     }
 }

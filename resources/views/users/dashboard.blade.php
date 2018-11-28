@@ -79,38 +79,6 @@
                     </div>
                 </a>
             </div>
-            <div class="ui section divider"></div>
-            <div class="ui stackable two column grid">
-                <div class="column">
-                    <div class="ui top attached header"><i class="ion-upload icon"></i> SHS Students Mass Management</div>
-                    <div class="ui attached segment">
-                        <div class="ui small info icon message">
-                            <i class="ion-alert icon"></i>
-                            <div class="content">
-                                <div class="header">Instruction</div>
-                                <p>Create and Excel File with a list of Student ID Numbers of Enrolled Students.</p>
-                            </div>
-                        </div>
-                        <form action="{{ route('users.audit') }}" method="POST" class="ui small form" id="uploadForm" enctype="multipart/form-data">
-                            @csrf
-                            <div class="field">
-                                <div class="ui input">
-                                    <input type="file" name="doc" id="file" placeholder="Select File...">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <button type="submit" class="ui animated fade fluid primary icon button">
-                                    <div class="visible content"><i class="ion-upload icon"></i> Upload</div>
-                                    <div class="hidden content"><i class="ion-upload icon"></i></div>
-                                </button>
-                            </div>
-                        </form>
-                        <div class="ui section divider"></div>
-                        <a href="{{ route('users.restore') }}" class="ui fluid primary icon button"> Restore Users</a>
-                    </div>
-                </div>
-                <div class="column"></div>
-            </div>
         </div>
     </div>
 </div>

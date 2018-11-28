@@ -127,11 +127,43 @@
                     </form>
                 </div>
             </div>
+            <div class="ui section divider"></div>
+            <div class="row">
+                <div class="ui top attached header"><i class="ion-upload icon"></i> SHS Students Management</div>
+                <div class="ui attached segment">
+                    <div class="ui mini info icon message">
+                        <i class="ion-alert icon"></i>
+                        <div class="content">
+                            <div class="header">Instruction</div>
+                            <p>Create an Excel File with a list of Student ID Numbers of Enrolled Students.</p>
+                        </div>
+                    </div>
+                    <form action="{{ route('users.audit') }}" method="POST" class="ui small form" id="uploadForm" enctype="multipart/form-data">
+                        @csrf
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="file" name="doc" id="file" placeholder="Select File...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button type="submit" class="ui animated fade fluid primary icon button">
+                                <div class="visible content">Remove Inactive Users</div>
+                                <div class="hidden content"><i class="ion-upload icon"></i></div>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="ui section divider"></div>
+                    <a href="{{ route('users.restore') }}" class="ui animated fade fluid primary icon button">
+                        <div class="visible content">Restore Users</div>
+                        <div class="hidden content"><i class="ion-loop icon"></i></div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 @endsection
- @push('footer_scripts')
+@push('footer_scripts')
 <script>
     new Vue({
 		el: '#app',
@@ -167,7 +199,7 @@
                 this.getStudents(),
                 $('.dropdown').dropdown();
             },
-
+            
             resetForm(){
                 this.student.firstname = '', 
                 this.student.middlename = '', 
@@ -178,7 +210,7 @@
                 this.label = "Add", 
                 this.route = '{{ route('student.add') }}';
             },
-
+            
             getStudents(){
                 axios.get('{{ route('student.get') }}')
                 .then(response => {
@@ -188,7 +220,7 @@
                     console.log(error.response.data);
                 })
             },
-
+            
             addStudent(){
                 axios.post(this.route, this.$data.student)
                 .then(response => {
@@ -201,20 +233,20 @@
                     swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
                 });
             },
-
+            
             edit(id){
                 var route = "get/" + id;
-            	axios.get(route)
-            	.then((response) => {
-            		this.student = response.data,
+                axios.get(route)
+                .then((response) => {
+                    this.student = response.data,
                     this.label = "Update", 
                     this.route = '{{ url('users/students/update') }}' + '/' + id;
-            	})
-            	.catch(error => {
-            		console.log(error.response.data)
-            	});
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                });
             },
-
+            
             destroy(id){ 
                 swal({ 
                     title: 'Are you sure?', 
@@ -224,25 +256,26 @@
                     confirmButtonColor: '#3085d6', 
                     cancelButtonColor: '#d33', 
                     confirmButtonText: 'Yes' 
-                    })
-                    .then((result) => { 
-                        if (result.value) { 
-                            var route = 'delete/' + id; 
-                            axios.get(route) 
-                            .then(response => { 
-                                this.list(), 
-                                toastr.info(response.data); 
-                            })
-                    .catch(response => { 
-                        toastr.error("Unable to Delete Student Account"); 
-                    }); 
-                } }) 
+                })
+                .then((result) => { 
+                    if (result.value) { 
+                        var route = 'delete/' + id; 
+                        axios.get(route) 
+                        .then(response => { 
+                            this.list(), 
+                            toastr.info(response.data); 
+                        })
+                        .catch(response => { 
+                            toastr.error("Unable to Delete Student Account"); 
+                        }); 
+                    } }) 
+                },
             },
-        },
-        mounted() {
-            this.init();
-        }
-    });
-
-</script>
-@endpush
+            mounted() {
+                this.init();
+            }
+        });
+        
+    </script>
+    @endpush
+    
