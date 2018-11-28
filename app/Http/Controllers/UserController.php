@@ -87,6 +87,8 @@ class UserController extends Controller
     public function restoreUsers(Request $request)
     {
         $deleted_users = User::onlyTrashed()->get();
-        $deleted_users->restore();
+        foreach ($deleted_users as $user) {
+            $user->restore();
+        }
     }
 }
