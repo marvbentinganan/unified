@@ -82,7 +82,7 @@
             <div class="ui section divider"></div>
             <div class="ui stackable two column grid">
                 <div class="column">
-                    <div class="ui top attached header"><i class="ion-upload icon"></i> Remove Inactive SHS Students</div>
+                    <div class="ui top attached header"><i class="ion-upload icon"></i> SHS Students Mass Management</div>
                     <div class="ui attached segment">
                         <div class="ui small info icon message">
                             <i class="ion-alert icon"></i>
@@ -105,6 +105,8 @@
                                 </button>
                             </div>
                         </form>
+                        <div class="ui section divider"></div>
+                        <a href="{{ route('users.restore') }}" class="ui fluid primary icon button"> Restore Users</a>
                     </div>
                 </div>
                 <div class="column"></div>

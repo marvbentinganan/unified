@@ -83,4 +83,10 @@ class UserController extends Controller
             return redirect()->back()->with(['success_message' => 'Students Filtered']);
         }
     }
+
+    public function restoreUsers(Request $request)
+    {
+        $deleted_users = User::onlyTrashed()->get();
+        $deleted_users->restore();
+    }
 }

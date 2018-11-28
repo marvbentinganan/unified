@@ -108,6 +108,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('dashboard', 'UserController@index')->name('users');
         Route::any('audit', 'UserController@audit')->name('users.audit');
+        Route::any('restore', 'UserController@restoreUsers')->name('users.restore');
 
         // Active Directory
         Route::prefix('active-directory')->group(function () {
