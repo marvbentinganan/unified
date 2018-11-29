@@ -90,9 +90,36 @@ class ClassController extends Controller
 
     public function my_classes()
     {
-        $classes = MyClass::where('employee_id', auth()->user()->employee->id)
-        ->with(['department', 'program', 'subject'])
-        ->get();
+        if (auth()->user()->hasRole('management')) {
+            $mine = MyClass::where('employee_id', auth()->user()->employee->id)
+            ->where('school_year_id', $this->global_settings->school_year_id)
+            ->where('semester_id', $this->global_settings->semester_id)
+            ->with(['department', 'program', 'subject'])
+            ->get();
+
+            $all = MyClass::forManagers()
+            ->where('school_year_id', $this->global_settings->school_year_id)
+            ->where('semester_id', $this->global_settings->semester_id)
+            ->get();
+        } elseif (auth()->user()->hasRole('faculty')) {
+            $mine = MyClass::where('employee_id', auth()->user()->employee->id)
+            ->where('school_year_id', $this->global_settings->school_year_id)
+            ->where('semester_id', $this->global_settings->semester_id)
+            ->with(['department', 'program', 'subject'])
+            ->get();
+            $all = null;
+        } elseif (auth()->user()->hasRole('administrator')) {
+            $mine = null;
+            $all = MyClass::where('school_year_id', $this->global_settings->school_year_id)
+            ->where('semester_id', $this->global_settings->semester_id)
+            ->with(['department', 'program', 'subject'])
+            ->get();
+        }
+
+        $classes = [
+            'mine' => $mine,
+            'all' => $all,
+        ];
 
         return response()->json($classes);
     }
@@ -138,6 +165,7 @@ class ClassController extends Controller
         }
     }
 
+    // Upload List of Students
     public function upload(Request $request, MyClass $class)
     {
         if ($request->hasFile('doc')) {
@@ -161,6 +189,51 @@ class ClassController extends Controller
         return response()->json('Failed to Upload');
     }
 
+    // Get List of Students
+    public function studentList(MyClass $class)
+    {
+        $students = $class->students;
+
+        return response()->json($students);
+    }
+
+    // Add Student to Class
+    public function addStudent(Request $request, MyClass $class)
+    {
+        try {
+            $student = Student::where('id_number', $request->id_number)->first();
+
+            if (!$class->students->contains($student->id)) {
+                $class->students()->attach($student->id);
+
+                return response()->json('Student Added to Class', 200);
+            } else {
+                return response()->json('Student Already Added', 200);
+            }
+        } catch (Exception $exception) {
+            return response()->json('Student Not Found', 404);
+        }
+    }
+
+    // Get list of Lessons
+    public function lessonsList(MyClass $class)
+    {
+        if ($class->lessons->count() >= 1) {
+            $lessons = $class->lessons;
+
+            return response()->json($lessons);
+        }
+
+        $lessons = Lesson::where('subject_id', $class->subject_id)
+            ->where('department_id', $class->department_id)
+            ->where('program_id', $class->program_id)
+            ->where('approved', true)
+            ->get();
+
+        return response()->json($lessons);
+    }
+
+    // Helper Functions
     private function checkRecord($request)
     {
         $result = MyClass::where('subject_id', $request->subject_id)

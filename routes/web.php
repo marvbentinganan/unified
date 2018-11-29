@@ -49,6 +49,15 @@ Route::middleware('auth')->group(function () {
             Route::post('upload/{class}', 'ClassController@upload')->name('class.upload');
             Route::get('attach/{class}/{lesson}', 'ClassController@attach')->name('class.attach.lesson');
             Route::get('detach/{class}/{lesson}', 'ClassController@detach')->name('class.detach.lesson');
+
+            Route::prefix('student')->group(function () {
+                Route::get('list/{class}', 'ClassController@studentList')->name('class.student.list');
+                Route::post('add/{class}', 'ClassController@addStudent')->name('class.student.add');
+            });
+
+            Route::prefix('lessons')->group(function () {
+                Route::get('list/{class}', 'ClassController@lessonsList')->name('class.lessons.list');
+            });
         });
 
         // Lessons Routes

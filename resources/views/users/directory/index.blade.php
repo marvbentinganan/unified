@@ -36,7 +36,6 @@
 </div>
 @endsection
 @push('footer_scripts')
-<script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables/js/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables/js/dataTables.semanticui.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables/js/dataTables.buttons.min.js') }}"></script>

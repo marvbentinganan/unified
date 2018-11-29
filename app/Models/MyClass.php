@@ -61,7 +61,7 @@ class MyClass extends Model
 
     public function students()
     {
-        return $this->belongsToMany(Student::class);
+        return $this->belongsToMany(Student::class)->orderBy('lastname');
     }
 
     public function lessons()
@@ -72,5 +72,15 @@ class MyClass extends Model
     public function getRouteKeyName()
     {
         return 'code';
+    }
+
+    public function scopeForManagers($query)
+    {
+        if (auth()->user()->hasRole('management')) {
+            $employee = auth()->user()->employee;
+            $programs = $employee->programs;
+
+            return $query->whereIn('program_id', $programs->pluck('id'))->with(['department', 'program', 'subject'])->withTrashed();
+        }
     }
 }

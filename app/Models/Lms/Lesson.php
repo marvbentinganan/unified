@@ -25,6 +25,8 @@ class Lesson extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $with = ['chapters', 'department', 'subject', 'program'];
+
     public function chapters()
     {
         return $this->hasMany(Chapter::class);
