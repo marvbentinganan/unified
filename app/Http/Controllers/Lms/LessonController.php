@@ -33,11 +33,7 @@ class LessonController extends Controller
 
     public function new()
     {
-        $subjects = Subject::pluck('code', 'id');
-        $departments = Department::pluck('name', 'id');
-        $programs = Program::pluck('code', 'id');
-
-        return view($this->directory.'.new', compact('subjects', 'departments', 'programs'));
+        return view($this->directory.'.new');
     }
 
     public function store(Request $request)
@@ -50,15 +46,13 @@ class LessonController extends Controller
                 'program_id' => 'required',
             ]);
 
-            $lesson = auth()->user()->lessons()->updateOrCreate(
-                [
-                    'subject_id' => $request->subject_id,
-                    'department_id' => $request->department_id,
-                    'program_id' => $request->program_id,
-                ],
+            $code = strtoupper(str_random(10));
+
+            $lesson = auth()->user()->lessons()->create(
                 [
                     'title' => $request->title,
                     'slug' => str_slug($request->title, '-'),
+                    'code' => $code,
                     'subject_id' => $request->subject_id,
                     'department_id' => $request->department_id,
                     'program_id' => $request->program_id,
@@ -82,11 +76,15 @@ class LessonController extends Controller
         return view($this->directory.'.view', compact('lesson'));
     }
 
+    // Get list of added Lessons
     public function list()
     {
-        $lessons = Lesson::where('user_id', auth()->user()->id)->latest()->get();
+        $lessons = Lesson::where('user_id', auth()->user()->id)
+        ->with(['department', 'program', 'subject'])
+        ->latest()
+        ->get();
 
-        return view($this->directory.'.list', compact('lessons'));
+        return response()->json($lessons);
     }
 
     // Update Lesson
@@ -99,11 +97,11 @@ class LessonController extends Controller
                 'department_id' => $request->department_id,
                 'program_id' => $request->program_id,
                 'subject_id' => $request->subject_id,
-                'description' => $request->description,
-                'objective' => $request->objective,
+                'description' => trim($request->description),
+                'objective' => trim($request->objective),
             ]);
 
-            return redirect()->back();
+            return response()->json('Lesson Updated', 200);
         }
 
         $subjects = Subject::pluck('code', 'id');
@@ -142,8 +140,7 @@ class LessonController extends Controller
         try {
             $data = Lesson::find($lesson);
             $data->update([
-                'active' => true,
-                'for_approval' => false,
+                'approved' => true,
                 'approved_by' => auth()->user()->id,
             ]);
 
@@ -158,8 +155,7 @@ class LessonController extends Controller
         try {
             $data = Lesson::find($lesson);
             $data->update([
-                'active' => false,
-                'for_approval' => true,
+                'approved' => false,
                 'approved_by' => null,
             ]);
 

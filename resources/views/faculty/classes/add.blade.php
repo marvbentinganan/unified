@@ -140,10 +140,17 @@
                 $('.dropdown').dropdown();
             },
 
+            resetForm() {
+                this.myclass.section = '',
+                this.myclass.department_id = '',
+                this.myclass.program_id = '',
+                this.myclass.subject_id = '',
+                this.myclass.year_level_id = '';
+            },
+
             list(){
                 axios.get('{{ route('class.options') }}')
                 .then(response => {
-                    console.log(response.data),
                     this.options = response.data;
                 })
                 .catch(error => {
@@ -154,7 +161,6 @@
             classlist(){
                 axios.get('{{ route('class.list') }}')
                 .then(response => {
-                    console.log(response.data),
                     this.classes = response.data;
                 })
                 .catch(error => {
@@ -166,12 +172,13 @@
                 axios.post('{{ route('class.add') }}', this.$data.myclass)
                 .then(response => {
                     this.list(),
-                    this.classlist();
-                    toastr.success(response.data);
+                    this.classlist(),
+                    this.resetForm(), 
+                    swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
                 })
                 .catch(error => {
                     console.log(error.response.data),
-                    toastr.error(error.response.data);
+                    swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
                 });
             },
 
@@ -180,8 +187,5 @@
             this.init();
         }
     });
-
 </script>
-
-
 @endpush

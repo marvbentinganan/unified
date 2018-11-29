@@ -15,7 +15,8 @@ mix.js("resources/assets/js/app.js", "public/js")
     .scripts(
         [
             "public/plugins/sweetalert2/sweetalert2.all.js",
-            "public/plugins/toastr/js/toastr.min.js"
+            "public/plugins/toastr/js/toastr.min.js",
+            "public/plugins/momentjs/moment.js"
         ],
         "public/js/all.js"
     )

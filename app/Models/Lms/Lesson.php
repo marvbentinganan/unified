@@ -9,7 +9,19 @@ class Lesson extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['user_id', 'title', 'description', 'objective', 'slug', 'active', 'for_approval', 'department_id', 'subject_id', 'program_id', 'approved_by'];
+    protected $fillable = [
+        'user_id',
+        'title',
+        'description',
+        'objective',
+        'slug',
+        'code',
+        'approved',
+        'department_id',
+        'subject_id',
+        'program_id',
+        'approved_by',
+    ];
 
     protected $dates = ['deleted_at'];
 
@@ -43,7 +55,7 @@ class Lesson extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
-    public function approved()
+    public function approval()
     {
         return $this->belongsTo('App\Models\User', 'approved_by', 'id');
     }
@@ -55,7 +67,7 @@ class Lesson extends Model
 
     public function getRouteKeyName()
     {
-        return 'slug';
+        return 'code';
     }
 
     public function scopeForManagers($query)

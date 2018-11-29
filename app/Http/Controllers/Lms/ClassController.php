@@ -103,7 +103,7 @@ class ClassController extends Controller
             $lessons = Lesson::where('subject_id', $class->subject_id)
             ->where('department_id', $class->department_id)
             ->where('program_id', $class->program_id)
-            ->where('active', true)
+            ->where('approved', true)
             ->get();
         } else {
             $lessons = $class->lessons;

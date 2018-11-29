@@ -8,9 +8,9 @@
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 <a href="{{ route('lessons') }}" class="section">Lessons</a>
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-<a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
+<a href="{{ route('lesson.view', $lesson->code) }}" class="section">{{ $lesson->title }}</a>
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-<a href="{{ route('chapter.add', $lesson->slug) }}" class="active section">New Chapter</a>
+<a href="{{ route('chapter.add', $lesson->code) }}" class="active section">New Chapter</a>
 @endsection
 @section('content')
 <div class="sixteen wide column">
@@ -25,7 +25,7 @@
                     {{-- Add Chapter Form --}}
                 <div class="ui gray inverted top attached header"><i class="ion-plus icon"></i> Add New Chapter</div>
                 <div class="ui attached segment">
-                    <form action="{{ route('chapter.add', $lesson->slug) }}" method="POST" id="chapter-form" class="ui form">
+                    <form action="{{ route('chapter.add', $lesson->code) }}" method="POST" id="chapter-form" class="ui form">
                         @csrf
                         <div class="field">
                             <label for="">Title</label>
@@ -65,14 +65,14 @@
     $('#chapter-form').submit(function(event){
 		event.preventDefault();
 		tinyMCE.triggerSave();
-		var route = '{{ route('chapter.add', $lesson->slug) }}';
+		var route = '{{ route('chapter.add', $lesson->code) }}';
 		var data = $('#chapter-form').serialize();
 		axios.post(route, data)
 		.then(response => {
 			toastr.success(response.data),
 			$('form').form('clear'),
             tinyMCE.get('content').setContent(''),
-            getChapters({{ $lesson->slug }});
+            getChapters({{ $lesson->code }});
 		})
 		.catch(response => {
 			console.log(response.data);
@@ -115,7 +115,7 @@
 	tinymce.init(editor_config);
 
     function getChapters(lesson){
-        axios.get('{{ route('chapters.list', $lesson->slug) }}')
+        axios.get('{{ route('chapters.list', $lesson->code) }}')
 		.then(response => {
 			$('#chapters-container').html(response.data);
 		});

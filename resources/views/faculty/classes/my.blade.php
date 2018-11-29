@@ -19,7 +19,7 @@
                     <a href="{{ route('class.add') }}" class="item"><i class="ion-plus icon"></i>Add New</a>
                 </div>
             </div>
-            <div class="ui attached segment">
+            <div class="ui attached segment" v-if="classes.length > 0">
                 <div class="ui two doubling raised cards">
                     <div class="card" v-for="classlist in classes">
                         <div class="image">
@@ -40,6 +40,14 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="ui attached secondary placeholder center aligned segment" v-else>
+                <div class="ui icon header">
+                    <i class="orange ion-alert-circled icon"></i> 
+                    It looks like You have not created any classes yet.
+                </div>
+                <div class="ui section divider"></div>
+                <a href="{{ route('class.add') }}" class="ui large primary button">Add Class</a>
             </div>
         </div>
         <div class="four wide column">

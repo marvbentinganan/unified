@@ -8,7 +8,7 @@
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 <a href="{{ route('lessons') }}" class="section">Lessons</a>
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-<a href="{{ route('lesson.view', $lesson->slug) }}" class="active section">{{ $lesson->title }}</a>
+<a href="{{ route('lesson.view', $lesson->code) }}" class="active section">{{ $lesson->title }}</a>
 @endsection
 @section('content')
 <div class="sixteen wide column">
@@ -19,43 +19,43 @@
                 <span><i class="ion-ios-person icon"></i>{{ $lesson->created_by->firstname.' '.$lesson->created_by->lastname }}</span>
                 <span><i class="ion-calendar icon"></i>{{ $lesson->created_at->toFormattedDateString() }}</span>
                  {{-- Approval --}} 
-                @if($lesson->for_approval == true)
+                @if($lesson->approved == false)
                 <a class="ui orange top right attached label">Pending Approval</a> 
-                <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label">Add Chapter</a>
+                <a href="{{ route('chapter.add', $lesson->code) }}" class="ui blue top left attached label">Add Chapter</a>
                 @else
                 <a class="ui green top right attached label">
-                    <span><i class="check icon"></i>Approved by: {{ $lesson->approved->firstname.' '.$lesson->approved->lastname }}</span>
+                    <span><i class="check icon"></i>Approved by: {{ $lesson->approval->firstname.' '.$lesson->approval->lastname }}</span>
                 </a> @endif
                 <div class="ui small message">
                     <div class="header">
                         Description
                     </div>
-                    <p>{!! $lesson->description !!}</p>
+                    <p>{{ $lesson->description }}</p>
                 </div>
                 @if($lesson->objective)
                 <div class="ui small message">
                     <div class="header">
                         Objective
                     </div>
-                    <p>{!! $lesson->objective !!}</p>
+                    <p>{{ $lesson->objective }}</p>
                 </div>
                 @endif 
                 @foreach($lesson->chapters as $chapter)
                 <section class="item">
                     <div class="content">
-                        <h3 class="header">{{ $chapter->title }}</h3>
+                        <h2 class="ui large header">{{ $chapter->title }}</h2>
                         <div class="description">
                             {!! $chapter->content !!}
                         </div>
                         <div class="extra">
-                            @if($lesson->active == false)
-                            <a href="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" class="ui mini teal icon button"><i class="ion-compose icon"></i> Update</a>  @endif
+                            @if($lesson->approved == false)
+                            <a href="{{ route('chapter.update', [$lesson->code, $chapter->id]) }}" class="ui mini teal icon button"><i class="ion-compose icon"></i> Update</a>  @endif
                         </div>
                     </div>
                 </section>
                 @endforeach 
                 @if(auth()->user()->hasRole(['management', 'administrator'])) 
-                    @if($lesson->active == false)
+                    @if($lesson->approved == false)
                     <button class="ui green icon button" onclick="publish({{ $lesson->id }})"><i class="ion-thumbsup icon"></i> Approve for Publication</button>    @else
                     <button class="ui red icon button" onclick="unpublish({{ $lesson->id }})"><i class="ion-thumbsdown icon"></i> Rescind Approval</button>    
                     @endif
@@ -67,6 +67,7 @@
 @endsection
 @push('footer_scripts')
 <script>
+    $("iframe").wrap("<div class='ui embed' />");
     function publish(lesson){
         swal({ 
             title: 'Are you sure?', 

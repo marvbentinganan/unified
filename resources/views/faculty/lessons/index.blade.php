@@ -19,6 +19,7 @@
                     <a href="{{ route('lesson.new') }}" class="item"><i class="ion-plus icon"></i>Add New</a>
                 </div>
             </div>
+            @if($lessons->count() != 0)
             <div class="ui attached segment">
                 <div class="ui stackable doubling three raised cards">
                     @foreach ($lessons as $lesson)
@@ -29,16 +30,16 @@
                                 <a class="ui red top right attached label">Deleted</a>
                             @else
                                 {{-- Approval --}}
-                                @if($lesson->for_approval == true)
+                                @if($lesson->approved == false)
                                 <a class="ui orange top right attached label">For Approval</a> @else
                                 <a class="ui green top right attached label">Approved</a>@endif
                                 {{-- Chapters --}}
                                 @if($lesson->has('chapters'))
-                                <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label">{{ $lesson->chapters->count() }} @if($lesson->chapters->count() > 1) Chapters @else
+                                <a href="{{ route('chapter.add', $lesson->code) }}" class="ui blue top left attached label">{{ $lesson->chapters->count() }} @if($lesson->chapters->count() > 1) Chapters @else
                                     Chapter @endif
                                 </a>
                                 @else
-                                <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label"><i class="ion-plus icon"></i> Add Chapter</a>
+                                <a href="{{ route('chapter.add', $lesson->code) }}" class="ui blue top left attached label"><i class="ion-plus icon"></i> Add Chapter</a>
                                 @endif
                             @endif
                         </div>
@@ -60,17 +61,17 @@
                             @if($lesson->deleted_at)
                             <button class="ui icon button" onclick="restore({{ $lesson->id }})"><i class="yellow ion-refresh icon"></i></button>
                             @else
-                            <a href="{{ route('lesson.view', $lesson->slug) }}" class="ui icon button"><i class="blue ion-ios-browsers icon"></i></a>
+                            <a href="{{ route('lesson.view', $lesson->code) }}" class="ui icon button"><i class="blue ion-ios-browsers icon"></i></a>
                             {{-- Hide Update Button if Lesson is Published --}}
-                            @if($lesson->for_approval == true)
-                            <a href="{{ route('lesson.update', $lesson->slug) }}" class="ui icon button"><i class="teal ion-compose icon"></i></a>
+                            @if($lesson->approved == false)
+                            <a href="{{ route('lesson.update', $lesson->code) }}" class="ui icon button"><i class="teal ion-compose icon"></i></a>
                             @endif
                             <button class="ui icon button" onclick="destroy({{ $lesson->id }})"><i class="red ion-trash-a icon"></i></button>
                             {{-- Show Publish Button if User is Manager/Area Head --}}
                             @role('management')
-                            @if($lesson->active == false)
+                            @if($lesson->approved == false)
                             <button class="ui icon button" onclick="publish({{ $lesson->id }})"><i class="green check icon"></i></button>
-                            @elseif($lesson->active == true)
+                            @elseif($lesson->approved == true)
                             <button class="ui icon button" onclick="unpublish({{ $lesson->id }})"><i class="orange close icon"></i></button>
                             @endif
                             @endrole
@@ -80,6 +81,15 @@
                     @endforeach
                 </div>
             </div>
+            @else
+            <div class="ui attached secondary placeholder center aligned segment">
+                <div class="ui icon header">
+                    <i class="orange ion-alert-circled icon"></i> It looks like you have not created any lessons yet.
+                </div>
+                <div class="ui section divider"></div>
+                <a href="{{ route('lesson.new') }}" class="ui large primary button">Add Lesson</a>
+            </div>
+            @endif
        </div>
     </div>
 </div>

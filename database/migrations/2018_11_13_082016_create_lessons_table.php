@@ -16,10 +16,10 @@ class CreateLessonsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('title');
             $table->string('slug');
+            $table->string('code');
             $table->longtext('description')->nullable();
             $table->longtext('objective')->nullable();
-            $table->boolean('active')->default(false);
-            $table->boolean('for_approval')->default(true);
+            $table->boolean('approved')->default(false);
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('program_id');
             $table->unsignedInteger('subject_id');
@@ -40,11 +40,7 @@ class CreateLessonsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longtext('content')->nullable();
-            $table->boolean('active')->default(false);
-            $table->boolean('for_approval')->default(true);
-            $table->unsignedInteger('approved_by')->nullable();
             $table->foreign('lesson_id')->references('id')->on('lessons')->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('approved_by')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();

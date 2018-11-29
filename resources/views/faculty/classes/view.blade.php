@@ -107,7 +107,7 @@
                                 @endif
                             </a> 
                             @else
-                            <a href="{{ route('chapter.add', $lesson->slug) }}" class="ui blue top left attached label"><i class="ion-plus icon"></i> Add Chapter</a>        
+                            <a href="{{ route('chapter.add', $lesson->code) }}" class="ui blue top left attached label"><i class="ion-plus icon"></i> Add Chapter</a>        
                             @endif
                         </div>
                         <div class="content">
@@ -125,14 +125,14 @@
                         </div>
                         <div class="ui attached two basic buttons">
                             @if($class->lessons->count() == null)
-                                <a href="{{ route('lesson.view', $lesson->slug) }}" target="_blank" class="ui icon button">
+                                <a href="{{ route('lesson.view', $lesson->code) }}" target="_blank" class="ui icon button">
                                     <i class="blue ion-ios-redo icon"></i> Preview Lesson
                                 </a>
                                 <button class="ui icon button" onclick="attach('{{ $class->code }}', {{ $lesson->id }})">
                                     <i class="purple ion-plus icon"></i> Add to Class
                                 </button>
                             @else
-                                <a href="{{ route('lesson.view', $lesson->slug) }}" target="_blank" class="ui icon button">
+                                <a href="{{ route('lesson.view', $lesson->code) }}" target="_blank" class="ui icon button">
                                     <i class="blue ion-ios-redo icon"></i> View Lesson
                                 </a>
                                 <button class="ui icon button" onclick="detach('{{ $class->code }}', {{ $lesson->id }})">

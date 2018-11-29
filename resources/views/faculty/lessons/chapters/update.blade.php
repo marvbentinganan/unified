@@ -8,11 +8,11 @@
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 <a href="{{ route('lessons') }}" class="section">Lessons</a>
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-<a href="{{ route('lesson.view', $lesson->slug) }}" class="section">{{ $lesson->title }}</a>
+<a href="{{ route('lesson.view', $lesson->code) }}" class="section">{{ $lesson->title }}</a>
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
 <a href="" class="section">{{ $chapter->title }}</a>
 <div class="divider"><i class="blue ion-chevron-right icon"></i></div>
-<a href="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" class="active section">Update</a>
+<a href="{{ route('chapter.update', [$lesson->code, $chapter->id]) }}" class="active section">Update</a>
 @endsection
 @section('content')
 <div class="sixteen wide column">
@@ -27,7 +27,7 @@
                 {{-- Add Chapter Form --}}
                 <div class="ui gray inverted top attached header"><i class="ion-compose icon"></i> Update Chapter</div>
                 <div class="ui attached segment">
-                    <form action="{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}" method="POST" id="chapter-form" class="ui form">
+                    <form action="{{ route('chapter.update', [$lesson->code, $chapter->id]) }}" method="POST" id="chapter-form" class="ui form">
                         @csrf
                         <div class="field">
                             <label for="">Title</label>
@@ -68,12 +68,12 @@
     $('#chapter-form').submit(function(event){
 		event.preventDefault();
 		tinyMCE.triggerSave();
-		var route = '{{ route('chapter.update', [$lesson->slug, $chapter->id]) }}';
+		var route = '{{ route('chapter.update', [$lesson->code, $chapter->id]) }}';
 		var data = $('#chapter-form').serialize();
 		axios.post(route, data)
 		.then(response => {
-			toastr.success(response.data),
-            getChapters({{ $lesson->slug }});
+			swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 }),
+            getChapters({{ $lesson->code }});
 		})
 		.catch(response => {
 			console.log(response.data);
@@ -116,7 +116,7 @@
 	tinymce.init(editor_config);
 
     function getChapters(lesson){
-        axios.get('{{ route('chapters.list', $lesson->slug) }}')
+        axios.get('{{ route('chapters.list', $lesson->code) }}')
 		.then(response => {
 			$('#chapters-container').html(response.data);
 		});
@@ -125,6 +125,4 @@
     $('.tabular.menu .item').tab({history:true, alwaysRefresh:false});
 
 </script>
-
-
 @endpush
