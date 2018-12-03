@@ -8,7 +8,6 @@ use App\Models\Build\Subject;
 use App\Models\Build\Department;
 use App\Models\Build\Program;
 use App\Models\Build\YearLevel;
-use App\Models\Build\Setting;
 use App\Models\Lms\Lesson;
 use App\Models\MyClass;
 use App\Models\Student;
@@ -23,7 +22,7 @@ class ClassController extends Controller
     public function __construct()
     {
         $this->directory = 'faculty.classes';
-        $this->global_settings = Setting::first();
+        $this->global_settings = app('global_settings');
     }
 
     public function add(Request $request)

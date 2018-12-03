@@ -7,28 +7,56 @@ use Illuminate\Http\Request;
 use App\Models\Build\Subject;
 use App\Models\Build\Department;
 use App\Models\Build\Program;
+use App\Models\Build\Setting;
 use App\Models\Lms\Lesson;
 
 class LessonController extends Controller
 {
     protected $directory;
+    protected $global_settings;
 
     public function __construct()
     {
         $this->directory = 'faculty.lessons';
+        $this->global_settings = Setting::first();
     }
 
     public function index()
     {
         if (auth()->user()->hasRole('management')) {
-            $lessons = Lesson::forManagers()->get();
-        } elseif (auth()->user()->hasRole('faculty')) {
-            $lessons = auth()->user()->lessons()->with(['department', 'program', 'subject'])->withTrashed()->get();
-        } else {
-            $lessons = Lesson::with(['department', 'program', 'subject'])->withTrashed()->get();
-        }
+            $mine = auth()->user()->lessons()
+            ->with(['department', 'program', 'subject'])
+            ->latest()
+            ->withTrashed()
+            ->get();
 
-        return view($this->directory.'.index', compact('lessons'));
+            $all = Lesson::with(['department', 'program', 'subject'])
+            ->forManagers()
+            ->latest()
+            ->withTrashed()
+            ->get();
+
+            return view($this->directory.'.index', compact('all', 'mine'));
+        } elseif (auth()->user()->hasRole('faculty')) {
+            $mine = auth()->user()->lessons()
+            ->with(['department', 'program', 'subject'])
+            ->latest()
+            ->withTrashed()
+            ->get();
+
+            $all = null;
+
+            return view($this->directory.'.index', compact('all', 'mine'));
+        } elseif (auth()->user()->hasRole('administrator')) {
+            $mine = null;
+
+            $all = Lesson::with(['department', 'program', 'subject'])
+            ->latest()
+            ->withTrashed()
+            ->get();
+
+            return view($this->directory.'.index', compact('all', 'mine'));
+        }
     }
 
     public function new()
