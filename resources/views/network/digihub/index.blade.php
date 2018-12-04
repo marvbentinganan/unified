@@ -1,6 +1,5 @@
 @extends('layouts.app') @push('header_scripts')
 <script src="{{ asset('plugins/vuejs/vue.js') }}"></script>
-<script src="{{ asset('plugins/vuejs/vuejs-datepicker.min.js') }}"></script>
 @endpush
 @section('breadcrumb')
 <a href="{{ url('/home') }}" class="section"><i class="home icon"></i>Home</a>
@@ -139,7 +138,7 @@
             },
 
             get(id){
-                var route = "get/" + id;
+                var route = "digihub/get/" + id;
             	axios.get(route)
             	.then((response) => {
             		this.digihub = response.data,

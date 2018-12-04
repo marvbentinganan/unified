@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Build;
 
+use App\Models\Build\SchoolYear;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Build\Department;
 
-class DepartmentController extends Controller
+class SchoolYearController extends Controller
 {
     protected $directory;
 
     public function __construct()
     {
-        $this->directory = 'resources.departments';
+        $this->directory = 'resources.school_years';
     }
 
     /**
@@ -48,11 +48,11 @@ class DepartmentController extends Controller
                 'name' => 'required',
             ]);
 
-            $department = Department::create([
+            $department = SchoolYear::create([
                 'name' => $request->name,
             ]);
 
-            return response()->json('Department Added', 200);
+            return response()->json('School Year Added', 200);
         } catch (Exception $ex) {
             return $ex;
         }
@@ -61,74 +61,73 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Build\SchoolYear $schoolYear
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Department $department)
+    public function show(SchoolYear $school_year)
     {
-        return view($this->departments.'.show', compact('department'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \App\Models\Build\SchoolYear $schoolYear
      *
      * @return \Illuminate\Http\Response
      */
-    public function get(Department $department)
+    public function get(SchoolYear $school_year)
     {
-        return response()->json($department);
+        return response()->json($school_year);
     }
 
     public function list()
     {
-        $departments = Department::withTrashed()->get();
+        $school_years = SchoolYear::withTrashed()->get();
 
-        return response()->json($departments);
+        return response()->json($school_years);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param \Illuminate\Http\Request     $request
+     * @param \App\Models\Build\SchoolYear $schoolYear
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, SchoolYear $school_year)
     {
         $request->validate([
             'name' => 'required',
         ]);
 
-        $department->update([
+        $school_year->update([
             'name' => $request->name,
         ]);
 
-        return response()->json('Department Updated', 200);
+        return response()->json('School Year Updated', 200);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \App\Models\Build\SchoolYear $schoolYear
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Department $department)
+    public function destroy(SchoolYear $school_year)
     {
-        $department->delete();
+        $school_year->delete();
 
-        return response()->json('Department Deleted');
+        return response()->json('School Year Deleted');
     }
 
     public function restore($id)
     {
-        $department = Department::where('id', $id)->withTrashed()->first();
-        $department->restore();
+        $school_year = SchoolYear::where('id', $id)->withTrashed()->first();
+        $school_year->restore();
 
-        return response()->json('Department Restored');
+        return response()->json('School Year Restored');
     }
 }

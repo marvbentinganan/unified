@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/laravel-filemanager/upload', '\UniSharp\LaravelFilemanager\Controllers\UploadController@upload');
 
     Route::prefix('navigation')->group(function () {
-        Route::get('index', 'NavigationController@index')->name('navigation');
+        Route::get('/', 'NavigationController@index')->name('navigation');
         Route::post('add', 'NavigationController@store')->name('navigation.add');
         Route::get('edit/{menu}', 'NavigationController@edit')->name('navigation.edit');
         Route::post('update/{menu}', 'NavigationController@update')->name('navigation.update');
@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::namespace('Lms')->group(function () {
         // Classes Routes
         Route::prefix('classes')->group(function () {
-            Route::get('me', 'ClassController@myClasses')->name('my.classes');
+            Route::get('/', 'ClassController@myClasses')->name('my.classes');
             Route::any('add', 'ClassController@add')->name('class.add');
             Route::any('list', 'ClassController@my_classes')->name('class.list');
             Route::get('view/{class}', 'ClassController@view')->name('class.view');
@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
 
         // Lessons Routes
         Route::prefix('lessons')->group(function () {
-            Route::get('index', 'LessonController@index')->name('lessons');
+            Route::get('/', 'LessonController@index')->name('lessons');
             Route::get('new', 'LessonController@new')->name('lesson.new');
             Route::get('list', 'LessonController@list')->name('lessons.list');
             Route::post('add', 'LessonController@store')->name('lesson.add');
@@ -90,16 +90,41 @@ Route::middleware('auth')->group(function () {
     //Build Files
     Route::prefix('build')->group(function () {
         Route::namespace('Build')->group(function () {
+            // Departments
             Route::prefix('departments')->group(function () {
-                Route::get('index', 'DepartmentController@index')->name('departments');
+                Route::get('/', 'DepartmentController@index')->name('departments');
                 Route::post('add', 'DepartmentController@store')->name('department.add');
-                Route::get('edit', 'DepartmentController@edit')->name('department.edit');
+                Route::get('get/{department}', 'DepartmentController@get')->name('department.get');
+                Route::get('list', 'DepartmentController@list')->name('department.list');
+                Route::post('update/{department}', 'DepartmentController@update')->name('department.update');
+                Route::get('delete/{department}', 'DepartmentController@destroy')->name('department.destroy');
+                Route::get('restore/{department}', 'DepartmentController@restore')->name('department.restore');
+            });
+            // School Years
+            Route::prefix('school_years')->group(function () {
+                Route::get('/', 'SchoolYearController@index')->name('school_years');
+                Route::post('add', 'SchoolYearController@store')->name('school_year.add');
+                Route::get('get/{school_year}', 'SchoolYearController@get')->name('school_year.get');
+                Route::get('list', 'SchoolYearController@list')->name('school_year.list');
+                Route::post('update/{school_year}', 'SchoolYearController@update')->name('school_year.update');
+                Route::get('delete/{school_year}', 'SchoolYearController@destroy')->name('school_year.destroy');
+                Route::get('restore/{school_year}', 'SchoolYearController@restore')->name('school_year.restore');
+            });
+            // Semesters
+            Route::prefix('semesters')->group(function () {
+                Route::get('/', 'SemesterController@index')->name('semesters');
+                Route::post('add', 'SemesterController@store')->name('semester.add');
+                Route::get('get/{semester}', 'SemesterController@get')->name('semester.get');
+                Route::get('list', 'SemesterController@list')->name('semester.list');
+                Route::post('update/{semester}', 'SemesterController@update')->name('semester.update');
+                Route::get('delete/{semester}', 'SemesterController@destroy')->name('semester.destroy');
+                Route::get('restore/{semester}', 'SemesterController@restore')->name('semester.restore');
             });
         });
         // Evaluation Build Files
         Route::namespace('Evaluation')->group(function () {
             Route::prefix('categories')->group(function () {
-                Route::get('index', 'CategoryController@index')->name('categories');
+                Route::get('/', 'CategoryController@index')->name('categories');
                 Route::get('get', 'CategoryController@get')->name('category.get');
                 Route::get('get/{category}', 'CategoryController@edit')->name('category.edit');
                 Route::post('update/{category}', 'CategoryController@update')->name('category.update');
@@ -108,7 +133,7 @@ Route::middleware('auth')->group(function () {
             });
 
             Route::prefix('criterias')->group(function () {
-                Route::get('index', 'CriteriaController@index')->name('criterias');
+                Route::get('/', 'CriteriaController@index')->name('criterias');
             });
         });
     });
@@ -121,7 +146,7 @@ Route::middleware('auth')->group(function () {
 
         // Active Directory
         Route::prefix('active-directory')->group(function () {
-            Route::get('index', 'UserController@active')->name('active.directory');
+            Route::get('/', 'UserController@active')->name('active.directory');
             Route::post('add', 'UserController@store')->name('active.directory.add');
             Route::get('list', 'UserController@list')->name('active.list');
             Route::post('update/permission/{user}', 'EmployeeController@updatePermission')->name('active.update.permission');
@@ -151,7 +176,7 @@ Route::middleware('auth')->group(function () {
 
         // Student Routes
         Route::prefix('students')->group(function () {
-            Route::get('index', 'StudentController@index')->name('students');
+            Route::get('/', 'StudentController@index')->name('students');
             Route::post('add', 'StudentController@store')->name('student.add');
             Route::post('upload', 'StudentController@upload')->name('students.upload');
             Route::get('get', 'StudentController@get')->name('student.get');
@@ -162,7 +187,7 @@ Route::middleware('auth')->group(function () {
 
         // Employee Routes
         Route::prefix('employees')->group(function () {
-            Route::get('index', 'EmployeeController@index')->name('employees');
+            Route::get('/', 'EmployeeController@index')->name('employees');
             Route::post('add', 'EmployeeController@store')->name('employee.add');
             Route::post('upload', 'EmployeeController@upload')->name('employees.upload');
             Route::get('get', 'EmployeeController@get')->name('employee.get');
@@ -175,11 +200,11 @@ Route::middleware('auth')->group(function () {
 
     // Network Routes
     Route::prefix('network')->group(function () {
-        Route::view('index', 'network.dashboard')->name('network');
+        Route::view('/', 'network.dashboard')->name('network');
 
         // Digihub Routes
         Route::prefix('digihub')->group(function () {
-            Route::view('index', 'network.digihub.index')->name('digihub');
+            Route::view('/', 'network.digihub.index')->name('digihub');
             route::post('add', 'DigihubController@add')->name('digihub.add');
             Route::get('list', 'DigihubController@list')->name('digihub.list');
             Route::get('get/{digihub}', 'DigihubController@get')->name('digihub.get');
@@ -193,7 +218,7 @@ Route::middleware('auth')->group(function () {
 
         // Wifi Routes
         Route::prefix('wifi')->namespace('Unifi')->group(function () {
-            Route::get('index', 'UnifiController@index')->name('wifi');
+            Route::get('/', 'UnifiController@index')->name('wifi');
             Route::get('logs', 'LogController@logs')->name('wifi.logs');
             Route::get('active', 'LogController@active')->name('wifi.active');
             Route::get('usage/{user}', 'LogController@usage')->name('wifi.usage');

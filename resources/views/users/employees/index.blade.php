@@ -257,7 +257,7 @@
             },
 
             edit(id){
-                var route = "get/" + id;
+                var route = "employees/get/" + id;
             	axios.get(route)
             	.then((response) => {
             		this.employee = response.data,
