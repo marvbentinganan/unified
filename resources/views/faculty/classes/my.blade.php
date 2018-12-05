@@ -77,7 +77,7 @@
                             <td>@{{ list.subject.name }}</td>
                             <td class="center aligned">
                                 <div class="ui mini rounded buttons">
-                                    <a :href="'view/' + list.code" class="ui primary icon button"><i class="ion-share icon"></i></a>
+                                    <a :href="'classes/view/' + list.code" class="ui primary icon button"><i class="ion-share icon"></i></a>
                                     <a href="" class="ui red icon button"><i class="ion-trash-a icon"></i></a>
                                 </div>
                             </td>

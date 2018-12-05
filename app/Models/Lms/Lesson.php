@@ -29,7 +29,7 @@ class Lesson extends Model
 
     public function chapters()
     {
-        return $this->hasMany(Chapter::class);
+        return $this->hasMany(Chapter::class)->orderBy('created_at');
     }
 
     public function classes()

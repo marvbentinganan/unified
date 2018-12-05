@@ -3,5 +3,8 @@
     "/js/all.js": "/js/all.js",
     "/css/all.css": "/css/all.css",
     "/css/semantic-ui/semantic.min.css": "/css/semantic-ui/semantic.min.css",
-    "/js/semantic-ui/semantic.min.js": "/js/semantic-ui/semantic.min.js"
+    "/js/semantic-ui/semantic.min.js": "/js/semantic-ui/semantic.min.js",
+    "/css/uikit/uikit.min.css": "/css/uikit/uikit.min.css",
+    "/js/uikit/uikit.min.js": "/js/uikit/uikit.min.js",
+    "/js/uikit/uikit-icons.min.js": "/js/uikit/uikit-icons.min.js"
 }

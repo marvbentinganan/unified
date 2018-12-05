@@ -32,6 +32,14 @@ Route::middleware('auth')->group(function () {
         Route::get('restore/{menu}', 'NavigationController@restore')->name('navigation.restore');
     });
 
+    // Student Routes
+    Route::prefix('student')->group(function () {
+        Route::get('/', 'ProfileController@student')->name('student.profile');
+
+        Route::namespace('Lms')->prefix('lms')->group(function () {
+        });
+    });
+
     Route::prefix('evaluation')->group(function () {
         Route::get('index', 'EvaluationController@index')->name('evaluations');
         Route::post('add', 'EvaluationController@store')->name('evaluation.add');

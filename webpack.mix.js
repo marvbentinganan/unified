@@ -35,6 +35,18 @@ mix.js("resources/assets/js/app.js", "public/js")
     .copy(
         "node_modules/semantic-ui-css/semantic.min.js",
         "public/js/semantic-ui/semantic.min.js"
+    )
+    .copy(
+        "node_modules/uikit/dist/css/uikit.min.css",
+        "public/css/uikit/uikit.min.css"
+    )
+    .copy(
+        "node_modules/uikit/dist/js/uikit.min.js",
+        "public/js/uikit/uikit.min.js"
+    )
+    .copy(
+        "node_modules/uikit/dist/js/uikit-icons.min.js",
+        "public/js/uikit/uikit-icons.min.js"
     );
 //.sass('resources/assets/sass/app.scss', 'public/css')
 //.less('resources/assets/less/src/semantic.less', 'public/css');
