@@ -24,6 +24,8 @@ class MyClass extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $with = ['department', 'program', 'subject'];
+
     public function employee()
     {
         return $this->belongsTo(Employee::class);

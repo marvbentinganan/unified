@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/', 'ProfileController@student')->name('student.profile');
 
         Route::namespace('Lms')->prefix('lms')->group(function () {
+            Route::prefix('class')->group(function () {
+                Route::post('join', 'StudentController@join')->name('student.join.class');
+                Route::get('lists', 'StudentController@list')->name('student.list.class');
+            });
         });
     });
 

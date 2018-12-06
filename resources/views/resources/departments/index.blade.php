@@ -60,7 +60,7 @@
     </div>
 </div>
 @endsection
- @push('footer_scripts')
+@push('footer_scripts')
 <script>
     new Vue({
 		el: '#app',
