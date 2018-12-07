@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
             Route::prefix('class')->group(function () {
                 Route::post('join', 'StudentController@join')->name('student.join.class');
                 Route::get('lists', 'StudentController@list')->name('student.list.class');
+                Route::get('show/{myclass}', 'StudentController@show')->name('student.show.class');
+            });
+            Route::prefix('lesson')->group(function () {
+                Route::get('{lesson}/read', 'StudentController@read')->name('student.lesson.read');
             });
         });
     });

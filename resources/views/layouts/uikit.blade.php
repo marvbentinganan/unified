@@ -44,7 +44,7 @@
                             <ul class="uk-navbar-nav">
                                 <a class="uk-navbar-toggle" uk-navbar-toggle-icon uk-toggle="target: #offcanvas-nav"></a>
                                 <li>
-                                    <a href=""><span class="uk-icon uk-margin-small-right" uk-icon="icon: home"></span> Home</a>
+                                    <a href="{{ url('/student') }}"><span class="uk-icon uk-margin-small-right" uk-icon="icon: home"></span> Home</a>
                                 </li>
                                 
                             </ul>
@@ -59,21 +59,19 @@
         {{-- <ul class="uk-breadcrumb">
             @yield('breadcrumb')
         </ul> --}}
-        <div style="flex: 1;">
-            {{-- <div class="uk-container"> --}}
-                @yield('content')
-                {{-- </div> --}}
-            </div>
-        </main>
-        
-        <footer>
-            <script src="{{ asset('js/uikit/uikit.min.js') }}"></script>
-            <script src="{{ asset('js/uikit/uikit-icons.min.js') }}"></script>
-            <script src="{{ asset('js/all.js') }}"></script>
-            <script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
-            @yield('footer') @stack('footer_scripts') {{--
-                <script src="{{ asset('js/app.js') }}"></script> --}}
-            </footer>
-        </body>
-        
-        </html>
+        <div style="flex: 1;" class="uk-tile-muted">
+            @yield('content')
+        </div>
+    </main>
+    
+    <footer>
+        <script src="{{ asset('js/uikit/uikit.min.js') }}"></script>
+        <script src="{{ asset('js/uikit/uikit-icons.min.js') }}"></script>
+        <script src="{{ asset('js/all.js') }}"></script>
+        <script src="{{ asset('plugins/axios/axios.min.js') }}"></script>
+        @yield('footer') @stack('footer_scripts') {{--
+            <script src="{{ asset('js/app.js') }}"></script> --}}
+        </footer>
+    </body>
+    
+    </html>

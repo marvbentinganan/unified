@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Lms;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Lms\Lesson;
 use App\Models\MyClass;
 
 class StudentController extends Controller
@@ -44,10 +45,12 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(MyClass $myclass)
     {
+        return view('student.show', compact('myclass'));
     }
 
+    // Join a Class
     public function join(Request $request)
     {
         try {
@@ -68,12 +71,22 @@ class StudentController extends Controller
         }
     }
 
+    // Retrieve List of Classes
     public function list()
     {
         $student = auth()->user()->student;
         $classes = $student->classes;
 
         return response()->json($classes);
+    }
+
+    // Read Lesson
+    public function read(Lesson $lesson)
+    {
+        $chapters = $lesson->chapters()->paginate(1);
+        //dd($chapters);
+
+        return view('student.read', compact('lesson', 'chapters'));
     }
 
     /**

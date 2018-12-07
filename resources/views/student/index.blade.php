@@ -35,7 +35,7 @@
         <div class="uk-child-width-1-3@m" uk-grid>
             <div v-for="list in lists">
                 <div class="uk-card uk-card-small uk-card-default uk-card-hover uk-animation-scale-up">
-                    <a class="uk-card-media-top">
+                    <a :href="'student/lms/class/show/' + list.code" class="uk-card-media-top">
                         <img src="{{ asset('images/students.jpg') }}" alt="">
                     </a>
                     <div class="uk-card-body">
