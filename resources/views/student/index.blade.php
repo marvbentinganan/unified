@@ -46,9 +46,6 @@
                             <span class="uk-label">@{{ list.subject.name }}</span>
                         </p>
                     </div>
-                    {{-- <div class="uk-card-footer">
-                        <a href="" class="uk-button uk-button-default uk-width-1-1">Open</a>
-                    </div> --}}
                 </div>
             </div>
         </div>

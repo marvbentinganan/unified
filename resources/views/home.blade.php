@@ -28,7 +28,7 @@
                     <div class="ui relaxed list">
                         <a href="https://192.168.255.73:10000/" target="_blank" class="item"><i class="server icon"></i> Web Server</a>
                         <a href="https://172.18.1.1:8443" target="_blank" class="item"><i class="wifi icon"></i> UniFi Controller</a>
-                        <a href="https://172.16.16.16:4444" target="_blank" class="item"><i class="lock icon"></i> Sophos Firewall</a>
+                        <a href="https://172.16.16.16:4444" target="_blank" class="item"><i class="ion-fireball icon"></i> Sophos Firewall</a>
                     </div>
                 </div>
             </div>
