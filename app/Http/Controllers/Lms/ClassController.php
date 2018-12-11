@@ -232,6 +232,18 @@ class ClassController extends Controller
         return response()->json($lessons);
     }
 
+    // Detach Student from Class
+    public function detachStudent(MyClass $class, Student $student)
+    {
+        try {
+            $class->students()->detach($student->id);
+
+            return response()->json('Student Removed', 200);
+        } catch (Exception $exception) {
+            return response()->json('Unable to Remove Student', 500);
+        }
+    }
+
     // Helper Functions
     private function checkRecord($request)
     {
@@ -241,6 +253,7 @@ class ClassController extends Controller
         ->where('year_level_id', $request->year_level_id)
         ->where('school_year_id', $this->global_settings->school_year_id)
         ->where('semester_id', $this->global_settings->semester_id)
+        ->where('section', $request->section)
         ->first();
 
         if ($result) {

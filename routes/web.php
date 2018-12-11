@@ -69,6 +69,7 @@ Route::middleware('auth')->group(function () {
             Route::prefix('student')->group(function () {
                 Route::get('list/{class}', 'ClassController@studentList')->name('class.student.list');
                 Route::post('add/{class}', 'ClassController@addStudent')->name('class.student.add');
+                Route::get('detach/{class}/{student}', 'ClassController@detachStudent')->name('class.student.detach');
             });
 
             Route::prefix('lessons')->group(function () {

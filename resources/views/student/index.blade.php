@@ -16,7 +16,7 @@
                     <li>
                         <h3>
                             <span class="uk-icon uk-margin-small-right" uk-icon="icon: thumbnails; ratio: 1.5;"></span>
-                            My Classes
+                            MY CLASSES
                         </h3>
                     </li>
                 </ul>

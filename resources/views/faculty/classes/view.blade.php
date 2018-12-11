@@ -65,7 +65,9 @@
                         <td>@{{ student.firstname}} @{{ student.suffix }}</td>
                         <td>@{{ student.middlename }}</td>
                         <td>@{{ student.lastname }}</td>
-                        <td></td>
+                        <td>
+                            <button class="ui mini purple icon button" @click="detach(student.id)"><i class="ion-backspace icon"></i></button>
+                        </td>
                     </tr>
                     <tr v-else>
                         <td class="center aligned" colspan="6">No Students Enrolled</td>
@@ -234,6 +236,30 @@
                     console.log(error.response.data),
                     swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
                 });
+            },
+
+            detach(id){ 
+                swal({ 
+                    title: 'Are you sure?', 
+                    text: "This Student will be removed from the Class", 
+                    type: 'question', 
+                    showCancelButton: true, 
+                    confirmButtonColor: '#3085d6', 
+                    cancelButtonColor: '#d33', 
+                    confirmButtonText: 'Yes' 
+                    })
+                    .then((result) => { 
+                        if (result.value) { 
+                            var route = '/unified/public/classes/student/detach' + '/' + '{{ $class->code }}' + '/' + id; 
+                            axios.get(route) 
+                            .then(response => { 
+                                this.classlist(),
+                                swal({ type: 'success', title: response.data, showConfirmButton: false, timer: 1500 });
+                            })
+                    .catch(response => { 
+                        swal({ type: 'error', title: error.response.data, showConfirmButton: false, timer: 1500 });
+                    }); 
+                } }) 
             },
             
         },
