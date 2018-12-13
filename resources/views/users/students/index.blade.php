@@ -259,7 +259,7 @@
                 })
                 .then((result) => { 
                     if (result.value) { 
-                        var route = 'delete/' + id; 
+                        var route = 'students/delete/' + id; 
                         axios.get(route) 
                         .then(response => { 
                             this.list(), 
@@ -268,7 +268,8 @@
                         .catch(response => { 
                             toastr.error("Unable to Delete Student Account"); 
                         }); 
-                    } }) 
+                    } 
+                }) 
                 },
             },
             mounted() {

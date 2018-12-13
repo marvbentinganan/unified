@@ -161,8 +161,12 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
+        $employee->user->delete();
+        $employee->delete();
+
+        return response()->json('Employee Deleted', 200);
     }
 
     public function upload(Request $request)

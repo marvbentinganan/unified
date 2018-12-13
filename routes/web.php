@@ -211,7 +211,7 @@ Route::middleware('auth')->group(function () {
             Route::get('show/{employee}', 'EmployeeController@show')->name('employee.show');
             Route::get('get/{employee}', 'EmployeeController@edit')->name('employee.edit');
             Route::post('update/{employee}', 'EmployeeController@update')->name('employee.update');
-            Route::get('delete/{employee}', 'EmployeeController@delete')->name('employee.delete');
+            Route::get('delete/{employee}', 'EmployeeController@destroy')->name('employee.destroy');
         });
     });
 

@@ -267,7 +267,32 @@
             	.catch(error => {
             		console.log(error.response.data)
             	});
-            }
+            },
+
+            destroy(id){ 
+                swal({ 
+                    title: 'Are you sure?', 
+                    text: "Employee Account will be Deleted", 
+                    type: 'question', 
+                    showCancelButton: true, 
+                    confirmButtonColor: '#3085d6', 
+                    cancelButtonColor: '#d33', 
+                    confirmButtonText: 'Yes' 
+                })
+                .then((result) => { 
+                    if (result.value) { 
+                        var route = 'employees/delete/' + id; 
+                        axios.get(route) 
+                        .then(response => { 
+                            this.getEmployees(), 
+                            toastr.info(response.data); 
+                        })
+                        .catch(response => { 
+                            toastr.error("Unable to Delete Employee Account"); 
+                        }); 
+                    } 
+                }) 
+            },
         },
         mounted() {
             this.init();
