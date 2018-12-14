@@ -146,6 +146,10 @@ class StudentController extends Controller
                 'department_id' => $department,
             ]);
 
+            $student->user()->update([
+                'password' => $student->generatePassword(),
+            ]);
+
             return response()->json('Student Updated', 200);
         } catch (Exception $exception) {
             return response()->json('Unable to Update Student', 500);
