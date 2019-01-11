@@ -37,7 +37,7 @@
                             <div class="ui three mini buttons">
                                 <button class="ui mini teal icon button" @click="get(station.id)"><i class="ion-edit icon"></i></button>
                                 <button class="ui mini red icon button" @click="destroy(station.id)"><i class="ion-trash-b icon"></i></button>
-                                <a :href="'logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
+                                <a :href="'digihub/logs/' + station.id + '/single'" class="ui mini blue icon button"><i class="ion-share icon"></i></a>
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<div class="ui special card">
+<div class="ui fluid special card">
     <div class="blurring dimmable image">
         <div class="ui inverted dimmer">
             <div class="content">
