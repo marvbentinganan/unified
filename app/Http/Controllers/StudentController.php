@@ -85,6 +85,7 @@ class StudentController extends Controller
                     $student = Student::updateOrCreate(
                         [
                             'id_number' => $student->id_number,
+                            'barcode' => $barcode,
                         ],
                         [
                             'id_number' => $student->id_number,
