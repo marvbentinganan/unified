@@ -20,7 +20,7 @@
     "jquery": "^3.2",
     "laravel-mix": "^2.1.14",
     "less-loader": "^4.1.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "moment": "^2.22.2",
     "popper.js": "^1.14.5",
     "semantic-ui-css": "^2.4.1",
